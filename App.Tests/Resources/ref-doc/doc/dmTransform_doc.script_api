@@ -1,0 +1,279 @@
+- desc: 'Transform with non-uniform (3-component) scale.
+
+    Transform applied as:
+
+    T(p) = translate(rotate(scale(p))) = p''
+
+    The scale is non-rotated to avoid shearing in the transform.
+
+    Two transforms are applied as:
+
+    T1(T2(p)) = t1(r1(t2(r2(s1(s2(p)))))) = p''
+
+    This means that the transform is not associative:
+
+    T1(T2(p)) != (T1*T2)(P)'
+  name: Transform
+  type: struct
+- desc: Constructor. Leaves the struct in an uninitialized state
+  name: Transform
+  parameters: []
+  type: function
+- desc: constructor
+  name: Transform
+  parameters:
+  - desc: ''
+    name: translation
+    type: dmVMath::Vector3
+  - desc: ''
+    name: rotation
+    type: dmVMath::Quat
+  - desc: ''
+    name: scale
+    type: dmVMath::Vector3
+  type: function
+- desc: constructor
+  name: Transform
+  parameters:
+  - desc: ''
+    name: translation
+    type: dmVMath::Vector3
+  - desc: ''
+    name: rotation
+    type: dmVMath::Quat
+  - desc: ''
+    name: scale
+    type: dmVMath::Vector3
+  type: function
+- desc: initialize to identity transform
+  name: SetIdentity
+  parameters: []
+  type: function
+- desc: get translation
+  name: GetTranslation
+  parameters: []
+  returns:
+  - desc: ''
+    type: dmVMath::Vector3
+  type: function
+- desc: set translation
+  name: SetTranslation
+  parameters:
+  - desc: ''
+    name: translation
+    type: dmVMath::Vector3
+  type: function
+- desc: get scale
+  name: GetScale
+  parameters: []
+  returns:
+  - desc: ''
+    type: dmVMath::Vector3
+  type: function
+- desc: set scale
+  name: SetScale
+  parameters: []
+  returns:
+  - desc: ''
+    type: dmVMath::Vector3
+  type: function
+- desc: 'Compute a ''uniform'' scale for this transform. In the event that the
+
+    scale applied to this transform is not uniform then the value is arbitrary:
+
+    we make a selection that will not introduce any floating point rounding errors.'
+  name: GetUniformScale
+  parameters: []
+  returns:
+  - desc: the uniform scale associated with this transform.
+    type: float
+  type: function
+- desc: set uniform scale
+  name: SetUniformScale
+  parameters:
+  - desc: ''
+    name: scale
+    type: float
+  type: function
+- desc: get rotatiom
+  name: GetRotation
+  parameters: []
+  returns:
+  - desc: ''
+    type: dmVMath::Quat
+  type: function
+- desc: set rotatiom
+  name: SetRotation
+  parameters:
+  - desc: ''
+    name: rotation
+    type: dmVMath::Quat
+  type: function
+- desc: Apply the transform on a point (includes the transform translation).
+  name: Apply
+  parameters:
+  - desc: Transform
+    name: t
+    type: dmTransform::Transform&
+  - desc: Point
+    name: p
+    type: dmVMath::Point3&
+  returns:
+  - desc: Transformed point
+    type: dmVMath::Point3
+  type: function
+- desc: Apply the transform on a point, but without scaling the Z-component of the
+    point (includes the transform translation).
+  name: ApplyNoScaleZ
+  parameters:
+  - desc: Transform
+    name: t
+    type: dmTransform::Transform&
+  - desc: Point
+    name: p
+    type: dmVMath::Point3&
+  returns:
+  - desc: Transformed point
+    type: dmVMath::Point3
+  type: function
+- desc: Apply the transform on a vector (excludes the transform translation).
+  name: Apply
+  parameters:
+  - desc: Transform
+    name: t
+    type: dmTransform::Transform&
+  - desc: Vector
+    name: v
+    type: dmVMath::Vector3&
+  returns:
+  - desc: Transformed vector
+    type: dmVMath::Vector3
+  type: function
+- desc: Apply the transform on a vector, but without scaling the Z-component of the
+    vector (excludes the transform translation).
+  name: ApplyNoScaleZ
+  parameters:
+  - desc: Transform
+    name: t
+    type: dmTransform::Transform&
+  - desc: Vector
+    name: v
+    type: dmVMath::Vector3&
+  returns:
+  - desc: Transformed vector
+    type: dmVMath::Vector3
+  type: function
+- desc: Transforms the right-hand transform by the left-hand transform
+  name: Mul
+  parameters:
+  - desc: ''
+    name: lhs
+    type: const dmTransform::Transform&
+  - desc: ''
+    name: rhs
+    type: const dmTransform::Transform&
+  returns:
+  - desc: Transformed transform
+    type: dmTransform::Transform
+  type: function
+- desc: Transforms the right-hand transform by the left-hand transform, without scaling
+    the Z-component of the transition of the transformed transform
+  name: MulNoScaleZ
+  parameters:
+  - desc: ''
+    name: lhs
+    type: const dmTransform::Transform&
+  - desc: ''
+    name: rhs
+    type: const dmTransform::Transform&
+  returns:
+  - desc: Transformed transform
+    type: dmTransform::Transform
+  type: function
+- desc: Invert a transform
+  name: Inv
+  parameters:
+  - desc: ''
+    name: t
+    type: const dmTransform::Transform&
+  returns:
+  - desc: inverted transform
+    type: dmTransform::Transform
+  type: function
+- desc: Convert a transform into a 4-dim matrix
+  name: ToMatrix
+  parameters:
+  - desc: Transform to convert
+    name: t
+    type: ''
+  returns:
+  - desc: representing the same transform
+    type: ''
+  type: function
+- desc: Extract the absolute values of the scale component from a matrix.
+  name: ExtractScale
+  parameters:
+  - desc: Source matrix
+    name: mtx
+    type: ''
+  returns:
+  - desc: with scale values for x,y,z
+    type: ''
+  type: function
+- desc: Eliminate the scaling components in a matrix
+  name: ResetScale
+  parameters:
+  - desc: Matrix to operate on
+    name: mtx
+    type: ''
+  returns:
+  - desc: containing the scaling by component
+    type: ''
+  type: function
+- desc: Convert a matrix into a transform
+  name: ToTransform
+  parameters:
+  - desc: Matrix4 to convert
+    name: mtx
+    type: ''
+  returns:
+  - desc: representing the same transform
+    type: ''
+  type: function
+- desc: Eliminate the z scaling components in a matrix
+  name: NormalizeZScale
+  parameters:
+  - desc: Matrix to operate on
+    name: mtx
+    type: ''
+  type: function
+- desc: Eliminate the z scaling components in a matrix
+  name: NormalizeZScale
+  parameters:
+  - desc: Source matrix
+    name: source
+    type: const dmVMath::Matrix&
+  - desc: Target matrix
+    name: target
+    type: dmVMath::Matrix*
+  type: function
+- desc: Multiply two matrices without z-scaling the translation in m2
+  name: MulNoScaleZ
+  parameters:
+  - desc: First matrix
+    name: m1
+    type: const dmVMath::Matrix&
+  - desc: Second matrix
+    name: m2
+    type: const dmVMath::Matrix&
+  returns:
+  - desc: The resulting transform
+    type: dmVMath::Matrix
+  type: function
+- desc: '[file:<dmsdk/dlib/transform.h>]
+
+
+    Api for transforms with rotation, scale and translation'
+  members: []
+  name: dmTransform
+  type: table

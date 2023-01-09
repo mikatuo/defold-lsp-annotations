@@ -1,0 +1,53 @@
+elements {
+  type: MACRO
+  name: "DM_SAVE_HOME"
+  brief: "override the save directory"
+  description: "Overrides the save directory when using <code>sys.get_save_file()</code>"
+}
+elements {
+  type: MACRO
+  name: "DM_SERVICE_PORT"
+  brief: "set the engine service port"
+  description: "Overrides the engine service port, when creating the internal http server (e.g web profiler)\nValid values are integers between [0, 65535] and the string \"dynamic\" (which translates to 0).\nDefault value is 8001."
+}
+elements {
+  type: MACRO
+  name: "DM_QUIT_ON_ESC"
+  brief: "enables quit on escape key"
+  description: "Enables quitting the app directly by pressing the <code>ESCAPE</code> key.\nSet to \"1\" to enable this feature."
+}
+elements {
+  type: MACRO
+  name: "DM_LOG_PORT"
+  brief: "sets the logging port"
+  description: "Enables receiving the log on a designated port (e.g. using telnet)\nValid values are integers between [0, 65535]"
+}
+elements {
+  type: MACRO
+  name: "--verify-graphics-calls="
+  brief: "disables OpenGL error checking"
+  description: "Disables OpenGL error checking.\nThis is especially beneficial for running debug builds in the Chrome browser,\nin which the calls to <code>glGetError()</code> is notoriously slow.\nDefault value is \"true\" for debug builds, and \"false\" for release builds."
+  examples: "<div class=\"codehilite\"><pre><span></span><code>$ ./dmengine --verify-graphics-calls<span class=\"o\">=</span><span class=\"nb\">false</span>\n</code></pre></div>"
+}
+elements {
+  type: MACRO
+  name: "launch_project"
+  brief: "launch with a specific project"
+  description: "Launch the engine with a specific project file\nIf no project is specified, it will default to \"./game.projectc\", \"build/default/game.projectc\""
+  examples: "<div class=\"codehilite\"><pre><span></span><code>$ ./dmengine some/folder/game.projectc\n</code></pre></div>"
+}
+elements {
+  type: MACRO
+  name: "--config="
+  brief: "override game property"
+  description: "Override game properties with the format <code>--config=section.key=value</code>"
+  examples: "<div class=\"codehilite\"><pre><span></span><code>$ ./dmengine --config<span class=\"o\">=</span>project.mode<span class=\"o\">=</span>TEST --config<span class=\"o\">=</span>project.server<span class=\"o\">=</span>http://testserver.com\n</code></pre></div>"
+}
+info {
+  namespace: "engine"
+  name: "Engine runtime"
+  brief: "Engine runtime documentation"
+  description: "Engine runtime documentation"
+  path: ""
+  file: ""
+}

@@ -1,0 +1,242 @@
+elements {
+  type: MACRO
+  name: "DLIB_LOG_DOMAIN"
+  brief: "macro for debug category logging"
+  description: "If DLIB_LOG_DOMAIN is defined the value of the defined is printed after severity.\nOtherwise DEFAULT will be printed."
+  examples: "<div class=\"codehilite\"><pre><span></span><code><span class=\"cp\">#define DLIB_LOG_DOMAIN &quot;MyOwnDomain&quot;</span>\n<span class=\"cp\">#include</span><span class=\"w\"> </span><span class=\"cpf\">&lt;dmsdk/dlib/log.h&gt;</span><span class=\"cp\"></span>\n</code></pre></div>"
+}
+elements {
+  type: FUNCTION
+  name: "dmLogDebug"
+  brief: "log with \"debug\" severity"
+  description: "Debug messages are temporary log instances used when debugging a certain behavior\nUse dmLogOnceDebug for one-shot logging"
+  returnvalues {
+    name: ""
+    doc: ""
+    types: "void"
+  }
+  parameters {
+    name: "format"
+    doc: "Format string"
+    types: "const char*"
+  }
+  parameters {
+    name: "args"
+    doc: "Format string args (variable arg list)"
+    types: "..."
+  }
+}
+elements {
+  type: FUNCTION
+  name: "dmLogUserDebug"
+  brief: "log with \"user\" severity"
+  description: "Debug messages are temporary log instances used when debugging a certain behavior\nUse dmLogOnceUserDebug for one-shot logging"
+  returnvalues {
+    name: ""
+    doc: ""
+    types: "void"
+  }
+  parameters {
+    name: "format"
+    doc: "Format string"
+    types: "const char*"
+  }
+  parameters {
+    name: "args"
+    doc: "Format string args (variable arg list)"
+    types: "..."
+  }
+}
+elements {
+  type: FUNCTION
+  name: "dmLogInfo"
+  brief: "log with \"info\" severity"
+  description: "Info messages are used to inform the developers of relevant information\nUse dmLogOnceInfo for one-shot logging"
+  returnvalues {
+    name: ""
+    doc: ""
+    types: "void"
+  }
+  parameters {
+    name: "format"
+    doc: "Format string"
+    types: "const char*"
+  }
+  parameters {
+    name: "args"
+    doc: "Format string args (variable arg list)"
+    types: "..."
+  }
+}
+elements {
+  type: FUNCTION
+  name: "dmLogWarning"
+  brief: "log with \"warning\" severity"
+  description: "Warning messages are used to inform the developers about potential problems which can cause errors.\nUse dmLogOnceWarning for one-shot logging"
+  returnvalues {
+    name: ""
+    doc: ""
+    types: "void"
+  }
+  parameters {
+    name: "format"
+    doc: "Format string"
+    types: "const char*"
+  }
+  parameters {
+    name: "args"
+    doc: "Format string args (variable arg list)"
+    types: "..."
+  }
+}
+elements {
+  type: FUNCTION
+  name: "dmLogError"
+  brief: "log with \"error\" severity"
+  description: "Error messages are used in cases where an recoverable error has occurred.\nUse dmLogOnceError for one-shot logging"
+  returnvalues {
+    name: ""
+    doc: ""
+    types: "void"
+  }
+  parameters {
+    name: "format"
+    doc: "Format string"
+    types: "const char*"
+  }
+  parameters {
+    name: "args"
+    doc: "Format string args (variable arg list)"
+    types: "..."
+  }
+}
+elements {
+  type: FUNCTION
+  name: "dmLogFatal"
+  brief: "log with \"fatal\" severity"
+  description: "Fatal messages are used in cases where an unrecoverable error has occurred.\nUse dmLogOnceFatal for one-shot logging"
+  returnvalues {
+    name: ""
+    doc: ""
+    types: "void"
+  }
+  parameters {
+    name: "format"
+    doc: "Format string"
+    types: "const char*"
+  }
+  parameters {
+    name: "args"
+    doc: "Format string args (variable arg list)"
+    types: "..."
+  }
+}
+elements {
+  type: ENUM
+  name: "LogSeverity"
+  brief: "Log severity"
+  description: "Log severity"
+  members {
+    name: "LOG_SEVERITY_DEBUG"
+    doc: ""
+    type: ""
+  }
+  members {
+    name: "LOG_SEVERITY_USER_DEBUG"
+    doc: ""
+    type: ""
+  }
+  members {
+    name: "LOG_SEVERITY_INFO"
+    doc: ""
+    type: ""
+  }
+  members {
+    name: "LOG_SEVERITY_WARNING"
+    doc: ""
+    type: ""
+  }
+  members {
+    name: "LOG_SEVERITY_ERROR"
+    doc: ""
+    type: ""
+  }
+  members {
+    name: "LOG_SEVERITY_FATAL"
+    doc: ""
+    type: ""
+  }
+}
+elements {
+  type: TYPEDEF
+  name: "dmLog:LogListener"
+  brief: "dmLog:LogListener callback typedef"
+  description: "dmLog listener function type. Provides all logs from dmLog* functions and print/pprint Lua functions.\nUsed with dmLogRegisterListener() and dmLogUnregisterListener()"
+  parameters {
+    name: "severity"
+    doc: ""
+    types: "LogSeverity"
+  }
+  parameters {
+    name: "domain"
+    doc: ""
+    types: "const char*"
+  }
+  parameters {
+    name: "formatted_string"
+    doc: "null terminated string"
+    types: "const char*"
+  }
+}
+elements {
+  type: FUNCTION
+  name: "dmLogRegisterListener"
+  brief: "register a log listener."
+  description: "Registers a log listener.\nThis listener receive logs even in release bundle."
+  parameters {
+    name: "listener"
+    doc: ""
+    types: "FLogListener"
+  }
+}
+elements {
+  type: FUNCTION
+  name: "dmLogUnregisterListener"
+  brief: "unregister a log listener."
+  description: "Unregisters a log listener."
+  parameters {
+    name: "[type:FLogListener]"
+    doc: "listener"
+    types: ""
+  }
+}
+elements {
+  type: FUNCTION
+  name: "dmLogSetLevel"
+  brief: "set log system severity level."
+  description: "Set log system severity level."
+  parameters {
+    name: "[type:LogSeverity]"
+    doc: "severity"
+    types: ""
+  }
+}
+elements {
+  type: FUNCTION
+  name: "dmLogGetLevel"
+  brief: "get log system severity level."
+  description: "Get log system severity level."
+  returnvalues {
+    name: ""
+    doc: "severity"
+    types: "LogSeverity"
+  }
+}
+info {
+  namespace: "dmLog"
+  name: "Log"
+  brief: "logging functions"
+  description: "Logging functions."
+  path: "engine/dlib/src/dmsdk/dlib/log.h"
+  file: "dmsdk/dlib/log.h"
+}

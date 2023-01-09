@@ -1,0 +1,137 @@
+- desc: Functions for manipulating buffers and streams
+  members:
+  - desc: Unsigned integer, 1 byte
+    name: VALUE_TYPE_UINT8
+    type: number
+  - desc: Unsigned integer, 2 bytes
+    name: VALUE_TYPE_UINT16
+    type: number
+  - desc: Unsigned integer, 4 bytes
+    name: VALUE_TYPE_UINT32
+    type: number
+  - desc: Unsigned integer, 8 bytes
+    name: VALUE_TYPE_UINT64
+    type: number
+  - desc: Signed integer, 1 byte
+    name: VALUE_TYPE_INT8
+    type: number
+  - desc: Signed integer, 2 bytes
+    name: VALUE_TYPE_INT16
+    type: number
+  - desc: Signed integer, 4 bytes
+    name: VALUE_TYPE_INT32
+    type: number
+  - desc: Signed integer, 8 bytes
+    name: VALUE_TYPE_INT64
+    type: number
+  - desc: Float, single precision, 4 bytes
+    name: VALUE_TYPE_FLOAT32
+    type: number
+  - desc: 'Create a new data buffer containing a specified set of streams. A data
+      buffer
+
+      can contain one or more streams with typed data. This is useful for managing
+
+      compound data, for instance a vertex buffer could contain separate streams for
+
+      vertex position, color, normal etc.'
+    name: create
+    parameters:
+    - desc: The number of elements the buffer should hold
+      name: element_count
+      type: number
+    - desc: 'A table where each entry (table) describes a stream
+
+
+        - [type:hash|string] `name`: The name of the stream
+
+        - [type:constant] `type`: The data type of the stream
+
+        - [type:number] `count`: The number of values each element should hold'
+      name: declaration
+      type: table
+    returns:
+    - desc: the new buffer
+      type: buffer
+    type: function
+  - desc: Get a specified stream from a buffer.
+    name: get_stream
+    parameters:
+    - desc: the buffer to get the stream from
+      name: buffer
+      type: buffer
+    - desc: the stream name
+      name: stream_name
+      type:
+      - hash
+      - string
+    returns:
+    - desc: the data stream
+      type: bufferstream
+    type: function
+  - desc: 'Copy a specified amount of data from one stream to another.
+
+
+      [icon:attention] The value type and size must match between source and destination
+      streams.
+
+      The source and destination streams can be the same.'
+    name: copy_stream
+    parameters:
+    - desc: the destination stream
+      name: dst
+      type: bufferstream
+    - desc: the offset to start copying data to (measured in value type)
+      name: dstoffset
+      type: number
+    - desc: the source data stream
+      name: src
+      type: bufferstream
+    - desc: the offset to start copying data from (measured in value type)
+      name: srcoffset
+      type: number
+    - desc: the number of values to copy (measured in value type)
+      name: count
+      type: number
+    type: function
+  - desc: 'Copy all data streams from one buffer to another, element wise.
+
+
+      [icon:attention] Each of the source streams must have a matching stream in the
+
+      destination buffer. The streams must match in both type and size.
+
+      The source and destination buffer can be the same.'
+    name: copy_buffer
+    parameters:
+    - desc: the destination buffer
+      name: dst
+      type: buffer
+    - desc: the offset to start copying data to
+      name: dstoffset
+      type: number
+    - desc: the source data buffer
+      name: src
+      type: buffer
+    - desc: the offset to start copying data from
+      name: srcoffset
+      type: number
+    - desc: the number of elements to copy
+      name: count
+      type: number
+    type: function
+  - desc: Get a copy of all the bytes from a specified stream as a Lua string.
+    name: get_bytes
+    parameters:
+    - desc: the source buffer
+      name: buffer
+      type: buffer
+    - desc: the name of the stream
+      name: stream_name
+      type: hash
+    returns:
+    - desc: the buffer data as a Lua string
+      type: string
+    type: function
+  name: buffer
+  type: table

@@ -1,0 +1,160 @@
+- desc: Connection pool handle
+  name: HPool
+  type: typedef
+- desc: Connection handle
+  name: HConnection
+  type: typedef
+- desc: Connection pool
+  members:
+  - desc: Result enumeration.
+    name: :Result
+    type: enum
+  - desc: Creation parameters
+    name: :Params
+    type: struct
+  - desc: Create a new connection pool
+    name: :New
+    parameters:
+    - desc: ''
+      name: params
+      type: ''
+    - desc: pool (out)
+      name: pool
+      type: dmConnectionPool::HPool*
+    returns:
+    - desc: on success
+      type: ''
+    type: function
+  - desc: Delete connnection pool
+    name: :Delete
+    parameters:
+    - desc: pool
+      name: pool
+      type: dmConnectionPool::HPool
+    returns:
+    - desc: on success
+      type: ''
+    type: function
+  - desc: Connection to a host/port
+    name: :Dial
+    parameters:
+    - desc: pool
+      name: pool
+      type: dmConnectionPool::HPool
+    - desc: host
+      name: host
+      type: const char*
+    - desc: port
+      name: port
+      type: uint16_t
+    - desc: true for ssl connection
+      name: ssl
+      type: bool
+    - desc: The timeout (micro seconds) for the connection and ssl handshake
+      name: timeout
+      type: int
+    - desc: connection (out)
+      name: connection
+      type: dmConnectionPool::HConnection*
+    - desc: socket-result code on failure
+      name: sock_res
+      type: dmSocket::Result*
+    returns:
+    - desc: on success
+      type: ''
+    type: function
+  - desc: Connection to a host/port
+    name: :Dial
+    parameters:
+    - desc: pool
+      name: pool
+      type: dmConnectionPool::HPool
+    - desc: host
+      name: host
+      type: const char*
+    - desc: port
+      name: port
+      type: uint16_t
+    - desc: true for ssl connection
+      name: ssl
+      type: bool
+    - desc: The timeout (micro seconds) for the connection and ssl handshake
+      name: timeout
+      type: int
+    - desc: If set and not null, will make the request early out
+      name: cancelflag
+      type: int*
+    - desc: connection (out)
+      name: connection
+      type: dmConnectionPool::HConnection*
+    - desc: socket-result code on failure
+      name: sock_res
+      type: dmSocket::Result*
+    returns:
+    - desc: on success
+      type: ''
+    type: function
+  - desc: Return connection to pool
+    name: :Return
+    parameters:
+    - desc: pool
+      name: pool
+      type: dmConnectionPool::HPool
+    - desc: ''
+      name: connection
+      type: dmConnectionPool::HConnection
+    type: function
+  - desc: Close connection. Use this function whenever an error occur in eg http.
+    name: :Close
+    parameters:
+    - desc: pool
+      name: pool
+      type: dmConnectionPool::HPool
+    - desc: ''
+      name: connection
+      type: dmConnectionPool::HConnection
+    type: function
+  - desc: Get socket for connection
+    name: :GetSocket
+    parameters:
+    - desc: pool
+      name: pool
+      type: dmConnectionPool::HPool
+    - desc: ''
+      name: connection
+      type: dmConnectionPool::HConnection
+    returns:
+    - desc: on success
+      type: ''
+    type: function
+  - desc: Get secure socket.
+    name: :GetSSLSocket
+    parameters:
+    - desc: pool
+      name: pool
+      type: dmConnectionPool::HPool
+    - desc: ''
+      name: connection
+      type: dmConnectionPool::HConnection
+    returns:
+    - desc: on success
+      type: ''
+    type: function
+  - desc: 'Shuts down all open sockets in the pool and block new connection attempts.
+      The function can be
+
+      called repeatedly on the same pool until it returns no more connections in use.'
+    name: :Shutdown
+    parameters:
+    - desc: pool
+      name: pool
+      type: dmConnectionPool::HPool
+    - desc: shutdown type to pass to socket shutdown function
+      name: how
+      type: dmSocket::ShutdownType
+    returns:
+    - desc: number of connections in use
+      type: ''
+    type: function
+  name: dmConnectionPool
+  type: table

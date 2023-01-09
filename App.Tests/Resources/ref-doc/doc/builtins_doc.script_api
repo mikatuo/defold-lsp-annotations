@@ -1,0 +1,42 @@
+- desc: 'Pretty printing of Lua values. This function prints Lua values
+
+    in a manner similar to +print()+, but will also recurse into tables
+
+    and pretty print them. There is a limit to how deep the function
+
+    will recurse.'
+  name: pprint
+  parameters:
+  - desc: value to print
+    name: v
+    type: any
+  type: function
+- desc: 'All ids in the engine are represented as hashes, so a string needs to be
+    hashed
+
+    before it can be compared with an id.'
+  name: hash
+  parameters:
+  - desc: string to hash
+    name: s
+    type: string
+  returns:
+  - desc: a hashed string
+    type: hash
+  type: function
+- desc: 'Returns a hexadecimal representation of a hash value.
+
+    The returned string is always padded with leading zeros.'
+  name: hash_to_hex
+  parameters:
+  - desc: hash value to get hex string for
+    name: h
+    type: hash
+  returns:
+  - desc: hex representation of the hash
+    type: string
+  type: function
+- desc: Built-in scripting functions.
+  members: []
+  name: builtins
+  type: table

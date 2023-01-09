@@ -1,0 +1,10 @@
+- desc: 2D Hull set handle
+  name: HHullSet2D
+  type: typedef
+- desc: 2D collision shape handle
+  name: HCollisionShape2D
+  type: typedef
+- desc: Physics related structs and functions
+  members: []
+  name: dmPhysics
+  type: table

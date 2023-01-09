@@ -1,0 +1,58 @@
+- desc: API for platform independent mutex synchronization primitive.
+  members:
+  - desc: '```cpp
+
+      typedef struct ConditionVariable* HConditionVariable;
+
+      ```'
+    name: :HConditionVariable
+    type: typedef
+  - desc: Create a new HConditionVariable
+    name: :New
+    parameters: []
+    returns:
+    - desc: A new ConditionVariable handle.
+      type: dmConditionVariable::HConditionVariable
+    type: function
+  - desc: Deletes a HConditionVariable.
+    name: :Delete
+    parameters:
+    - desc: ConditionVariable handle to delete.
+      name: mutex
+      type: dmConditionVariable::HConditionVariable
+    type: function
+  - desc: 'Wait for condition variable. This is a blocking function, and should be
+      called with
+
+      the mutex being locked.'
+    name: :Wait
+    parameters:
+    - desc: ConditionVariable handle.
+      name: condition
+      type: dmConditionVariable::HConditionVariable
+    - desc: Mutex handle.
+      name: mutex
+      type: dmMutex::HMutex
+    type: function
+  - desc: 'Signal condition variable, effectively unblocks at least one of the waithing
+      threads blocked
+
+      by the condition variable.'
+    name: :Signal
+    parameters:
+    - desc: ConditionVariable handle.
+      name: condition
+      type: dmConditionVariable::HConditionVariable
+    type: function
+  - desc: 'Broadcast condition variable, effectively unblocks all of the waithing
+      threads blocked
+
+      by the condition variable.'
+    name: :Broadcast
+    parameters:
+    - desc: ConditionVariable handle.
+      name: condition
+      type: dmConditionVariable::HConditionVariable
+    type: function
+  name: dmConditionVariable
+  type: table

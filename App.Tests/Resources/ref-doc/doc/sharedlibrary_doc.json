@@ -1,0 +1,27 @@
+{
+  "elements": [
+    {
+      "type": "MACRO",
+      "name": "DM_DLLEXPORT",
+      "brief": "storage-class attribute for shared library export/import",
+      "description": "Export and import functions, data, and objects to or from a DLL",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "<div class=\"codehilite\"><pre><span></span><code><span class=\"n\">DM_DLLEXPORT</span><span class=\"w\"> </span><span class=\"kt\">uint64_t</span><span class=\"w\"> </span><span class=\"n\">dmHashBuffer64</span><span class=\"p\">(</span><span class=\"k\">const</span><span class=\"w\"> </span><span class=\"kt\">void</span><span class=\"o\">*</span><span class=\"w\"> </span><span class=\"n\">buffer</span><span class=\"p\">,</span><span class=\"w\"> </span><span class=\"kt\">uint32_t</span><span class=\"w\"> </span><span class=\"n\">buffer_len</span><span class=\"p\">);</span><span class=\"w\"></span>\n</code></pre></div>",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    }
+  ],
+  "info": {
+    "namespace": "sharedlibrary",
+    "name": "Shared Library",
+    "brief": "SDK Shared library API documentation",
+    "description": "Utility functions for shared library export/import",
+    "path": "engine/dlib/src/dmsdk/dlib/shared_library.h",
+    "file": "dmsdk/dlib/shared_library.h",
+    "group": "DEFOLD SDK"
+  }
+}

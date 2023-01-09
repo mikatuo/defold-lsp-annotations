@@ -1,0 +1,31 @@
+- desc: Functions for creating image objects.
+  members:
+  - desc: RGB image type
+    name: TYPE_RGB
+    type: number
+  - desc: RGBA image type
+    name: TYPE_RGBA
+    type: number
+  - desc: luminance image type
+    name: TYPE_LUMINANCE
+    type: number
+  - desc: Load image (PNG or JPEG) from buffer.
+    name: load
+    parameters:
+    - desc: image data buffer
+      name: buffer
+      type: string
+    - desc: optional flag if alpha should be premultiplied. Defaults to `false`
+      name: premult
+      optional: true
+      type: boolean
+    returns:
+    - desc: "object or `nil` if loading fails. The object is a table with the following\
+        \ fields:\n\n- [type:number] `width`: image width\n- [type:number] `height`:\
+        \ image height\n- [type:constant] `type`: image type\n    - `image.TYPE_RGB`\n\
+        \    - `image.TYPE_RGBA`\n    - `image.TYPE_LUMINANCE`\n- [type:string] `buffer`:\
+        \ the raw image data"
+      type: table
+    type: function
+  name: image
+  type: table

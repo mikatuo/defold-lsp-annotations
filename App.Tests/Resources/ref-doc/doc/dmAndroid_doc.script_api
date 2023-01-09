@@ -1,0 +1,110 @@
+- desc: Struct attaching the JNI environment. Detaches the
+  name: ThreadAttacher
+  type: class
+- desc: constructor
+  name: ThreadAttacher
+  parameters: []
+  type: function
+- desc: Detaches the jni environment
+  name: Detach
+  parameters: []
+  returns:
+  - desc: true if there was no java exceptions. False if there was an exception.
+    type: bool
+  type: function
+- desc: Is the environment attached and valid?
+  name: IsAttached
+  parameters: []
+  returns:
+  - desc: true if the environment is valid
+    type: bool
+  type: function
+- desc: Gets the JNI environment
+  name: GetEnv
+  parameters: []
+  returns:
+  - desc: the attached environment
+    type: JNIENV*
+  type: function
+- desc: Gets the app native activity
+  name: GetActivity
+  parameters: []
+  returns:
+  - desc: the app native activity
+    type: ANativeActivity*
+  type: function
+- desc: Load a class
+  name: LoadClass
+  parameters:
+  - desc: ''
+    name: env
+    type: JNIEnv*
+  - desc: ''
+    name: class_name
+    type: const char*
+  returns:
+  - desc: the activity class loader
+    type: jclass
+  type: function
+- desc: Load a class
+  name: LoadClass
+  parameters:
+  - desc: ''
+    name: env
+    type: JNIEnv*
+  - desc: ''
+    name: activity
+    type: jobject
+  - desc: ''
+    name: class_name
+    type: const char*
+  returns:
+  - desc: the activity class loader
+    type: jclass
+  type: function
+- desc: 'Activity result callback function type. Monitors events from the main activity.
+
+    Used with RegisterOnActivityResultListener() and UnregisterOnActivityResultListener()'
+  name: OnActivityResult
+  type: typedef
+- desc: Registers an activity result callback. Multiple listeners are allowed.
+  name: RegisterOnActivityResultListener
+  parameters:
+  - desc: listener
+    name: type:dmAndroid::OnActivityResult
+    optional: true
+    type: ''
+  type: function
+- desc: Unregisters an activity result callback
+  name: UnregisterOnActivityResultListener
+  parameters:
+  - desc: listener
+    name: type:dmAndroid::OnActivityResult
+    optional: true
+    type: ''
+  type: function
+- desc: 'onCreate callback function type.
+
+    Used with RegisterOnActivityCreateListener() and UnregisterOnActivityCreateListener()'
+  name: OnActivityCreate
+  type: typedef
+- desc: Registers an onCreate callback. Multiple listeners are allowed.
+  name: RegisterOnActivityCreateListener
+  parameters:
+  - desc: listener
+    name: type:dmAndroid::OnActivityCreate
+    optional: true
+    type: ''
+  type: function
+- desc: Unregisters an onCreate callback
+  name: UnregisterOnActivityCreateListener
+  parameters:
+  - desc: listener
+    name: type:dmAndroid::OnActivityCreate
+    optional: true
+    type: ''
+  type: function
+- desc: Android utility functions
+  members: []
+  name: dmAndroid
+  type: table

@@ -1,0 +1,55 @@
+- desc: Will lock a Mutex and automatically unlock it at the end of the scope.
+  name: DM_MUTEX_SCOPED_LOCK
+  type: macro
+- desc: API for platform independent mutex synchronization primitive.
+  members:
+  - desc: '```cpp
+
+      typedef struct Mutex* HMutex;
+
+      ```'
+    name: :HMutex
+    type: typedef
+  - desc: Creates a new HMutex.
+    name: :New
+    parameters: []
+    returns:
+    - desc: A new Mutex handle.
+      type: dmMutex::HMutex
+    type: function
+  - desc: Deletes a HMutex.
+    name: :Delete
+    parameters:
+    - desc: Mutex handle to delete.
+      name: mutex
+      type: dmMutex::HMutex
+    type: function
+  - desc: Lock a HMutex, will block until mutex is unlocked if already locked elsewhere.
+    name: :Lock
+    parameters:
+    - desc: Mutex handle to lock.
+      name: mutex
+      type: dmMutex::HMutex
+    type: function
+  - desc: 'Tries to lock a HMutex, if mutex is already locked it will return false
+      and
+
+      continue without locking the mutex.'
+    name: :TryLock
+    parameters:
+    - desc: Mutex handle to lock.
+      name: mutex
+      type: dmMutex::HMutex
+    returns:
+    - desc: True if mutex was successfully locked, false otherwise.
+      type: bool
+    type: function
+  - desc: Unlock a HMutex.
+    name: :Unlock
+    parameters:
+    - desc: Mutex handle to unlock.
+      name: mutex
+      type: dmMutex::HMutex
+    type: function
+  name: dmMutex
+  type: table

@@ -1,0 +1,4 @@
+- desc: Intersection math structs and functions
+  members: []
+  name: dmIntersection
+  type: table

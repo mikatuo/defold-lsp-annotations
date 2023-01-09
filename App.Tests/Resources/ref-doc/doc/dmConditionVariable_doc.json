@@ -1,0 +1,144 @@
+{
+  "elements": [
+    {
+      "type": "TYPEDEF",
+      "name": "dmConditionVariable::HConditionVariable",
+      "brief": "HConditionVariable type definition",
+      "description": "<div class=\"codehilite\"><pre><span></span><code><span class=\"k\">typedef</span><span class=\"w\"> </span><span class=\"k\">struct</span><span class=\"w\"> </span><span class=\"nc\">ConditionVariable</span><span class=\"o\">*</span><span class=\"w\"> </span><span class=\"n\">HConditionVariable</span><span class=\"p\">;</span><span class=\"w\"></span>\n</code></pre></div>",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "dmConditionVariable::New",
+      "brief": "create condition variable",
+      "description": "Create a new HConditionVariable",
+      "returnvalues": [
+        {
+          "name": "condition_variable",
+          "doc": "A new ConditionVariable handle.",
+          "types": [
+            "dmConditionVariable::HConditionVariable"
+          ]
+        }
+      ],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "dmConditionVariable::Delete",
+      "brief": "delete condition variable",
+      "description": "Deletes a HConditionVariable.",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "mutex",
+          "doc": "ConditionVariable handle to delete.",
+          "types": [
+            "dmConditionVariable::HConditionVariable"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "dmConditionVariable::Wait",
+      "brief": "wait for condition variable",
+      "description": "Wait for condition variable. This is a blocking function, and should be called with\nthe mutex being locked.",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "condition",
+          "doc": "ConditionVariable handle.",
+          "types": [
+            "dmConditionVariable::HConditionVariable"
+          ]
+        },
+        {
+          "name": "mutex",
+          "doc": "Mutex handle.",
+          "types": [
+            "dmMutex::HMutex"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "dmConditionVariable::Signal",
+      "brief": "signal condition variable",
+      "description": "Signal condition variable, effectively unblocks at least one of the waithing threads blocked\nby the condition variable.",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "condition",
+          "doc": "ConditionVariable handle.",
+          "types": [
+            "dmConditionVariable::HConditionVariable"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "dmConditionVariable::Broadcast",
+      "brief": "broadcast condition variable",
+      "description": "Broadcast condition variable, effectively unblocks all of the waithing threads blocked\nby the condition variable.",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "condition",
+          "doc": "ConditionVariable handle.",
+          "types": [
+            "dmConditionVariable::HConditionVariable"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    }
+  ],
+  "info": {
+    "namespace": "dmConditionVariable",
+    "name": "Condition Variable",
+    "brief": "SDK Condition Variable API documentation",
+    "description": "API for platform independent mutex synchronization primitive.",
+    "path": "engine/dlib/src/dmsdk/dlib/condition_variable.h",
+    "file": "dmsdk/dlib/condition_variable.h",
+    "group": "DEFOLD SDK"
+  }
+}

@@ -1,0 +1,46 @@
+- desc: Overrides the save directory when using `sys.get_save_file()`
+  name: DM_SAVE_HOME
+  type: macro
+- desc: 'Overrides the engine service port, when creating the internal http server
+    (e.g web profiler)
+
+
+    Valid values are integers between [0, 65535] and the string "dynamic" (which translates
+    to 0).
+
+    Default value is 8001.'
+  name: DM_SERVICE_PORT
+  type: macro
+- desc: 'Enables quitting the app directly by pressing the `ESCAPE` key.
+
+    Set to "1" to enable this feature.'
+  name: DM_QUIT_ON_ESC
+  type: macro
+- desc: 'Enables receiving the log on a designated port (e.g. using telnet)
+
+    Valid values are integers between [0, 65535]'
+  name: DM_LOG_PORT
+  type: macro
+- desc: 'Disables OpenGL error checking.
+
+    This is especially beneficial for running debug builds in the Chrome browser,
+
+    in which the calls to `glGetError()` is notoriously slow.
+
+
+    Default value is "true" for debug builds, and "false" for release builds.'
+  name: --verify-graphics-calls=
+  type: macro
+- desc: 'Launch the engine with a specific project file
+
+
+    If no project is specified, it will default to "./game.projectc", "build/default/game.projectc"'
+  name: launch_project
+  type: macro
+- desc: Override game properties with the format `--config=section.key=value`
+  name: --config=
+  type: macro
+- desc: ''
+  members: []
+  name: engine
+  type: table

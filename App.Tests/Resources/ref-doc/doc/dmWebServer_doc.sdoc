@@ -1,0 +1,295 @@
+elements {
+  type: TYPEDEF
+  name: "HServer"
+  brief: "web server handle"
+  description: "web server handle"
+}
+elements {
+  type: ENUM
+  name: "Result"
+  brief: "result codes"
+  description: "result codes"
+  members {
+    name: "RESULT_OK"
+    doc: ""
+    type: ""
+  }
+  members {
+    name: "RESULT_SOCKET_ERROR"
+    doc: ""
+    type: ""
+  }
+  members {
+    name: "RESULT_INVALID_REQUEST"
+    doc: ""
+    type: ""
+  }
+  members {
+    name: "RESULT_ERROR_INVAL"
+    doc: ""
+    type: ""
+  }
+  members {
+    name: "RESULT_HANDLER_ALREADY_REGISTRED"
+    doc: ""
+    type: ""
+  }
+  members {
+    name: "RESULT_HANDLER_NOT_REGISTRED"
+    doc: ""
+    type: ""
+  }
+  members {
+    name: "RESULT_INTERNAL_ERROR"
+    doc: ""
+    type: ""
+  }
+  members {
+    name: "RESULT_UNKNOWN"
+    doc: ""
+    type: ""
+  }
+}
+elements {
+  type: STRUCT
+  name: "Request"
+  brief: "web server request"
+  description: "web server request"
+  members {
+    name: "m_Method"
+    doc: "Request method"
+    type: "const char*"
+  }
+  members {
+    name: "m_Method"
+    doc: "Request resource"
+    type: "const char*"
+  }
+  members {
+    name: "m_Method"
+    doc: "Content-Length header"
+    type: "const char*"
+  }
+  members {
+    name: "m_Method"
+    doc: "Internal data"
+    type: "const char*"
+  }
+}
+elements {
+  type: TYPEDEF
+  name: "Handler"
+  brief: "Web request handler callback"
+  description: "Web request handler callback"
+  returnvalues {
+    name: ""
+    doc: ""
+    types: "void"
+  }
+  parameters {
+    name: "user_data"
+    doc: "User  data"
+    types: "void*"
+  }
+  parameters {
+    name: "request"
+    doc: "Request"
+    types: "Request*"
+  }
+}
+elements {
+  type: STRUCT
+  name: "HandlerParams"
+  brief: "handler parameters"
+  description: "handler parameters"
+  members {
+    name: "m_UserData"
+    doc: "The user data"
+    type: "void*"
+  }
+  members {
+    name: "m_Handler"
+    doc: "The callback"
+    type: "Handler"
+  }
+}
+elements {
+  type: FUNCTION
+  name: "AddHandler"
+  brief: "Add a new handler"
+  description: "Add a new handler"
+  returnvalues {
+    name: ""
+    doc: "RESULT_OK on success"
+    types: "Result"
+  }
+  parameters {
+    name: "server"
+    doc: "Server handle"
+    types: "HServer"
+  }
+  parameters {
+    name: "prefix"
+    doc: "Location prefix for which locations this handler should handle"
+    types: "const char*"
+  }
+  parameters {
+    name: "handler_params"
+    doc: "Handler parameters"
+    types: "HandlerParams"
+  }
+}
+elements {
+  type: FUNCTION
+  name: "RemoveHandler"
+  brief: "Remove handle"
+  description: "Remove handle"
+  returnvalues {
+    name: ""
+    doc: "RESULT_OK on success"
+    types: "Result"
+  }
+  parameters {
+    name: "server"
+    doc: "Server handle"
+    types: "HServer"
+  }
+  parameters {
+    name: "prefix"
+    doc: "Prefix for handle to remove"
+    types: "const char*"
+  }
+}
+elements {
+  type: FUNCTION
+  name: "SetStatusCode"
+  brief: "Set response status code."
+  description: "Set response status code."
+  returnvalues {
+    name: ""
+    doc: "RESULT_OK on success"
+    types: "Result"
+  }
+  parameters {
+    name: "request"
+    doc: "Request"
+    types: "Request*"
+  }
+  parameters {
+    name: "status_code"
+    doc: "Status code to set"
+    types: "int"
+  }
+}
+elements {
+  type: FUNCTION
+  name: "GetHeader"
+  brief: "Get http header value for key"
+  description: "Get http header value for key"
+  returnvalues {
+    name: ""
+    doc: "Header value. NULL if the key doesn\'t exists"
+    types: "const char*"
+  }
+  parameters {
+    name: "request"
+    doc: "Request"
+    types: "Request*"
+  }
+  parameters {
+    name: "name"
+    doc: "Header key"
+    types: "const char*"
+  }
+}
+elements {
+  type: FUNCTION
+  name: "Send"
+  brief: "Send response data"
+  description: "Send response data"
+  returnvalues {
+    name: ""
+    doc: "RESULT_OK on success"
+    types: "Result"
+  }
+  parameters {
+    name: "request"
+    doc: "Request handle"
+    types: "Request"
+  }
+  parameters {
+    name: "data"
+    doc: "Data to send"
+    types: "void*"
+  }
+  parameters {
+    name: "data_length"
+    doc: "Data-lenght to send"
+    types: "uint32_t"
+  }
+}
+elements {
+  type: FUNCTION
+  name: "Receive"
+  brief: "Receive data"
+  description: "Receive data"
+  returnvalues {
+    name: ""
+    doc: "RESULT_OK on success"
+    types: "Result"
+  }
+  parameters {
+    name: "request"
+    doc: "Request"
+    types: "Request*"
+  }
+  parameters {
+    name: "buffer"
+    doc: "Data buffer to receive to"
+    types: "void*"
+  }
+  parameters {
+    name: "buffer_size"
+    doc: "Buffer size"
+    types: "uint32_t"
+  }
+  parameters {
+    name: "received_bytes"
+    doc: "Number of bytes received"
+    types: "uint32_t*"
+  }
+}
+elements {
+  type: FUNCTION
+  name: "SendAttribute"
+  brief: "Sends a header attribute"
+  description: "Sends a header attribute"
+  returnvalues {
+    name: ""
+    doc: "RESULT_OK on success"
+    types: "Result"
+  }
+  parameters {
+    name: "request"
+    doc: "Request"
+    types: "Request*"
+  }
+  parameters {
+    name: "key"
+    doc: "the header name"
+    types: "const char*"
+  }
+  parameters {
+    name: "value"
+    doc: "the header value"
+    types: "const char*"
+  }
+}
+info {
+  namespace: "dmWebServer"
+  name: "WebServer"
+  brief: "Web server functions"
+  description: "Simple high-level single-threaded Web server based on dmHttpServer\nThe web-server has a handler concept similar to servlets in Java"
+  path: "engine/dlib/src/dmsdk/dlib/webserver.h"
+  file: "dmsdk/dlib/webserver.h"
+}

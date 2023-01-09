@@ -1,0 +1,53 @@
+- desc: define for debug builds
+  name: DM_DEBUG
+  type: macro
+- desc: define for release builds
+  name: DM_RELEASE
+  type: macro
+- desc: define for headless builds
+  name: DM_HEADLESS
+  type: macro
+- desc: get the config file
+  name: GetConfigFile
+  parameters:
+  - desc: The app params sent to the extension dmExtension::AppInitialize / dmExtension::AppInitialize
+    name: app_params
+    type: dmExtension::AppParams*
+  returns:
+  - desc: The game project config file
+    type: dmConfigFile::HConfig
+  type: function
+- desc: get the web server handle
+  name: GetWebServer
+  parameters:
+  - desc: The app params sent to the extension dmExtension::AppInitialize / dmExtension::AppInitialize
+    name: app_params
+    type: dmExtension::AppParams*
+  returns:
+  - desc: The web server handle
+    type: dmWebServer::HServer
+  type: function
+- desc: get the game object register
+  name: GetGameObjectRegister
+  parameters:
+  - desc: The app params sent to the extension dmExtension::AppInitialize / dmExtension::AppInitialize
+    name: app_params
+    type: dmExtension::AppParams*
+  returns:
+  - desc: The game object register
+    type: dmGameObject::HRegister
+  type: function
+- desc: get the hid context
+  name: GetHIDContext
+  parameters:
+  - desc: The app params sent to the extension dmExtension::AppInitialize / dmExtension::AppInitialize
+    name: app_params
+    type: dmExtension::AppParams*
+  returns:
+  - desc: The hid context
+    type: dmHID::HContext
+  type: function
+- desc: ''
+  members: []
+  name: dmEngine
+  type: table

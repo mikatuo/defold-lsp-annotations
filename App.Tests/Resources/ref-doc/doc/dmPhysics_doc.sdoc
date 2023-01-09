@@ -1,0 +1,20 @@
+elements {
+  type: TYPEDEF
+  name: "HHullSet2D"
+  brief: "2D Hull set handle"
+  description: "2D Hull set handle"
+}
+elements {
+  type: TYPEDEF
+  name: "HCollisionShape2D"
+  brief: "2D collision shape handle"
+  description: "2D collision shape handle"
+}
+info {
+  namespace: "dmPhysics"
+  name: "Physics"
+  brief: "Physics"
+  description: "Physics related structs and functions"
+  path: "engine/physics/src/dmsdk/physics/physics.h"
+  file: "dmsdk/physics/physics.h"
+}

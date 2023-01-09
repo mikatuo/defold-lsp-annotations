@@ -1,0 +1,84 @@
+- desc: Adds a profiling scope. Excluded by default in release builds.
+  name: DM_PROFILE
+  type: macro
+- desc: 'Adds a profiling scope. Excluded by default in release builds.
+
+    Accepts a name cache value for performance.'
+  name: DM_PROFILE_DYN
+  type: macro
+- desc: Send text to the profiler
+  name: DM_PROFILE_TEXT
+  type: macro
+- desc: Declare an extern property
+  name: DM_PROPERTY_EXTERN
+  type: macro
+- desc: Declare a property group
+  name: DM_PROPERTY_GROUP
+  type: macro
+- desc: Declare a property of type `bool`
+  name: DM_PROPERTY_BOOL
+  type: macro
+- desc: Declare a property of type `int32_t`
+  name: DM_PROPERTY_S32
+  type: macro
+- desc: Declare a property of type `uint32_t`
+  name: DM_PROPERTY_U32
+  type: macro
+- desc: Declare a property of type `float`
+  name: DM_PROPERTY_F32
+  type: macro
+- desc: Declare a property of type `int64_t`
+  name: DM_PROPERTY_S64
+  type: macro
+- desc: Declare a property of type `uint64_t`
+  name: DM_PROPERTY_U64
+  type: macro
+- desc: Declare a property of type `double`
+  name: DM_PROPERTY_F64
+  type: macro
+- desc: Set the value of a bool property
+  name: DM_PROPERTY_SET_BOOL
+  type: macro
+- desc: Set the value of a int32_t property
+  name: DM_PROPERTY_SET_S32
+  type: macro
+- desc: Set the value of a uint32_t property
+  name: DM_PROPERTY_SET_U32
+  type: macro
+- desc: Set the value of a float property
+  name: DM_PROPERTY_SET_F32
+  type: macro
+- desc: Set the value of a int64_t property
+  name: DM_PROPERTY_SET_S64
+  type: macro
+- desc: Set the value of a uint64_t property
+  name: DM_PROPERTY_SET_U64
+  type: macro
+- desc: Set the value of a double property
+  name: DM_PROPERTY_SET_F64
+  type: macro
+- desc: Add a value to int32_t property
+  name: DM_PROPERTY_ADD_S32
+  type: macro
+- desc: Add a value to uint32_t property
+  name: DM_PROPERTY_ADD_U32
+  type: macro
+- desc: Add a value to float property
+  name: DM_PROPERTY_ADD_F32
+  type: macro
+- desc: Add a value to int64_t property
+  name: DM_PROPERTY_ADD_S64
+  type: macro
+- desc: Add a value to uint64_t property
+  name: DM_PROPERTY_ADD_U64
+  type: macro
+- desc: Add a value to double property
+  name: DM_PROPERTY_ADD_F64
+  type: macro
+- desc: Reset a property to its default value
+  name: DM_PROPERTY_RESET
+  type: macro
+- desc: Profiling macros
+  members: []
+  name: dmProfile
+  type: table

@@ -1,0 +1,70 @@
+- desc: Functions for performing HTTP and HTTPS requests.
+  members:
+  - desc: 'Perform a HTTP/HTTPS request.
+
+
+      [icon:attention] If no timeout value is passed, the configuration value "network.http_timeout"
+      is used. If that is not set, the timeout value is `0` (which blocks indefinitely).'
+    name: request
+    parameters:
+    - desc: target url
+      name: url
+      type: string
+    - desc: HTTP/HTTPS method, e.g. "GET", "PUT", "POST" etc.
+      name: method
+      type: string
+    - desc: 'response callback function
+
+
+        `self`
+
+        : [type:object] The script instance
+
+
+        `id`
+
+        : [type:hash] Internal message identifier. Do not use!
+
+
+        `response`
+
+        : [type:table] The response data. Contains the fields:
+
+
+        - [type:number] `status`: the status of the response
+
+        - [type:string] `response`: the response data (if not saved on disc)
+
+        - [type:table] `headers`: all the returned headers
+
+        - [type:string] `path`: the stored path (if saved to disc)
+
+        - [type:string] `error`: if any unforeseen errors occurred (e.g. file I/O)'
+      name: callback
+      type: function(self, id, response)
+    - desc: optional table with custom headers
+      name: headers
+      optional: true
+      type: table
+    - desc: optional data to send
+      name: post_data
+      optional: true
+      type: string
+    - desc: 'optional table with request parameters. Supported entries:
+
+
+        - [type:number] `timeout`: timeout in seconds
+
+        - [type:string] `path`: path on disc where to download the file. Only overwrites
+        the path if status is 200
+
+        - [type:boolean] `ignore_cache`: don''t return cached data if we get a 304
+
+        - [type:boolean] `chunked_transfer`: use chunked transfer encoding for https
+        requests larger than 16kb. Defaults to true.'
+      name: options
+      optional: true
+      type: table
+    type: function
+  name: http
+  type: table

@@ -1,0 +1,96 @@
+- desc: '[file:<dmsdk/dlib/thread.h>]
+
+
+    Thread functions.'
+  members:
+  - desc: Create a new named thread
+    name: :New
+    parameters:
+    - desc: Thread entry function
+      name: thread_start
+      type: ''
+    - desc: Stack size
+      name: stack_size
+      type: ''
+    - desc: Thread argument
+      name: arg
+      type: ''
+    - desc: Thread name
+      name: name
+      type: ''
+    returns:
+    - desc: handle
+      type: ''
+    type: function
+  - desc: 'Join thread. Waits for the thread specified by thread to terminate.  If
+
+      that thread has already terminated, then Join() returns immediately.  The
+
+      thread specified by thread must be joinable (see Detach()).'
+    name: :Join
+    parameters:
+    - desc: Thread to join
+      name: thread
+      type: ''
+    type: function
+  - desc: 'Detach thread. When a detached thread terminates, its resources are
+
+      automatically released back to the system without the need for another
+
+      thread to join with the terminated thread.'
+    name: :Detach
+    parameters:
+    - desc: Thread to detach
+      name: thread
+      type: ''
+    type: function
+  - desc: Allocate thread local storage key
+    name: :AllocTls
+    parameters: []
+    returns:
+    - desc: ''
+      type: ''
+    type: function
+  - desc: Free thread local storage key
+    name: :FreeTls
+    parameters:
+    - desc: Key
+      name: key
+      type: ''
+    type: function
+  - desc: Set thread specific data
+    name: :SetTlsValue
+    parameters:
+    - desc: Key
+      name: key
+      type: ''
+    - desc: Value
+      name: value
+      type: ''
+    type: function
+  - desc: Get thread specific data
+    name: :GetTlsValue
+    parameters:
+    - desc: Key
+      name: key
+      type: ''
+    type: function
+  - desc: Gets the current thread
+    name: :GetCurrentThread
+    parameters: []
+    returns:
+    - desc: current thread
+      type: ''
+    type: function
+  - desc: Sets the current thread name
+    name: :SetThreadName
+    parameters:
+    - desc: the thread
+      name: thread
+      type: ''
+    - desc: the thread name
+      name: name
+      type: ''
+    type: function
+  name: dmThread
+  type: table

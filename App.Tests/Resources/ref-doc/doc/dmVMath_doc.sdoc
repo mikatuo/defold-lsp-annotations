@@ -1,0 +1,8 @@
+info {
+  namespace: "dmVMath"
+  name: "Vector Math"
+  brief: "SDK Vector Math API documentation"
+  description: "Vector Math functions."
+  path: "engine/dlib/src/dmsdk/dlib/vmath.h"
+  file: "dmsdk/dlib/vmath.h"
+}

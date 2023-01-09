@@ -1,0 +1,281 @@
+- desc: get number of elements in C array
+  name: DM_ARRAY_SIZE
+  type: macro
+- desc: Only frees memory when auto-allocated.
+  name: ~dmArray
+  parameters: []
+  type: function
+- desc: Pointer to the start of the backing storage
+  name: Begin
+  parameters: []
+  returns:
+  - desc: pointer to start of memory
+    type: T*
+  type: function
+- desc: Pointer to the start of the backing storage
+  name: Begin
+  parameters: []
+  returns:
+  - desc: pointer to start of memory
+    type: const T*
+  type: function
+- desc: 'Pointer to the end of the backing storage
+
+    The end is essentially outside of the used storage.'
+  name: End
+  parameters: []
+  returns:
+  - desc: pointer to end of memory
+    type: T*
+  type: function
+- desc: 'Pointer to the end of the backing storage
+
+    The end is essentially outside of the used storage.'
+  name: End
+  parameters: []
+  returns:
+  - desc: pointer to end of memory
+    type: const T*
+  type: function
+- desc: First element of the array
+  name: Front
+  parameters: []
+  returns:
+  - desc: reference to the first element
+    type: T&
+  type: function
+- desc: First element of the array (const)
+  name: Front
+  parameters: []
+  returns:
+  - desc: const-reference to the first element
+    type: const T&
+  type: function
+- desc: Last element of the array
+  name: Back
+  parameters: []
+  returns:
+  - desc: reference to the last element
+    type: T&
+  type: function
+- desc: Last element of the array (const)
+  name: Back
+  parameters: []
+  returns:
+  - desc: const-reference to the last element
+    type: const T&
+  type: function
+- desc: Size of the array in elements
+  name: Size
+  parameters: []
+  returns:
+  - desc: array size
+    type: uint32_t
+  type: function
+- desc: Capacity is currently allocated storage.
+  name: Capacity
+  parameters: []
+  returns:
+  - desc: array capacity
+    type: uint32_t
+  type: function
+- desc: 'Check if the array is full.
+
+    The array is full when the size is equal to the capacity.'
+  name: Full
+  parameters: []
+  returns:
+  - desc: true if the array is full
+    type: boolean
+  type: function
+- desc: 'Check if the array is empty.
+
+    The array is empty when the size is zero.'
+  name: Empty
+  parameters: []
+  returns:
+  - desc: true if the array is empty
+    type: boolean
+  type: function
+- desc: Amount of additional elements that can be stored
+  name: Remaining
+  parameters: []
+  returns:
+  - desc: amount of additional elements that can be stored
+    type: uint32_t
+  type: function
+- desc: Retrieve an element by index
+  name: operator[]
+  parameters:
+  - desc: array index
+    name: index
+    type: uint32_t
+  returns:
+  - desc: reference to the element at the specified index
+    type: T&
+  type: function
+- desc: Retrieve an element by index (const)
+  name: operator[]
+  parameters:
+  - desc: array index
+    name: index
+    type: uint32_t
+  returns:
+  - desc: const-reference to the element at the specified index
+    type: const T&
+  type: function
+- desc: 'Set the capacity of the array.
+
+    If the size is less than the capacity, the array is truncated.
+
+    If it is larger, the array is extended.
+
+    Only allowed for auto-allocated arrays and will result in a new dynamic allocation
+    followed by memcpy of the elements.'
+  name: SetCapacity
+  parameters:
+  - desc: capacity of the array
+    name: capacity
+    type: uint32_t
+  type: function
+- desc: 'Relative change of capacity
+
+    Equivalent to SetCapacity(Capacity() + offset).
+
+    Only allowed for auto-allocated arrays and will result in a new dynamic allocation
+    followed by memcpy of the elements.'
+  name: OffsetCapacity
+  parameters:
+  - desc: relative amount of elements to change the capacity
+    name: offset
+    type: uint32_t
+  type: function
+- desc: Set size of the array
+  name: SetSize
+  parameters:
+  - desc: size of the array, must be less or equal to the capacity
+    name: size
+    type: uint32_t
+  type: function
+- desc: 'Remove the element at the specified index.
+
+    The removed element is replaced by the element at the end (if any), thus potentially
+    altering the order.
+
+    While operation changes the array size, it is guaranteed to be O(1).'
+  name: EraseSwap
+  parameters:
+  - desc: index of the element to remove
+    name: index
+    type: uint32_t
+  returns:
+  - desc: reference to the new element at index
+    type: T&
+  type: function
+- desc: 'Remove the element by reference
+
+    The removed element is replaced by the element at the end (if any), thus potentially
+    altering the order.
+
+    While operation changes the array size, it is guaranteed to be O(1).'
+  name: EraseSwapRef
+  parameters:
+  - desc: reference to the element to remove.
+    name: element
+    type: T&
+  returns:
+  - desc: reference to the new referenced element
+    type: T&
+  type: function
+- desc: 'Add an element to the end of the array
+
+    Only allowed when the capacity is larger than size.'
+  name: Push
+  parameters:
+  - desc: element element to add
+    name: element
+    type: const T&
+  type: function
+- desc: 'Add an array of elements to the end of the array
+
+    Only allowed when the capacity is larger than size + count'
+  name: PushArray
+  parameters:
+  - desc: array of elements to add
+    name: array
+    type: const T&
+  - desc: amount of elements in the array
+    name: count
+    type: uint32_t
+  type: function
+- desc: 'Remove the last element of the array
+
+    Only allowed when the size is larger than zero.'
+  name: Pop
+  parameters: []
+  type: function
+- desc: Swap the content of two arrays
+  name: Swap
+  parameters:
+  - desc: reference to array to swap content with
+    name: rhs
+    type: dmArray`<T>`&
+  type: function
+- desc: map a function on all values
+  name: Map
+  parameters:
+  - desc: function that will be called for each element
+    name: fn
+    type: ''
+  - desc: user defined context that will be passed in with each callback
+    name: ctx
+    type: ''
+  type: function
+- desc: 'Templatized array with bounds checking.
+
+
+    The backing storage is either auto-allocated (dynamically allocated) or user-allocated
+    (supplied by user).
+
+    With exception of changing the size and capacity, all operations are guaranteed
+    to be O(1).
+
+
+    ```cpp
+
+    dmArray<int> a;
+
+    a.SetCapacity(1);
+
+    a.Push(1);
+
+    int b = a[0];
+
+    ```'
+  members:
+  - desc: 'The backing storage is either auto-allocated (dynamically allocated) or
+      user-allocated (supplied by user).
+
+      With exception of changing the size and capacity, all operations are guaranteed
+      to be O(1).'
+    name: ''
+    type: class
+  - desc: constructor. empty auto-allocated memory
+    name: ''
+    parameters: []
+    type: function
+  - desc: user-allocated array with initial size and capacity
+    name: ''
+    parameters:
+    - desc: User-allocated array to be used as storage.
+      name: user_array
+      type: T*
+    - desc: Initial size
+      name: size
+      type: uint32_t
+    - desc: Initial capacity
+      name: capacity
+      type: uint32_t
+    type: function
+  name: dmArray
+  type: table

@@ -1,0 +1,8 @@
+info {
+  namespace: "facebook"
+  name: "Facebook"
+  brief: "Facebook API documentation"
+  description: "The Facebook module has been moved into an external extension library\navailable on <a href=\"https://defold.github.io/extension-facebook/\">here</a>."
+  path: ""
+  file: ""
+}

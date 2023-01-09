@@ -1,0 +1,473 @@
+{
+  "elements": [
+    {
+      "type": "TYPEDEF",
+      "name": "HServer",
+      "brief": "web server handle",
+      "description": "web server handle",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "ENUM",
+      "name": "Result",
+      "brief": "result codes",
+      "description": "result codes",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "RESULT_OK",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "RESULT_SOCKET_ERROR",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "RESULT_INVALID_REQUEST",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "RESULT_ERROR_INVAL",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "RESULT_HANDLER_ALREADY_REGISTRED",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "RESULT_HANDLER_NOT_REGISTRED",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "RESULT_INTERNAL_ERROR",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "RESULT_UNKNOWN",
+          "doc": "",
+          "type": ""
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "STRUCT",
+      "name": "Request",
+      "brief": "web server request",
+      "description": "web server request",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "m_Method",
+          "doc": "Request method",
+          "type": "const char*"
+        },
+        {
+          "name": "m_Method",
+          "doc": "Request resource",
+          "type": "const char*"
+        },
+        {
+          "name": "m_Method",
+          "doc": "Content-Length header",
+          "type": "const char*"
+        },
+        {
+          "name": "m_Method",
+          "doc": "Internal data",
+          "type": "const char*"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "TYPEDEF",
+      "name": "Handler",
+      "brief": "Web request handler callback",
+      "description": "Web request handler callback",
+      "returnvalues": [
+        {
+          "name": "",
+          "doc": "",
+          "types": [
+            "void"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "user_data",
+          "doc": "User  data",
+          "types": [
+            "void*"
+          ]
+        },
+        {
+          "name": "request",
+          "doc": "Request",
+          "types": [
+            "Request*"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "STRUCT",
+      "name": "HandlerParams",
+      "brief": "handler parameters",
+      "description": "handler parameters",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "m_UserData",
+          "doc": "The user data",
+          "type": "void*"
+        },
+        {
+          "name": "m_Handler",
+          "doc": "The callback",
+          "type": "Handler"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "AddHandler",
+      "brief": "Add a new handler",
+      "description": "Add a new handler",
+      "returnvalues": [
+        {
+          "name": "",
+          "doc": "RESULT_OK on success",
+          "types": [
+            "Result"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "server",
+          "doc": "Server handle",
+          "types": [
+            "HServer"
+          ]
+        },
+        {
+          "name": "prefix",
+          "doc": "Location prefix for which locations this handler should handle",
+          "types": [
+            "const char*"
+          ]
+        },
+        {
+          "name": "handler_params",
+          "doc": "Handler parameters",
+          "types": [
+            "HandlerParams"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "RemoveHandler",
+      "brief": "Remove handle",
+      "description": "Remove handle",
+      "returnvalues": [
+        {
+          "name": "",
+          "doc": "RESULT_OK on success",
+          "types": [
+            "Result"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "server",
+          "doc": "Server handle",
+          "types": [
+            "HServer"
+          ]
+        },
+        {
+          "name": "prefix",
+          "doc": "Prefix for handle to remove",
+          "types": [
+            "const char*"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "SetStatusCode",
+      "brief": "Set response status code.",
+      "description": "Set response status code.",
+      "returnvalues": [
+        {
+          "name": "",
+          "doc": "RESULT_OK on success",
+          "types": [
+            "Result"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "request",
+          "doc": "Request",
+          "types": [
+            "Request*"
+          ]
+        },
+        {
+          "name": "status_code",
+          "doc": "Status code to set",
+          "types": [
+            "int"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "GetHeader",
+      "brief": "Get http header value for key",
+      "description": "Get http header value for key",
+      "returnvalues": [
+        {
+          "name": "",
+          "doc": "Header value. NULL if the key doesn't exists",
+          "types": [
+            "const char*"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "request",
+          "doc": "Request",
+          "types": [
+            "Request*"
+          ]
+        },
+        {
+          "name": "name",
+          "doc": "Header key",
+          "types": [
+            "const char*"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "Send",
+      "brief": "Send response data",
+      "description": "Send response data",
+      "returnvalues": [
+        {
+          "name": "",
+          "doc": "RESULT_OK on success",
+          "types": [
+            "Result"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "request",
+          "doc": "Request handle",
+          "types": [
+            "Request"
+          ]
+        },
+        {
+          "name": "data",
+          "doc": "Data to send",
+          "types": [
+            "void*"
+          ]
+        },
+        {
+          "name": "data_length",
+          "doc": "Data-lenght to send",
+          "types": [
+            "uint32_t"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "Receive",
+      "brief": "Receive data",
+      "description": "Receive data",
+      "returnvalues": [
+        {
+          "name": "",
+          "doc": "RESULT_OK on success",
+          "types": [
+            "Result"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "request",
+          "doc": "Request",
+          "types": [
+            "Request*"
+          ]
+        },
+        {
+          "name": "buffer",
+          "doc": "Data buffer to receive to",
+          "types": [
+            "void*"
+          ]
+        },
+        {
+          "name": "buffer_size",
+          "doc": "Buffer size",
+          "types": [
+            "uint32_t"
+          ]
+        },
+        {
+          "name": "received_bytes",
+          "doc": "Number of bytes received",
+          "types": [
+            "uint32_t*"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "SendAttribute",
+      "brief": "Sends a header attribute",
+      "description": "Sends a header attribute",
+      "returnvalues": [
+        {
+          "name": "",
+          "doc": "RESULT_OK on success",
+          "types": [
+            "Result"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "request",
+          "doc": "Request",
+          "types": [
+            "Request*"
+          ]
+        },
+        {
+          "name": "key",
+          "doc": "the header name",
+          "types": [
+            "const char*"
+          ]
+        },
+        {
+          "name": "value",
+          "doc": "the header value",
+          "types": [
+            "const char*"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    }
+  ],
+  "info": {
+    "namespace": "dmWebServer",
+    "name": "WebServer",
+    "brief": "Web server functions",
+    "description": "Simple high-level single-threaded Web server based on dmHttpServer\nThe web-server has a handler concept similar to servlets in Java",
+    "path": "engine/dlib/src/dmsdk/dlib/webserver.h",
+    "file": "dmsdk/dlib/webserver.h",
+    "group": "DEFOLD SDK"
+  }
+}

@@ -1,0 +1,7 @@
+- desc: Export and import functions, data, and objects to or from a DLL
+  name: DM_DLLEXPORT
+  type: macro
+- desc: Utility functions for shared library export/import
+  members: []
+  name: sharedlibrary
+  type: table

@@ -1,0 +1,71 @@
+- desc: 'Declare and register new config file extension to the engine.
+
+    Each get function should return true if it sets a proper value. Otherwise return
+    false.'
+  name: DM_DECLARE_CONFIGFILE_EXTENSION
+  type: macro
+- desc: 'Configuration file access functions.
+
+    The configuration file is compiled version of the [file:game.project] file.'
+  members:
+  - desc: '```cpp
+
+      typedef struct Config* HConfig;
+
+      ```'
+    name: :HConfig
+    type: typedef
+  - desc: Get config value as string, returns default if the key isn't found
+    name: :GetString
+    parameters:
+    - desc: Config file handle
+      name: config
+      type: dmConfigFile::HConfig
+    - desc: Key in format section.key (.key for no section)
+      name: key
+      type: const char*
+    - desc: Default value to return if key isn't found
+      name: default_value
+      type: const char*
+    returns:
+    - desc: found value or default value
+      type: const char*
+    type: function
+  - desc: 'Get config value as int, returns default if the key isn''t found
+
+      Note: default_value is returned for invalid integer values'
+    name: :GetInt
+    parameters:
+    - desc: Config file handle
+      name: config
+      type: dmConfigFile::HConfig
+    - desc: Key in format section.key (.key for no section)
+      name: key
+      type: const char*
+    - desc: Default value to return if key isn't found
+      name: default_value
+      type: int32_t
+    returns:
+    - desc: found value or default value
+      type: int32_t
+    type: function
+  - desc: 'Get config value as float, returns default if the key isn''t found
+
+      Note: default_value is returned for invalid float values'
+    name: :GetFloat
+    parameters:
+    - desc: Config file handle
+      name: config
+      type: dmConfigFile::HConfig
+    - desc: Key in format section.key (.key for no section)
+      name: key
+      type: const char*
+    - desc: Default value to return if key isn't found
+      name: default_value
+      type: float
+    returns:
+    - desc: found value or default value
+      type: float
+    type: function
+  name: dmConfigFile
+  type: table

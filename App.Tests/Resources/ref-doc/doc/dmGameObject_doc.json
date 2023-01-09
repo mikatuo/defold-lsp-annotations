@@ -1,0 +1,2730 @@
+{
+  "elements": [
+    {
+      "type": "FUNCTION",
+      "name": "ComponentIterProperties",
+      "brief": "Callback when iterating over the properties for a ...",
+      "description": "Callback when iterating over the properties for a component.",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "pit",
+          "doc": "the property iterator",
+          "types": [
+            "dmGameObject::SceneNodePropertyIterator"
+          ]
+        },
+        {
+          "name": "node",
+          "doc": "the scene node",
+          "types": [
+            "dmGameObject::SceneNode*"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "ComponentTypeGetTypeIndex",
+      "brief": "Get the component type index. Used for with e.g. d...",
+      "description": "Get the component type index. Used for with e.g. dmGameObject::GetWorld()/GetContext()",
+      "returnvalues": [
+        {
+          "name": "type_index",
+          "doc": "The type index.",
+          "types": [
+            "uint32_t"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "type",
+          "doc": "the type",
+          "types": [
+            "ComponentType*"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "ComponentTypeSetNewWorldFn",
+      "brief": "set the new world callback",
+      "description": "Set the new world callback. Called when a collection (i.e. a \"world\") is created.",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "type",
+          "doc": "the type",
+          "types": [
+            "ComponentType*"
+          ]
+        },
+        {
+          "name": "fn",
+          "doc": "callback",
+          "types": [
+            "ComponentNewWorld"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "ComponentTypeSetDeleteWorldFn",
+      "brief": "set the world destroy callback",
+      "description": "Set the world destroy callback. Called when a collection (i.e. a \"world\") is destroyed.",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "type",
+          "doc": "the type",
+          "types": [
+            "ComponentType*"
+          ]
+        },
+        {
+          "name": "fn",
+          "doc": "callback",
+          "types": [
+            "ComponentDeleteWorld"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "ComponentTypeSetCreateFn",
+      "brief": "set the component create callback",
+      "description": "Set the component create callback. Called when a component instance is created.",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "type",
+          "doc": "the type",
+          "types": [
+            "ComponentType*"
+          ]
+        },
+        {
+          "name": "fn",
+          "doc": "callback",
+          "types": [
+            "ComponentCreate"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "ComponentTypeSetDestroyFn",
+      "brief": "set the component destroy callback",
+      "description": "Set the component destroy callback. Called when a component instance is destroyed.",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "type",
+          "doc": "the type",
+          "types": [
+            "ComponentType*"
+          ]
+        },
+        {
+          "name": "fn",
+          "doc": "callback",
+          "types": [
+            "ComponentDestroy"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "ComponentTypeSetInitFn",
+      "brief": "set the component init callback",
+      "description": "Set the component init callback. Called on each gameobject's components, during a gameobject's initialization.",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "type",
+          "doc": "the type",
+          "types": [
+            "ComponentType*"
+          ]
+        },
+        {
+          "name": "fn",
+          "doc": "callback",
+          "types": [
+            "ComponentInit"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "ComponentTypeSetFinalFn",
+      "brief": "set the component finalize callback",
+      "description": "Set the component finalize callback. Called on each gameobject's components, during a gameobject's finalization.",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "type",
+          "doc": "the type",
+          "types": [
+            "ComponentType*"
+          ]
+        },
+        {
+          "name": "fn",
+          "doc": "callback",
+          "types": [
+            "ComponentFinal"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "ComponentTypeSetAddToUpdateFn",
+      "brief": "set the component add-to-update callback",
+      "description": "Set the component add-to-update callback. Called for each component instal, when the game object is spawned.",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "type",
+          "doc": "the type",
+          "types": [
+            "ComponentType*"
+          ]
+        },
+        {
+          "name": "fn",
+          "doc": "callback",
+          "types": [
+            "ComponentAddToUpdate"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "ComponentTypeSetGetFn",
+      "brief": "set the component get callback",
+      "description": "Set the component get callback. Called when the scripts want to retrieve the individual component user data given an url.",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "type",
+          "doc": "the type",
+          "types": [
+            "ComponentType*"
+          ]
+        },
+        {
+          "name": "fn",
+          "doc": "callback",
+          "types": [
+            "ComponentGet"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "ComponentTypeSetRenderFn",
+      "brief": "set the component render callback",
+      "description": "Set the component render callback. Called when it's time to render all component instances.",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "type",
+          "doc": "the type",
+          "types": [
+            "ComponentType*"
+          ]
+        },
+        {
+          "name": "fn",
+          "doc": "callback",
+          "types": [
+            "ComponentsRender"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "ComponentTypeSetUpdateFn",
+      "brief": "set the component update callback",
+      "description": "Set the component update callback. Called when it's time to update all component instances.",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "type",
+          "doc": "the type",
+          "types": [
+            "ComponentType*"
+          ]
+        },
+        {
+          "name": "fn",
+          "doc": "callback",
+          "types": [
+            "ComponentsUpdate"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "ComponentTypeSetFixedUpdateFn",
+      "brief": "set the component update callback",
+      "description": "Set the component update callback. Called when it's time to update all component instances.",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "type",
+          "doc": "the type",
+          "types": [
+            "ComponentType*"
+          ]
+        },
+        {
+          "name": "fn",
+          "doc": "callback",
+          "types": [
+            "ComponentsFixedUpdate"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "ComponentTypeSetPostUpdateFn",
+      "brief": "set the component post update callback",
+      "description": "Set the component post update callback. Called for each collection after the update, before the render.",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "type",
+          "doc": "the type",
+          "types": [
+            "ComponentType*"
+          ]
+        },
+        {
+          "name": "fn",
+          "doc": "callback",
+          "types": [
+            "ComponentsPostUpdate"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "ComponentTypeSetOnMessageFn",
+      "brief": "set the component on-message callback",
+      "description": "Set the component on-message callback. Called multiple times per frame, to flush messages.",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "type",
+          "doc": "the type",
+          "types": [
+            "ComponentType*"
+          ]
+        },
+        {
+          "name": "fn",
+          "doc": "callback",
+          "types": [
+            "ComponentOnMessage"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "ComponentTypeSetOnInputFn",
+      "brief": "set the component on-input callback",
+      "description": "Set the component on-input callback. Called once per frame, before the Update function.",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "type",
+          "doc": "the type",
+          "types": [
+            "ComponentType*"
+          ]
+        },
+        {
+          "name": "fn",
+          "doc": "callback",
+          "types": [
+            "ComponentOnInput"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "ComponentTypeSetOnReloadFn",
+      "brief": "set the component on-reload callback",
+      "description": "Set the component on-reload callback. Called when the resource of a component instance is reloaded.",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "type",
+          "doc": "the type",
+          "types": [
+            "ComponentType*"
+          ]
+        },
+        {
+          "name": "fn",
+          "doc": "callback",
+          "types": [
+            "ComponentOnReload"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "ComponentTypeSetSetPropertiesFn",
+      "brief": "set the component set properties callback",
+      "description": "Set the component set properties callback. Called when the component instance is being spwned.",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "type",
+          "doc": "the type",
+          "types": [
+            "ComponentType*"
+          ]
+        },
+        {
+          "name": "fn",
+          "doc": "callback",
+          "types": [
+            "ComponentSetProperties"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "ComponentTypeSetGetPropertyFn",
+      "brief": "set the component get property callback",
+      "description": "Set the component get property callback. Called when accessing a property via <code>go.get()</code>",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "type",
+          "doc": "the type",
+          "types": [
+            "ComponentType*"
+          ]
+        },
+        {
+          "name": "fn",
+          "doc": "callback",
+          "types": [
+            "ComponentGetProperty"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "ComponentTypeSetSetPropertyFn",
+      "brief": "set the component set property callback",
+      "description": "Set the component set property callback. Called when accessing a property via <code>go.set()</code>",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "type",
+          "doc": "the type",
+          "types": [
+            "ComponentType*"
+          ]
+        },
+        {
+          "name": "fn",
+          "doc": "callback",
+          "types": [
+            "ComponentSetProperty"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "ComponentTypeSetContext",
+      "brief": "set the component type global context",
+      "description": "Set the component type global context. Usually set when registering the component type.",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "type",
+          "doc": "the type",
+          "types": [
+            "ComponentType*"
+          ]
+        },
+        {
+          "name": "context",
+          "doc": "component type global context",
+          "types": [
+            "void*"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "ComponentTypeGetContext",
+      "brief": "get the component type global context",
+      "description": "get the component type global context",
+      "returnvalues": [
+        {
+          "name": "context",
+          "doc": "component type global context",
+          "types": [
+            "void*"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "type",
+          "doc": "the type",
+          "types": [
+            "ComponentType*"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "ComponentTypeSetReadsTransforms",
+      "brief": "set the component type transform dependency flag",
+      "description": "Set the component type transform dependency flag.\nIf this flag is set, it might trigger an dmGameObject::UpdateTransforms() (if there are dirty transforms)",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "type",
+          "doc": "the type",
+          "types": [
+            "ComponentType*"
+          ]
+        },
+        {
+          "name": "reads_transforms",
+          "doc": "transform dependency flag",
+          "types": [
+            "bool"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "ComponentTypeSetPrio",
+      "brief": "set the component type prio order",
+      "description": "Set the component type prio order. Defines the update order of the component types.",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "type",
+          "doc": "the type",
+          "types": [
+            "ComponentType*"
+          ]
+        },
+        {
+          "name": "prio",
+          "doc": "prio order",
+          "types": [
+            "uint16_t"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "ComponentTypeSetHasUserData",
+      "brief": "set the component type need for a per component instance user data",
+      "description": "Set the component type need for a per component instance user data. Defaults to true.",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "type",
+          "doc": "the type",
+          "types": [
+            "ComponentType*"
+          ]
+        },
+        {
+          "name": "has_user_data",
+          "doc": "does each component instance need user data",
+          "types": [
+            "bool"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "ComponentTypeSetChildIteratorFn",
+      "brief": "set the component child iterator function",
+      "description": "set the component child iterator function. Called during inspection",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "type",
+          "doc": "the type",
+          "types": [
+            "ComponentType*"
+          ]
+        },
+        {
+          "name": "fn",
+          "doc": "child iterator function",
+          "types": [
+            "FIteratorChildren"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "ComponentTypeSetPropertyIteratorFn",
+      "brief": "set the component property iterator function",
+      "description": "set the component property iterator function. Called during inspection",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "type",
+          "doc": "the type",
+          "types": [
+            "ComponentType*"
+          ]
+        },
+        {
+          "name": "fn",
+          "doc": "property iterator function",
+          "types": [
+            "FIteratorProperties"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "STRUCT",
+      "name": "ComponentTypeCreateCtx",
+      "brief": "Context used when registering a new component type",
+      "description": "Context used when registering a new component type",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "m_Config",
+          "doc": "The config file",
+          "type": "dmConfigFile::HConfig"
+        },
+        {
+          "name": "m_Factory",
+          "doc": "The resource factory",
+          "type": "dmResource::HFactory"
+        },
+        {
+          "name": "m_Register",
+          "doc": "The game object registry",
+          "type": "dmGameObject::HRegister"
+        },
+        {
+          "name": "m_Script",
+          "doc": "The shared script context",
+          "type": "dmScript::HContext"
+        },
+        {
+          "name": "m_Contexts",
+          "doc": "Mappings between names and contextx",
+          "type": "dmHashTable64<void*>"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "INVALID_INSTANCE_POOL_INDEX",
+      "brief": "Value for an invalid instance index, this must be ...",
+      "description": "Value for an invalid instance index, this must be the same as defined in gamesys_ddf.proto for Create#index.",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "TYPEDEF",
+      "name": "HInstance",
+      "brief": "Gameobject instance handle",
+      "description": "Gameobject instance handle",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "TYPEDEF",
+      "name": "HScript",
+      "brief": "Script handle",
+      "description": "Script handle",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "TYPEDEF",
+      "name": "HScriptInstance",
+      "brief": "Script instance handle",
+      "description": "Script instance handle",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "TYPEDEF",
+      "name": "HRegister",
+      "brief": "Collection register.",
+      "description": "Collection register.",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "TYPEDEF",
+      "name": "HCollection",
+      "brief": "Gameobject collection handle",
+      "description": "Gameobject collection handle",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "TYPEDEF",
+      "name": "HPrototype",
+      "brief": "Gameobject prototype handle",
+      "description": "Gameobject prototype handle",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "TYPEDEF",
+      "name": "HProperties",
+      "brief": "Gameobject properties handle",
+      "description": "Gameobject properties handle",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "ENUM",
+      "name": "Result",
+      "brief": "result enumeration",
+      "description": "Result enumeration.",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "dmGameObject::RESULT_OK",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::RESULT_OUT_OF_RESOURCES",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::RESULT_ALREADY_REGISTERED",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::RESULT_IDENTIFIER_IN_USE",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::RESULT_IDENTIFIER_ALREADY_SET",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::RESULT_COMPONENT_NOT_FOUND",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::RESULT_MAXIMUM_HIEARCHICAL_DEPTH",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::RESULT_INVALID_OPERATION",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::RESULT_RESOURCE_TYPE_NOT_FOUND",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::RESULT_BUFFER_OVERFLOW",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::RESULT_UNKNOWN_ERROR",
+          "doc": "",
+          "type": ""
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "ENUM",
+      "name": "PropertyType",
+      "brief": "property types",
+      "description": "Property types.",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "dmGameObject::PROPERTY_TYPE_NUMBER",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::PROPERTY_TYPE_HASH",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::PROPERTY_TYPE_URL",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::PROPERTY_TYPE_VECTOR3",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::PROPERTY_TYPE_VECTOR4",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::PROPERTY_TYPE_QUAT",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::PROPERTY_TYPE_BOOLEAN",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::PROPERTY_TYPE_COUNT",
+          "doc": "",
+          "type": ""
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "ENUM",
+      "name": "PropertyResult",
+      "brief": "property result",
+      "description": "Property result.",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "dmGameObject::PROPERTY_RESULT_OK",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::PROPERTY_RESULT_NOT_FOUND",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::PROPERTY_RESULT_INVALID_FORMAT",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::PROPERTY_RESULT_UNSUPPORTED_TYPE",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::PROPERTY_RESULT_TYPE_MISMATCH",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::PROPERTY_RESULT_COMP_NOT_FOUND",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::PROPERTY_RESULT_INVALID_INSTANCE",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::PROPERTY_RESULT_BUFFER_OVERFLOW",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::PROPERTY_RESULT_UNSUPPORTED_VALUE",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::PROPERTY_RESULT_UNSUPPORTED_OPERATION",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::PROPERTY_RESULT_RESOURCE_NOT_FOUND",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::PROPERTY_RESULT_INVALID_INDEX",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::PROPERTY_RESULT_INVALID_KEY",
+          "doc": "",
+          "type": ""
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "ENUM",
+      "name": "Playback",
+      "brief": "Playback type enum",
+      "description": "Playback type enum",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "ENUM",
+      "name": "CreateResult",
+      "brief": "Create result enum",
+      "description": "Create result enum.",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "dmGameObject::CREATE_RESULT_OK",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::CREATE_RESULT_UNKNOWN_ERROR",
+          "doc": "",
+          "type": ""
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "ENUM",
+      "name": "UpdateResult",
+      "brief": "Update result enum",
+      "description": "Update result enum.",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "dmGameObject::UPDATE_RESULT_OK",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::UPDATE_RESULT_UNKNOWN_ERROR",
+          "doc": "",
+          "type": ""
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "ENUM",
+      "name": "PropertyValueType",
+      "brief": "Type of property value",
+      "description": "Type of property value",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "dmGameObject::PROP_VALUE_ARRAY",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::PROP_VALUE_HASHTABLE",
+          "doc": "",
+          "type": ""
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "STRUCT",
+      "name": "PropertyOptions",
+      "brief": "Property Options",
+      "description": "Parameters variant that holds key or index for a propertys data structure.",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "m_Index",
+          "doc": "The index of the property to set, only applicable if property is array.",
+          "type": "int32_t"
+        },
+        {
+          "name": "m_Key",
+          "doc": "The key of the property to set, only applicable if property is hashtable.",
+          "type": "dmhash_t"
+        },
+        {
+          "name": "m_HasKey",
+          "doc": "A flag if structure contain m_Key value (it can't contain both)",
+          "type": "uint8_t"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "STRUCT",
+      "name": "PropertyVar",
+      "brief": "property variant",
+      "description": "Property variant that holds the data for a variable",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "m_Type",
+          "doc": "property type",
+          "type": "dmGameObject::PropertyType"
+        },
+        {
+          "name": "m_Number",
+          "doc": "A floating point value (union)",
+          "type": "double"
+        },
+        {
+          "name": "m_Hash",
+          "doc": "A hash value (union)",
+          "type": "dmhash_t"
+        },
+        {
+          "name": "m_Url",
+          "doc": "An URL value (union)",
+          "type": "const uin8_t*"
+        },
+        {
+          "name": "m_V4",
+          "doc": "A vector4 value (union)",
+          "type": "float"
+        },
+        {
+          "name": "m_Bool",
+          "doc": "A boolean value (union)",
+          "type": "bool"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "STRUCT",
+      "name": "PropertyDesc",
+      "brief": "Description of a property",
+      "description": "Description of a property.\nIf the property is externally mutable, m_ValuePtr points to the value and its length is m_ElementCount.\nm_Variant always reflects the value.",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "m_ElementIds",
+          "doc": "For composite properties (float arrays), these ids name each element",
+          "type": "dmhash_t"
+        },
+        {
+          "name": "m_Variant",
+          "doc": "Variant holding the value",
+          "type": "PropertyVar"
+        },
+        {
+          "name": "m_ValuePtr",
+          "doc": "Pointer to the value, only set for mutable values. The actual data type is described by the variant.",
+          "type": "float*"
+        },
+        {
+          "name": "m_ReadOnly",
+          "doc": "Determines whether we are permitted to write to this property.",
+          "type": "bool"
+        },
+        {
+          "name": "m_ValueType",
+          "doc": "Indicates type of the property.",
+          "type": "uint8_t"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "STRUCT",
+      "name": "UpdateContext",
+      "brief": "Update context",
+      "description": "Update context",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "m_TimeScale",
+          "doc": "the scaling factor what was applied on the dt (i.e. the collection update time scale)",
+          "type": "float"
+        },
+        {
+          "name": "m_DT",
+          "doc": "the delta time elapsed since last frame (seconds)",
+          "type": "float"
+        },
+        {
+          "name": "m_FixedUpdateFrequency",
+          "doc": "Number of of calls per second to the FixedUpdate of each component",
+          "type": "uint32_t"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "STRUCT",
+      "name": "InputAction",
+      "brief": "Container of input related information.",
+      "description": "Container of input related information.",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "ENUM",
+      "name": "InputResult",
+      "brief": "Input result enum",
+      "description": "Input result enum",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "INPUT_RESULT_IGNORED",
+          "doc": "= 0",
+          "type": ""
+        },
+        {
+          "name": "INPUT_RESULT_CONSUMED",
+          "doc": "= 1",
+          "type": ""
+        },
+        {
+          "name": "INPUT_RESULT_UNKNOWN_ERROR",
+          "doc": "= -1000",
+          "type": ""
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "GetMessageSocket",
+      "brief": "Retrieve the message socket for the specified coll...",
+      "description": "Retrieve the message socket for the specified collection.",
+      "returnvalues": [
+        {
+          "name": "socket",
+          "doc": "The message socket of the specified collection",
+          "types": [
+            "dmMessage::HSocket"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "collection",
+          "doc": "Collection handle",
+          "types": [
+            "dmGameObject::HCollection"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "GetCollection",
+      "brief": "Retrieve a collection from the specified instance",
+      "description": "Retrieve a collection from the specified instance",
+      "returnvalues": [
+        {
+          "name": "collection",
+          "doc": "The collection the specified instance belongs to",
+          "types": [
+            "dmGameObject::HInstance"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "instance",
+          "doc": "Game object instance",
+          "types": [
+            "dmGameObject::HInstance"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "New",
+      "brief": "Create a new gameobject instance",
+      "description": "Create a new gameobject instance",
+      "returnvalues": [
+        {
+          "name": "instance",
+          "doc": "New gameobject instance. NULL if any error occured",
+          "types": [
+            "dmGameObject::HInstance"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "collection",
+          "doc": "Gameobject collection",
+          "types": [
+            "dmGameObject::HCollection"
+          ]
+        },
+        {
+          "name": "prototype_name",
+          "doc": "|type: const char*] Prototype file name. May be 0.",
+          "types": [
+            ""
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "Delete",
+      "brief": "Delete gameobject instance",
+      "description": "Delete gameobject instance",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "collection",
+          "doc": "Gameobject collection",
+          "types": [
+            "dmGameObject::HCollection"
+          ]
+        },
+        {
+          "name": "instance",
+          "doc": "Gameobject instance",
+          "types": [
+            "dmGameObject::HInstance"
+          ]
+        },
+        {
+          "name": "recursive",
+          "doc": "If true, delete child hierarchy recursively in child to parent order (leaf first)",
+          "types": [
+            "bool"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "ConstructInstanceId",
+      "brief": "Construct a hash of an instance id based on the in...",
+      "description": "Construct a hash of an instance id based on the index provided.",
+      "returnvalues": [
+        {
+          "name": "id",
+          "doc": "hash of the instance id constructed.",
+          "types": [
+            "dmhash_t"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "index",
+          "doc": "The index to base the id off of.",
+          "types": [
+            "uint32_t"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "AcquireInstanceIndex",
+      "brief": "Retrieve an instance index from the index pool for...",
+      "description": "Retrieve an instance index from the index pool for the collection.",
+      "returnvalues": [
+        {
+          "name": "instance",
+          "doc": "index from the index pool of collection.",
+          "types": [
+            "uint32_t"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "collection",
+          "doc": "Collection from which to retrieve the instance index.",
+          "types": [
+            "dmGameObject::HColleciton"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "AssignInstanceIndex",
+      "brief": "Assign an index to the instance, only if the insta...",
+      "description": "Assign an index to the instance, only if the instance is not null.",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "index",
+          "doc": "The index to assign.",
+          "types": [
+            "uint32_t"
+          ]
+        },
+        {
+          "name": "instance",
+          "doc": "The instance that should be assigned the index.",
+          "types": [
+            "dmGameObject::HInstance"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "GetIdentifier",
+      "brief": "Get instance identifier",
+      "description": "Get instance identifier",
+      "returnvalues": [
+        {
+          "name": "",
+          "doc": "Identifier. dmGameObject::UNNAMED_IDENTIFIER if not set.",
+          "types": [
+            "dmhash_t"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "instance",
+          "doc": "Gameobject instance",
+          "types": [
+            "dmGameObject::HInstance"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "SetIdentifier",
+      "brief": "Set instance identifier. Must be unique within the...",
+      "description": "Set instance identifier. Must be unique within the collection.",
+      "returnvalues": [
+        {
+          "name": "result",
+          "doc": "RESULT_OK on success",
+          "types": [
+            "dmGameObject::Result"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "collection",
+          "doc": "Collection",
+          "types": [
+            "dmGameObject::HCollection"
+          ]
+        },
+        {
+          "name": "instance",
+          "doc": "Instance",
+          "types": [
+            "dmGameObject::HInstance"
+          ]
+        },
+        {
+          "name": "identifier",
+          "doc": "Identifier",
+          "types": [
+            "dmhash_t"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "GetComponentId",
+      "brief": "Get component id from component index.",
+      "description": "Get component id from component index.",
+      "returnvalues": [
+        {
+          "name": "result",
+          "doc": "RESULT_OK if the comopnent was found",
+          "types": [
+            "dmGameObject::Result"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "instance",
+          "doc": "Instance",
+          "types": [
+            "dmGameObject::HInstance"
+          ]
+        },
+        {
+          "name": "component_index",
+          "doc": "Component index",
+          "types": [
+            "uint16_t"
+          ]
+        },
+        {
+          "name": "component_id",
+          "doc": "[type: dmhash_t* Component id as out-argument",
+          "types": [
+            ""
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "SetPosition",
+      "brief": "set position",
+      "description": "Set gameobject instance position",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "instance",
+          "doc": "Gameobject instance",
+          "types": [
+            "dmGameObject::HInstance"
+          ]
+        },
+        {
+          "name": "position",
+          "doc": "New Position",
+          "types": [
+            "dmGameObject::Point3"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "GetPosition",
+      "brief": "get position",
+      "description": "Get gameobject instance position",
+      "returnvalues": [
+        {
+          "name": "",
+          "doc": "Position",
+          "types": [
+            "dmGameObject::Point3"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "instance",
+          "doc": "Gameobject instance",
+          "types": [
+            "dmGameObject::HInstance"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "SetRotation",
+      "brief": "set rotation",
+      "description": "Set gameobject instance rotation",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "instance",
+          "doc": "Gameobject instance",
+          "types": [
+            "dmGameObject::HInstance"
+          ]
+        },
+        {
+          "name": "position",
+          "doc": "New Position",
+          "types": [
+            ""
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "GetRotation",
+      "brief": "get rotation",
+      "description": "Get gameobject instance rotation",
+      "returnvalues": [
+        {
+          "name": "",
+          "doc": "rotation",
+          "types": [
+            "dmGameObject::Quat"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "instance",
+          "doc": "Gameobject instance",
+          "types": [
+            "dmGameObject::HInstance"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "SetScale",
+      "brief": "set uniform scale",
+      "description": "Set gameobject instance uniform scale",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "instance",
+          "doc": "Gameobject instance",
+          "types": [
+            "dmGameObject::HInstance"
+          ]
+        },
+        {
+          "name": "scale",
+          "doc": "New uniform scale",
+          "types": [
+            ""
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "SetScale",
+      "brief": "set scale",
+      "description": "Set gameobject instance non-uniform scale",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "instance",
+          "doc": "Gameobject instance",
+          "types": [
+            "dmGameObject::HInstance"
+          ]
+        },
+        {
+          "name": "scale",
+          "doc": "New uniform scale",
+          "types": [
+            ""
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "GetUniformScale",
+      "brief": "get uniform scale",
+      "description": "Get gameobject instance uniform scale",
+      "returnvalues": [
+        {
+          "name": "",
+          "doc": "Uniform scale",
+          "types": [
+            "float"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "instance",
+          "doc": "Gameobject instance",
+          "types": [
+            "dmGameObject::HInstance"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "GetScale",
+      "brief": "get scale",
+      "description": "Get gameobject instance scale",
+      "returnvalues": [
+        {
+          "name": "",
+          "doc": "Non-uniform scale",
+          "types": [
+            "dmGameObject::Vector3"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "instance",
+          "doc": "Gameobject instance",
+          "types": [
+            "dmGameObject::HInstance"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "GetWorldPosition",
+      "brief": "get world position",
+      "description": "Get gameobject instance world position",
+      "returnvalues": [
+        {
+          "name": "",
+          "doc": "World position",
+          "types": [
+            "dmGameObject::Point3"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "instance",
+          "doc": "Gameobject instance",
+          "types": [
+            "dmGameObject::HInstance"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "GetWorldRotation",
+      "brief": "get world rotation",
+      "description": "Get gameobject instance world rotation",
+      "returnvalues": [
+        {
+          "name": "",
+          "doc": "World rotation",
+          "types": [
+            "dmGameObject::Quat"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "instance",
+          "doc": "Gameobject instance",
+          "types": [
+            "dmGameObject::HInstance"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "GetWorldScale",
+      "brief": "get world scale",
+      "description": "Get game object instance world transform",
+      "returnvalues": [
+        {
+          "name": "",
+          "doc": "World scale",
+          "types": [
+            "dmGameObject::Vector3"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "instance",
+          "doc": "Gameobject instance",
+          "types": [
+            "dmGameObject::HInstance"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "GetWorldUniformScale",
+      "brief": "get world uniform scale",
+      "description": "Get game object instance uniform scale",
+      "returnvalues": [
+        {
+          "name": "",
+          "doc": "World uniform scale",
+          "types": [
+            "float"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "instance",
+          "doc": "Gameobject instance",
+          "types": [
+            "dmGameObject::HInstance"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "GetWorldMatrix",
+      "brief": "get world matrix",
+      "description": "Get game object instance world transform as Matrix4.",
+      "returnvalues": [
+        {
+          "name": "",
+          "doc": "World transform matrix.",
+          "types": [
+            "dmGameObject::MAtrix4"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "instance",
+          "doc": "Gameobject instance",
+          "types": [
+            "dmGameObject::HInstance"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "GetWorldTransform",
+      "brief": "get world transform",
+      "description": "Get game object instance world transform",
+      "returnvalues": [
+        {
+          "name": "",
+          "doc": "World transform",
+          "types": [
+            "dmTransform::Transform"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "instance",
+          "doc": "Gameobject instance",
+          "types": [
+            "dmGameObject::HInstance"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "SetBone",
+      "brief": "Set whether the instance should be flagged as a bo...",
+      "description": "Set whether the instance should be flagged as a bone.\nInstances flagged as bones can have their transforms updated in a batch through SetBoneTransforms.\nUsed for animated skeletons.",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "instance",
+          "doc": "Instance",
+          "types": [
+            "HImstance"
+          ]
+        },
+        {
+          "name": "bone",
+          "doc": "true if the instance is a bone",
+          "types": [
+            "bool"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "IsBone",
+      "brief": "Check whether the instance is flagged as a bone.",
+      "description": "Check whether the instance is flagged as a bone.",
+      "returnvalues": [
+        {
+          "name": "result",
+          "doc": "True if flagged as a bone",
+          "types": [
+            "bool"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "instance",
+          "doc": "Instance",
+          "types": [
+            "HImstance"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "SetBoneTransforms",
+      "brief": "Set the local transforms recursively of all instan...",
+      "description": "Set the local transforms recursively of all instances flagged as bones, starting with component with id.\nThe order of the transforms is depth-first.",
+      "returnvalues": [
+        {
+          "name": "Number",
+          "doc": "of instances found",
+          "types": [
+            ""
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "instance",
+          "doc": "First Instance of the hierarchy to set",
+          "types": [
+            "HImstance"
+          ]
+        },
+        {
+          "name": "component_transform",
+          "doc": "the transform for component root",
+          "types": [
+            "dmTransform::Transform"
+          ]
+        },
+        {
+          "name": "transforms",
+          "doc": "Array of transforms to set depth-first for the bone instances",
+          "types": [
+            ""
+          ]
+        },
+        {
+          "name": "transform_count",
+          "doc": "Size of the transforms array",
+          "types": [
+            ""
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "DeleteBones",
+      "brief": "Recursively delete all instances flagged as bones ...",
+      "description": "Recursively delete all instances flagged as bones under the given parent instance.\nThe order of deletion is depth-first, so that the children are deleted before the parents.",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "parent",
+          "doc": "Parent instance of the hierarchy",
+          "types": [
+            "HInstance"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "STRUCT",
+      "name": "SceneNode",
+      "brief": "scene graph traversal node",
+      "description": "Opaque struct that holds info about the current node",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "STRUCT",
+      "name": "SceneNodeIterator",
+      "brief": "scene graph traversal iterator",
+      "description": "Opaque struct that holds info about the current position when traversing the scene",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "TraverseGetRoot",
+      "brief": "Gets the top node of the whole game (the main coll...",
+      "description": "Gets the top node of the whole game (the main collection)",
+      "returnvalues": [
+        {
+          "name": "result",
+          "doc": "True if successful",
+          "types": [
+            "bool"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "regist",
+          "doc": "the full gameobject register",
+          "types": [
+            "dmGameObject::HRegister"
+          ]
+        },
+        {
+          "name": "node",
+          "doc": "the node to inspect",
+          "types": [
+            "dmGameObject::HRegister"
+          ]
+        }
+      ],
+      "examples": "The following examples show how to iterate over currently loaded scene graph\n<div class=\"codehilite\"><pre><span></span><code><span class=\"kt\">void</span><span class=\"w\"> </span><span class=\"nf\">OutputNode</span><span class=\"p\">(</span><span class=\"n\">dmGameObject</span><span class=\"o\">::</span><span class=\"n\">SceneNode</span><span class=\"o\">*</span><span class=\"w\"> </span><span class=\"n\">node</span><span class=\"p\">)</span><span class=\"w\"> </span><span class=\"p\">{</span><span class=\"w\"></span>\n<span class=\"w\">    </span><span class=\"n\">dmGameObject</span><span class=\"o\">::</span><span class=\"n\">SceneNodeIterator</span><span class=\"w\"> </span><span class=\"n\">it</span><span class=\"w\"> </span><span class=\"o\">=</span><span class=\"w\"> </span><span class=\"n\">dmGameObject</span><span class=\"o\">::</span><span class=\"n\">TraverseIterateChildren</span><span class=\"p\">(</span><span class=\"n\">node</span><span class=\"p\">);</span><span class=\"w\"></span>\n<span class=\"w\">    </span><span class=\"k\">while</span><span class=\"p\">(</span><span class=\"n\">dmGameObject</span><span class=\"o\">::</span><span class=\"n\">TraverseIterateNext</span><span class=\"p\">(</span><span class=\"o\">&amp;</span><span class=\"n\">it</span><span class=\"p\">))</span><span class=\"w\"></span>\n<span class=\"w\">    </span><span class=\"p\">{</span><span class=\"w\"></span>\n<span class=\"w\">        </span><span class=\"n\">OutputProperties</span><span class=\"p\">(</span><span class=\"o\">&amp;</span><span class=\"n\">it</span><span class=\"p\">.</span><span class=\"n\">m_Node</span><span class=\"p\">);</span><span class=\"w\"> </span><span class=\"c1\">// see dmGameObject::TraverseIterateProperties()</span>\n<span class=\"w\">        </span><span class=\"n\">OutputNode</span><span class=\"p\">(</span><span class=\"o\">&amp;</span><span class=\"n\">it</span><span class=\"p\">.</span><span class=\"n\">m_Node</span><span class=\"p\">);</span><span class=\"w\"></span>\n<span class=\"w\">    </span><span class=\"p\">}</span><span class=\"w\"></span>\n<span class=\"p\">}</span><span class=\"w\"></span>\n\n<span class=\"kt\">bool</span><span class=\"w\"> </span><span class=\"nf\">OutputScene</span><span class=\"p\">(</span><span class=\"n\">HRegister</span><span class=\"w\"> </span><span class=\"n\">regist</span><span class=\"p\">)</span><span class=\"w\"> </span><span class=\"p\">{</span><span class=\"w\"></span>\n<span class=\"w\">    </span><span class=\"n\">dmGameObject</span><span class=\"o\">::</span><span class=\"n\">SceneNode</span><span class=\"w\"> </span><span class=\"n\">root</span><span class=\"p\">;</span><span class=\"w\"></span>\n<span class=\"w\">    </span><span class=\"k\">if</span><span class=\"w\"> </span><span class=\"p\">(</span><span class=\"o\">!</span><span class=\"n\">dmGameObject</span><span class=\"o\">::</span><span class=\"n\">TraverseGetRoot</span><span class=\"p\">(</span><span class=\"n\">regist</span><span class=\"p\">,</span><span class=\"w\"> </span><span class=\"o\">&amp;</span><span class=\"n\">root</span><span class=\"p\">))</span><span class=\"w\"></span>\n<span class=\"w\">        </span><span class=\"k\">return</span><span class=\"w\"> </span><span class=\"nb\">false</span><span class=\"p\">;</span><span class=\"w\"></span>\n<span class=\"w\">    </span><span class=\"n\">OutputNode</span><span class=\"p\">(</span><span class=\"o\">&amp;</span><span class=\"n\">node</span><span class=\"p\">);</span><span class=\"w\"></span>\n<span class=\"p\">}</span><span class=\"w\"></span>\n</code></pre></div>",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "TraverseIterateChildren",
+      "brief": "Get a scene node iterator for the nodes' children",
+      "description": "Get a scene node iterator for the nodes' children",
+      "returnvalues": [
+        {
+          "name": "iterator",
+          "doc": "the iterator",
+          "types": [
+            "dmGameObject::SceneNodeIterator"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "node",
+          "doc": "the parent node",
+          "types": [
+            "dmGameObject::SceneNode*"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "TraverseIterateNext",
+      "brief": "Step a scene node iterator to the next sibling",
+      "description": "Step a scene node iterator to the next sibling",
+      "returnvalues": [
+        {
+          "name": "result",
+          "doc": "true if successful. false if the iterator is finished",
+          "types": [
+            "bool"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "it",
+          "doc": "the iterator",
+          "types": [
+            "dmGameObject::SceneNodeIterator*"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "ENUM",
+      "name": "SceneNodePropertyType",
+      "brief": "scene node property types",
+      "description": "scene node property types",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "dmGameObject::SCENE_NODE_PROPERTY_TYPE_NUMBER",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::SCENE_NODE_PROPERTY_TYPE_HASH",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::SCENE_NODE_PROPERTY_TYPE_URL",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::SCENE_NODE_PROPERTY_TYPE_VECTOR3",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::SCENE_NODE_PROPERTY_TYPE_VECTOR4",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::SCENE_NODE_PROPERTY_TYPE_QUAT",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::SCENE_NODE_PROPERTY_TYPE_BOOLEAN",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::SCENE_NODE_PROPERTY_TYPE_TEXT",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "dmGameObject::SCENE_NODE_PROPERTY_TYPE_COUNT",
+          "doc": "",
+          "type": ""
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "STRUCT",
+      "name": "SceneNodeProperty",
+      "brief": "scene traversal node property",
+      "description": "Struct that holds info about the current position when traversing the scene",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "m_NameHash",
+          "doc": "name",
+          "type": "dmhash_t"
+        },
+        {
+          "name": "m_Type",
+          "doc": "type",
+          "type": "dmGameObject::SceneNodePropertyType"
+        },
+        {
+          "name": "m_Value",
+          "doc": "value\n<dl>\n<dt><code>m_Number</code></dt>\n<dd><span class=\"type\">double</span> floating point number</dd>\n<dt><code>m_Hash</code></dt>\n<dd><span class=\"type\">dmhash_t</span> The hashed value.</dd>\n<dt><code>m_URL</code></dt>\n<dd><span class=\"type\">char[1024</span>] The text representation of the url (if reverse hashes are enabled)</dd>\n<dt><code>m_V4</code></dt>\n<dd><span class=\"type\">float[4</span>] Used for Vector3, Vector4 and Quat</dd>\n<dt><code>m_Bool</code></dt>\n<dd><span class=\"type\">bool</span> A boolean value</dd>\n<dt><code>m_Text</code></dt>\n<dd><span class=\"type\">const char*</span> Text from a text property</dd>\n</dl>",
+          "type": "union"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "STRUCT",
+      "name": "SceneNodePropertyIterator",
+      "brief": "scene traversal node property",
+      "description": "Holds the property",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "m_Property",
+          "doc": "property",
+          "type": "dmGameObject::SceneNodeProperty"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "TraverseIterateProperties",
+      "brief": "Create a scene node traversal property iterator",
+      "description": "Create a scene node traversal property iterator",
+      "returnvalues": [
+        {
+          "name": "iterator",
+          "doc": "the property iterator",
+          "types": [
+            "dmGameObject::SceneNodePropertyIterator"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "node",
+          "doc": "the node to inspect",
+          "types": [
+            "dmGameObject::SceneNode*"
+          ]
+        }
+      ],
+      "examples": "The following examples show how to iterate over the properties of a node\n<div class=\"codehilite\"><pre><span></span><code><span class=\"n\">dmGameObject</span><span class=\"o\">::</span><span class=\"n\">SceneNodePropertyIterator</span><span class=\"w\"> </span><span class=\"n\">pit</span><span class=\"w\"> </span><span class=\"o\">=</span><span class=\"w\"> </span><span class=\"n\">TraverseIterateProperties</span><span class=\"p\">(</span><span class=\"n\">node</span><span class=\"p\">);</span><span class=\"w\"></span>\n<span class=\"k\">while</span><span class=\"p\">(</span><span class=\"n\">dmGameObject</span><span class=\"o\">::</span><span class=\"n\">TraverseIteratePropertiesNext</span><span class=\"p\">(</span><span class=\"o\">&amp;</span><span class=\"n\">pit</span><span class=\"p\">))</span><span class=\"w\"></span>\n<span class=\"p\">{</span><span class=\"w\"></span>\n<span class=\"w\">    </span><span class=\"k\">const</span><span class=\"w\"> </span><span class=\"kt\">char</span><span class=\"o\">*</span><span class=\"w\"> </span><span class=\"n\">name</span><span class=\"w\"> </span><span class=\"o\">=</span><span class=\"w\"> </span><span class=\"n\">dmHashReverseSafe64</span><span class=\"p\">(</span><span class=\"n\">pit</span><span class=\"p\">.</span><span class=\"n\">m_Property</span><span class=\"p\">.</span><span class=\"n\">m_NameHash</span><span class=\"p\">);</span><span class=\"w\"></span>\n<span class=\"w\">    </span><span class=\"k\">switch</span><span class=\"p\">(</span><span class=\"n\">pit</span><span class=\"p\">.</span><span class=\"n\">m_Property</span><span class=\"p\">.</span><span class=\"n\">m_Type</span><span class=\"p\">)</span><span class=\"w\"></span>\n<span class=\"w\">    </span><span class=\"p\">{</span><span class=\"w\"></span>\n<span class=\"w\">    </span><span class=\"k\">case</span><span class=\"w\"> </span><span class=\"no\">dmGameObject</span><span class=\"o\">::</span><span class=\"no\">SCENE_NODE_PROPERTY_TYPE_NUMBER</span><span class=\"p\">:</span><span class=\"w\"> </span><span class=\"p\">...</span><span class=\"w\"></span>\n<span class=\"w\">    </span><span class=\"p\">...</span><span class=\"w\"></span>\n<span class=\"w\">    </span><span class=\"p\">}</span><span class=\"w\"></span>\n<span class=\"p\">}</span><span class=\"w\"></span>\n</code></pre></div>",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "TraverseIteratePropertiesNext",
+      "brief": "Steps the scene node traversal property iterator t...",
+      "description": "Steps the scene node traversal property iterator to the next property",
+      "returnvalues": [
+        {
+          "name": "finished",
+          "doc": "True if the iterator it valid, false if the iterator is finished.",
+          "types": [
+            "bool"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "it",
+          "doc": "the iterator",
+          "types": [
+            "dmGameObject::SceneNodePropertyIterator*"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "GetComponentFromLua",
+      "brief": "Get component user data from a url",
+      "description": "Get component user data from a url.\nThe object referenced by the url must be in the same collection as the caller.",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "L",
+          "doc": "Lua state",
+          "types": [
+            "lua_State*"
+          ]
+        },
+        {
+          "name": "index",
+          "doc": "index to argument (a url)",
+          "types": [
+            "lua_State*"
+          ]
+        },
+        {
+          "name": "component_type",
+          "doc": "the call will fail if the found component does not have the specified extension",
+          "types": [
+            "const char*"
+          ]
+        },
+        {
+          "name": "world",
+          "doc": "The world associated owning the component. May be 0",
+          "types": [
+            "void**"
+          ]
+        },
+        {
+          "name": "component",
+          "doc": "The component data associated with the url. May be 0",
+          "types": [
+            "void**"
+          ]
+        },
+        {
+          "name": "url",
+          "doc": "The resolved url. May be 0",
+          "types": [
+            "dmMessage::URL*"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "dmScript::PostDDF",
+      "brief": "Sends a script message",
+      "description": "Sends a script message. Wraps the message in a dmGameSystemDDF::ScriptMessage struct.",
+      "returnvalues": [
+        {
+          "name": "success",
+          "doc": "true if successful",
+          "types": [
+            "bool"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "message",
+          "doc": "The ddf message to send",
+          "types": [
+            "TDDFType*"
+          ]
+        },
+        {
+          "name": "sender",
+          "doc": "The sender",
+          "types": [
+            "dmMessage::Message*"
+          ]
+        },
+        {
+          "name": "receiver",
+          "doc": "The receiver",
+          "types": [
+            "dmMessage::Message*"
+          ]
+        },
+        {
+          "name": "function_ref",
+          "doc": "The function ref. 0 wil cause the \"on_message\" to be called",
+          "types": [
+            "int"
+          ]
+        },
+        {
+          "name": "unref_function_after_call",
+          "doc": "call dmScript::UnrefInInstance on the function_ref after the dmScript::PCall is made",
+          "types": [
+            "bool"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    }
+  ],
+  "info": {
+    "namespace": "dmGameObject",
+    "name": "Script",
+    "brief": "SDK GameObject script API documentation",
+    "description": "<span class=\"file\"><dmsdk/gameobject/script.h></span>",
+    "path": "",
+    "file": ""
+  }
+}

@@ -1,0 +1,172 @@
+- desc: Render constants handle
+  name: HComponentRenderConstants
+  type: typedef
+- desc: Create a new HComponentRenderConstants container
+  name: CreateRenderConstants
+  parameters: []
+  returns:
+  - desc: ''
+    type: dmGameSystem::HComponentRenderConstants
+  type: function
+- desc: Destroys a render constants container
+  name: DestroyRenderConstants
+  parameters:
+  - desc: (must not be 0)
+    name: constants
+    type: dmGameSystem::HComponentRenderConstants
+  type: function
+- desc: Destroys a render constants container
+  name: GetRenderConstant
+  parameters:
+  - desc: the constants
+    name: constants
+    type: dmGameSystem::HComponentRenderConstants
+  - desc: the hashed name of the property
+    name: name_hash
+    type: dmhash_t
+  - desc: the pointer where to store the constant
+    name: out_constant
+    type: dmRender::Constant**
+  returns:
+  - desc: returns true if the constant exists
+    type: bool
+  type: function
+- desc: Get the number of render constants
+  name: GetRenderConstantCount
+  parameters:
+  - desc: the constants
+    name: constants
+    type: dmGameSystem::HComponentRenderConstants
+  returns:
+  - desc: returns the number of set constants
+    type: uint32_t
+  type: function
+- desc: Get a render constant by index
+  name: GetRenderConstant
+  parameters:
+  - desc: the constants
+    name: constants
+    type: dmGameSystem::HComponentRenderConstants
+  - desc: the index
+    name: index
+    type: uint32_t
+  returns:
+  - desc: the pointer where to store the constant
+    type: dmRender::HConstant
+  type: function
+- desc: Set a render constant by name. The constant must exist in the material
+  name: SetRenderConstant
+  parameters:
+  - desc: the render constants buffer
+    name: constants
+    type: dmGameSystem::HComponentRenderConstants
+  - desc: the material to get default values from if constant didn't already exist
+      in the render constants buffer
+    name: material
+    type: dmRender::HMaterial
+  - desc: the hashed name of the constant
+    name: name_hash
+    type: dmhash_t
+  - desc: index of the constant value to set, if the constant is an array
+    name: value_index
+    type: uint32_t
+  - desc: pointer to the index of the element (in range [0,3]). May be 0
+    name: element_index
+    type: uint32_t*
+  - desc: the constant value
+    name: var
+    type: const dmGameObject::PropertyVar&
+  type: function
+- desc: Set a render constant by name. The constant must exist in the material
+  name: SetRenderConstant
+  parameters:
+  - desc: the constants
+    name: constants
+    type: dmGameSystem::HComponentRenderConstants
+  - desc: the hashed name of the constant
+    name: name_hash
+    type: dmhash_t
+  - desc: the values
+    name: values
+    type: dmVMath::Vector4*
+  - desc: number of values in the array
+    name: num_values
+    type: uint32_t
+  type: function
+- desc: Removes a render constant from the container
+  name: ClearRenderConstant
+  parameters:
+  - desc: the constants
+    name: constants
+    type: dmGameSystem::HComponentRenderConstants
+  - desc: the hashed name of the constant
+    name: name_hash
+    type: dmhash_t
+  returns:
+  - desc: non zero if the constant was removed
+    type: int
+  type: function
+- desc: Hashes the constants
+  name: HashRenderConstants
+  parameters:
+  - desc: the constants
+    name: constants
+    type: dmGameSystem::HComponentRenderConstants
+  - desc: the hash state to update
+    name: state
+    type: HashState32*
+  type: function
+- desc: check if the constants have changed
+  name: AreRenderConstantsUpdated
+  parameters:
+  - desc: the constants
+    name: constants
+    type: dmGameSystem::HComponentRenderConstants
+  returns:
+  - desc: non zero if the constants were changed
+    type: int
+  type: function
+- desc: set the constants of a render object
+  name: EnableRenderObjectConstants
+  parameters:
+  - desc: the render object
+    name: ro
+    type: dmRender::RenderObject*
+  - desc: the constants
+    name: constants
+    type: dmGameSystem::HComponentRenderConstants
+  type: function
+- desc: Used in GetMaterialConstant to resolve a render constant's value
+  name: CompGetConstantCallback
+  type: typedef
+- desc: Used in SetMaterialConstant to set a render constant's value
+  name: CompSetConstantCallback
+  type: typedef
+- desc: ''
+  name: GuiNodeTypeDestroyFunction
+  parameters: []
+  type: function
+- desc: ''
+  name: GuiNodeTypeDestroyFunction
+  parameters: []
+  type: function
+- desc: Registers a new gui node type to the Gui component
+  name: DM_DECLARE_COMPGUI_TYPE
+  parameters:
+  - desc: The unique C++ symbol name
+    name: symbol
+    type: C++ symbol name
+  - desc: The name of the node type
+    name: name
+    type: const char*
+  - desc: the create function
+    name: type_create_fn
+    type: GuiNodeTypeCreateFunction
+  - desc: the destroy function. May be 0
+    name: type_destroy_fn
+    type: GuiNodeTypeDestroyFunction
+  type: function
+- desc: Built-in scripting functions.
+  members: []
+  name: dmGameSystem
+  type: table

@@ -1,0 +1,143 @@
+- desc: 'If DLIB_LOG_DOMAIN is defined the value of the defined is printed after severity.
+
+    Otherwise DEFAULT will be printed.'
+  name: DLIB_LOG_DOMAIN
+  type: macro
+- desc: Log severity
+  name: LogSeverity
+  type: enum
+- desc: Logging functions.
+  members:
+  - desc: 'Debug messages are temporary log instances used when debugging a certain
+      behavior
+
+      Use dmLogOnceDebug for one-shot logging'
+    name: ebug
+    parameters:
+    - desc: Format string
+      name: format
+      type: const char*
+    - desc: Format string args (variable arg list)
+      name: args
+      type: '...'
+    returns:
+    - desc: ''
+      type: ''
+    type: function
+  - desc: 'Debug messages are temporary log instances used when debugging a certain
+      behavior
+
+      Use dmLogOnceUserDebug for one-shot logging'
+    name: serDebug
+    parameters:
+    - desc: Format string
+      name: format
+      type: const char*
+    - desc: Format string args (variable arg list)
+      name: args
+      type: '...'
+    returns:
+    - desc: ''
+      type: ''
+    type: function
+  - desc: 'Info messages are used to inform the developers of relevant information
+
+      Use dmLogOnceInfo for one-shot logging'
+    name: nfo
+    parameters:
+    - desc: Format string
+      name: format
+      type: const char*
+    - desc: Format string args (variable arg list)
+      name: args
+      type: '...'
+    returns:
+    - desc: ''
+      type: ''
+    type: function
+  - desc: 'Warning messages are used to inform the developers about potential problems
+      which can cause errors.
+
+      Use dmLogOnceWarning for one-shot logging'
+    name: arning
+    parameters:
+    - desc: Format string
+      name: format
+      type: const char*
+    - desc: Format string args (variable arg list)
+      name: args
+      type: '...'
+    returns:
+    - desc: ''
+      type: ''
+    type: function
+  - desc: 'Error messages are used in cases where an recoverable error has occurred.
+
+      Use dmLogOnceError for one-shot logging'
+    name: rror
+    parameters:
+    - desc: Format string
+      name: format
+      type: const char*
+    - desc: Format string args (variable arg list)
+      name: args
+      type: '...'
+    returns:
+    - desc: ''
+      type: ''
+    type: function
+  - desc: 'Fatal messages are used in cases where an unrecoverable error has occurred.
+
+      Use dmLogOnceFatal for one-shot logging'
+    name: atal
+    parameters:
+    - desc: Format string
+      name: format
+      type: const char*
+    - desc: Format string args (variable arg list)
+      name: args
+      type: '...'
+    returns:
+    - desc: ''
+      type: ''
+    type: function
+  - desc: 'dmLog listener function type. Provides all logs from dmLog* functions and
+      print/pprint Lua functions.
+
+      Used with dmLogRegisterListener() and dmLogUnregisterListener()'
+    name: LogListener
+    type: typedef
+  - desc: 'Registers a log listener.
+
+      This listener receive logs even in release bundle.'
+    name: egisterListener
+    parameters:
+    - desc: ''
+      name: listener
+      type: FLogListener
+    type: function
+  - desc: Unregisters a log listener.
+    name: nregisterListener
+    parameters:
+    - desc: listener
+      name: type:FLogListener
+      optional: true
+      type: ''
+    type: function
+  - desc: Set log system severity level.
+    name: etLevel
+    parameters:
+    - desc: severity
+      name: type:LogSeverity
+      optional: true
+      type: ''
+    type: function
+  - desc: Get log system severity level.
+    name: etLevel
+    parameters: []
+    returns:
+    - desc: severity
+      type: ''
+    type: function
+  name: dmLog
+  type: table

@@ -1,0 +1,127 @@
+- desc: web server handle
+  name: HServer
+  type: typedef
+- desc: result codes
+  name: Result
+  type: enum
+- desc: web server request
+  name: Request
+  type: struct
+- desc: Web request handler callback
+  name: Handler
+  type: typedef
+- desc: handler parameters
+  name: HandlerParams
+  type: struct
+- desc: Add a new handler
+  name: AddHandler
+  parameters:
+  - desc: Server handle
+    name: server
+    type: HServer
+  - desc: Location prefix for which locations this handler should handle
+    name: prefix
+    type: const char*
+  - desc: Handler parameters
+    name: handler_params
+    type: HandlerParams
+  returns:
+  - desc: RESULT_OK on success
+    type: ''
+  type: function
+- desc: Remove handle
+  name: RemoveHandler
+  parameters:
+  - desc: Server handle
+    name: server
+    type: HServer
+  - desc: Prefix for handle to remove
+    name: prefix
+    type: const char*
+  returns:
+  - desc: RESULT_OK on success
+    type: ''
+  type: function
+- desc: Set response status code.
+  name: SetStatusCode
+  parameters:
+  - desc: Request
+    name: request
+    type: Request*
+  - desc: Status code to set
+    name: status_code
+    type: int
+  returns:
+  - desc: RESULT_OK on success
+    type: ''
+  type: function
+- desc: Get http header value for key
+  name: GetHeader
+  parameters:
+  - desc: Request
+    name: request
+    type: Request*
+  - desc: Header key
+    name: name
+    type: const char*
+  returns:
+  - desc: char*] Header value. NULL if the key doesn't exists
+    type: ''
+  type: function
+- desc: Send response data
+  name: Send
+  parameters:
+  - desc: Request handle
+    name: request
+    type: Request
+  - desc: Data to send
+    name: data
+    type: void*
+  - desc: Data-lenght to send
+    name: data_length
+    type: uint32_t
+  returns:
+  - desc: RESULT_OK on success
+    type: ''
+  type: function
+- desc: Receive data
+  name: Receive
+  parameters:
+  - desc: Request
+    name: request
+    type: Request*
+  - desc: Data buffer to receive to
+    name: buffer
+    type: void*
+  - desc: Buffer size
+    name: buffer_size
+    type: uint32_t
+  - desc: Number of bytes received
+    name: received_bytes
+    type: uint32_t*
+  returns:
+  - desc: RESULT_OK on success
+    type: ''
+  type: function
+- desc: Sends a header attribute
+  name: SendAttribute
+  parameters:
+  - desc: Request
+    name: request
+    type: Request*
+  - desc: the header name
+    name: key
+    type: const char*
+  - desc: the header value
+    name: value
+    type: const char*
+  returns:
+  - desc: RESULT_OK on success
+    type: ''
+  type: function
+- desc: 'Simple high-level single-threaded Web server based on dmHttpServer
+
+    The web-server has a handler concept similar to servlets in Java'
+  members: []
+  name: dmWebServer
+  type: table

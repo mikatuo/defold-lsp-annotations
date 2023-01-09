@@ -1,0 +1,677 @@
+- desc: 'Get current game object instance
+
+    Works in both gameobjects and gui scripts'
+  name: CheckGOInstance
+  parameters:
+  - desc: lua state
+    name: L
+    type: lua_State*
+  returns:
+  - desc: ''
+    type: dmGameObject::HInstance
+  type: function
+- desc: 'Get gameobject instance
+
+
+    The instance reference (url) at stack index "index" will be resolved to an instance.'
+  name: CheckGOInstance
+  parameters:
+  - desc: lua state
+    name: L
+    type: lua_State*
+  - desc: lua-arg
+    name: index
+    type: int
+  returns:
+  - desc: gameobject instance
+    type: lua_State*
+  type: function
+- desc: "Buffer ownership.\n - OWNER_C   - m_Buffer is owned by C side, should not\
+    \ be destroyed when GCed\n - OWNER_LUA - m_Buffer is owned by Lua side, will be\
+    \ destroyed when GCed\n - OWNER_RES - m_Buffer not used, has a reference to a\
+    \ buffer resource instead. m_BufferRes is owned by C side, will be released when\
+    \ GCed"
+  name: LuaBufferOwnership
+  type: enum
+- desc: The script context
+  name: HContext
+  type: typedef
+- desc: 'Diff is the expected difference of the stack size.
+
+    If luaL_error, or another function that executes a long-jump, is part of the executed
+    code,
+
+    the stack guard cannot be guaranteed to execute at the end of the function.
+
+    In that case you should manually check the stack using `lua_gettop`.
+
+    In the case of luaL_error, see [ref:DM_LUA_ERROR].'
+  name: DM_LUA_STACK_CHECK
+  type: macro
+- desc: 'This macro will verify that the Lua stack size hasn''t been changed before
+
+    throwing a Lua error, which will long-jump out of the current function.
+
+    This macro can only be used together with [ref:DM_LUA_STACK_CHECK] and should
+
+    be prefered over manual checking of the stack.'
+  name: DM_LUA_ERROR
+  type: macro
+- desc: Gets as good as possible printable string from a hash or string
+  name: GetStringFromHashOrString
+  parameters:
+  - desc: Lua state
+    name: L
+    type: lua_State*
+  - desc: Index of the value
+    name: index
+    type: int
+  - desc: buffer receiving the value
+    name: buffer
+    type: char*
+  - desc: the buffer length
+    name: buffer_length
+    type: uint32_t
+  returns:
+  - desc: Returns buffer. If buffer is non null, it will always contain a null terminated
+      string. "<unknown>" if the hash could not be looked up.
+    type: const char*
+  type: function
+- desc: 'Creates a reference to the value at top of stack, the ref is done in the
+
+    current instances context table.
+
+
+    Expects SetInstance() to have been set with an value that has a meta table
+
+    with META_GET_INSTANCE_CONTEXT_TABLE_REF method.'
+  name: RefInInstance
+  parameters:
+  - desc: Lua state
+    name: L
+    type: lua_State*
+  returns:
+  - desc: "ref to value or LUA_NOREF\n\nLua stack on entry\n [-1] value\n\nLua stack\
+      \ on exit"
+    type: int
+  type: function
+- desc: 'Deletes the instance local lua reference
+
+
+    Expects SetInstance() to have been set with an value that has a meta table
+
+    with META_GET_INSTANCE_CONTEXT_TABLE_REF method.'
+  name: UnrefInInstance
+  parameters:
+  - desc: Lua state
+    name: L
+    type: lua_State*
+  - desc: 'ref to value or LUA_NOREF
+
+
+      Lua stack on entry
+
+
+      Lua stack on exit'
+    name: ref
+    type: int
+  type: function
+- desc: 'Resolves a url in string format into a dmMessage::URL struct.
+
+
+    Special handling for:
+
+    - "." returns the default socket + path
+
+    - "#" returns default socket + path + fragment'
+  name: RefInInstance
+  parameters:
+  - desc: Lua state
+    name: L
+    type: lua_State*
+  - desc: url
+    name: url
+    type: const char*
+  - desc: where to store the result
+    name: out_url
+    type: dmMessage::URL*
+  - desc: default url
+    name: default_url
+    type: dmMessage::URL*
+  returns:
+  - desc: dmMessage::RESULT_OK if the conversion succeeded
+    type: dmMessage::Result
+  type: function
+- desc: Converts a URL into a readable string. Useful for e.g. error messages
+  name: UrlToString
+  parameters:
+  - desc: url
+    name: url
+    type: dmMessage::URL*
+  - desc: the output buffer
+    name: buffer
+    type: char*
+  - desc: the output buffer size
+    name: buffer_size
+    type: uint32_t
+  returns:
+  - desc: returns the passed in buffer
+    type: const char*
+  type: function
+- desc: Built-in scripting functions.
+  members:
+  - desc: Holds info about the buffer and who owns it.
+    name: :LuaHBuffer
+    type: struct
+  - desc: Check if the value is a dmScript::LuaHBuffer
+    name: :IsBuffer
+    parameters:
+    - desc: lua state
+      name: L
+      type: lua_State*
+    - desc: Index of the value
+      name: index
+      type: int
+    returns:
+    - desc: True if value at index is a LuaHBuffer
+      type: boolean
+    type: function
+  - desc: Will increase the stack by 1.
+    name: :PushBuffer
+    parameters:
+    - desc: lua state
+      name: L
+      type: lua_State*
+    - desc: buffer to push
+      name: buffer
+      type: dmScript::LuaHBuffer
+    type: function
+  - desc: Check if the value in the supplied index on the lua stack is a HBuffer and
+      returns it.
+    name: :CheckBuffer
+    parameters:
+    - desc: lua state
+      name: L
+      type: lua_State*
+    - desc: Index of the value
+      name: index
+      type: int
+    returns:
+    - desc: pointer to dmScript::LuaHBuffer
+      type: LuaHBuffer*
+    type: function
+  - desc: 'Retrieve a HBuffer from the supplied lua state.
+
+      Check if the value in the supplied index on the lua stack is a HBuffer and returns
+      it.'
+    name: :CheckBufferNoError
+    parameters:
+    - desc: lua state
+      name: L
+      type: lua_State*
+    - desc: Index of the value
+      name: index
+      type: int
+    returns:
+    - desc: pointer to dmScript::LuaHBuffer
+      type: LuaHBuffer*
+    type: function
+  - desc: 'Creates and returns a reference, in the table at index t, for the object
+      at the
+
+      top of the stack (and pops the object).
+
+      It also tracks number of global references kept.'
+    name: :Ref
+    parameters:
+    - desc: lua state
+      name: L
+      type: lua_State*
+    - desc: table the lua table that stores the references. E.g LUA_REGISTRYINDEX
+      name: table
+      type: int
+    returns:
+    - desc: the new reference
+      type: int
+    type: function
+  - desc: 'Releases reference ref from the table at index t (see luaL_ref).
+
+      The entry is removed from the table, so that the referred object can be collected.
+
+      It also decreases the number of global references kept'
+    name: :Unref
+    parameters:
+    - desc: lua state
+      name: L
+      type: lua_State*
+    - desc: table the lua table that stores the references. E.g LUA_REGISTRYINDEX
+      name: table
+      type: int
+    - desc: the reference to the object
+      name: reference
+      type: int
+    type: function
+  - desc: 'Retrieve current script instance from the global table and place it on
+      the top of the stack, only valid when set.
+
+      (see [ref:dmScript::GetMainThread])'
+    name: :GetInstance
+    parameters:
+    - desc: lua state
+      name: L
+      type: lua_State*
+    type: function
+  - desc: 'Sets the current script instance
+
+      Set the value on the top of the stack as the instance into the global table
+      and pops it from the stack.
+
+      (see [ref:dmScript::GetMainThread])'
+    name: :SetInstance
+    parameters:
+    - desc: lua state
+      name: L
+      type: lua_State*
+    type: function
+  - desc: Check if the script instance in the lua state is valid. The instance is
+      assumed to have been previously set by [ref:dmScript::SetInstance].
+    name: :IsInstanceValid
+    parameters:
+    - desc: lua state
+      name: L
+      type: lua_State*
+    returns:
+    - desc: Returns true if the instance is valid
+      type: bool
+    type: function
+  - desc: Retrieve the main thread lua state from any lua state (main thread or coroutine).
+    name: :GetMainThread
+    parameters:
+    - desc: lua state
+      name: L
+      type: lua_State*
+    returns:
+    - desc: the main thread lua state
+      type: lua_State*
+    type: function
+  - desc: Get the value at index as a dmVMath::Vector3*
+    name: :ToVector3
+    parameters:
+    - desc: Lua state
+      name: L
+      type: lua_State*
+    - desc: Index of the value
+      name: index
+      type: int
+    returns:
+    - desc: The pointer to the value, or 0 if not correct type
+      type: dmVMath::Vector3*
+    type: function
+  - desc: 'Check if the value at #index is a dmVMath::Vector3*'
+    name: :IsVector3
+    parameters:
+    - desc: Lua state
+      name: L
+      type: ''
+    - desc: Index of the value
+      name: index
+      type: ''
+    returns:
+    - desc: 'if value at #index is a dmVMath::Vector3*'
+      type: ''
+    type: function
+  - desc: Push a dmVMath::Vector3 value onto the supplied lua state, will increase
+      the stack by 1.
+    name: :PushVector3
+    parameters:
+    - desc: Lua state
+      name: L
+      type: lua_State*
+    - desc: Vector3 value to push
+      name: v
+      type: dmVMath::Vector3
+    type: function
+  - desc: Check if the value in the supplied index on the lua stack is a dmVMath::Vector3.
+    name: :CheckVector3
+    parameters:
+    - desc: Lua state
+      name: L
+      type: lua_State*
+    - desc: Index of the value
+      name: index
+      type: int
+    returns:
+    - desc: The pointer to the value
+      type: dmVMath::Vector3*
+    type: function
+  - desc: Get the value at index as a dmVMath::Vector4*
+    name: :ToVector4
+    parameters:
+    - desc: Lua state
+      name: L
+      type: lua_State*
+    - desc: Index of the value
+      name: index
+      type: int
+    returns:
+    - desc: The pointer to the value, or 0 if not correct type
+      type: dmVMath::Vector4*
+    type: function
+  - desc: 'Check if the value at #index is a dmVMath::Vector4*'
+    name: :IsVector4
+    parameters:
+    - desc: Lua state
+      name: L
+      type: ''
+    - desc: Index of the value
+      name: index
+      type: ''
+    returns:
+    - desc: 'if value at #index is a dmVMath::Vector4*'
+      type: ''
+    type: function
+  - desc: Push a dmVMath::Vector4 value onto the supplied lua state, will increase
+      the stack by 1.
+    name: :PushVector4
+    parameters:
+    - desc: Lua state
+      name: L
+      type: lua_State*
+    - desc: dmVMath::Vector4 value to push
+      name: v
+      type: dmVMath::Vector4
+    type: function
+  - desc: Check if the value in the supplied index on the lua stack is a dmVMath::Vector3.
+    name: :CheckVector4
+    parameters:
+    - desc: Lua state
+      name: L
+      type: lua_State*
+    - desc: Index of the value
+      name: index
+      type: int
+    returns:
+    - desc: The pointer to the value
+      type: dmVMath::Vector4*
+    type: function
+  - desc: Get the value at index as a dmVMath::Quat*
+    name: :ToQuat
+    parameters:
+    - desc: Lua state
+      name: L
+      type: lua_State*
+    - desc: Index of the value
+      name: index
+      type: int
+    returns:
+    - desc: The pointer to the value, or 0 if not correct type
+      type: dmVMath::Quat*
+    type: function
+  - desc: 'Check if the value at #index is a dmVMath::Quat*'
+    name: :IsQuat
+    parameters:
+    - desc: Lua state
+      name: L
+      type: ''
+    - desc: Index of the value
+      name: index
+      type: ''
+    returns:
+    - desc: 'if value at #index is a dmVMath::Quat*'
+      type: ''
+    type: function
+  - desc: Push a quaternion value onto Lua stack. Will increase the stack by 1.
+    name: :PushQuat
+    parameters:
+    - desc: Lua state
+      name: L
+      type: lua_State*
+    - desc: dmVMath::Quat value to push
+      name: quat
+      type: dmVMath::Quat
+    type: function
+  - desc: Check if the value in the supplied index on the lua stack is a dmVMath::Quat.
+    name: :CheckQuat
+    parameters:
+    - desc: Lua state
+      name: L
+      type: lua_State*
+    - desc: Index of the value
+      name: index
+      type: int
+    returns:
+    - desc: The pointer to the value
+      type: dmVMath::Quat*
+    type: function
+  - desc: Get the value at index as a dmVMath::Matrix4*
+    name: :ToMatrix4
+    parameters:
+    - desc: Lua state
+      name: L
+      type: lua_State*
+    - desc: Index of the value
+      name: index
+      type: int
+    returns:
+    - desc: The pointer to the value, or 0 if not correct type
+      type: dmVMath::Matrix4*
+    type: function
+  - desc: 'Check if the value at #index is a dmVMath::Matrix4*'
+    name: :IsMatrix4
+    parameters:
+    - desc: Lua state
+      name: L
+      type: ''
+    - desc: Index of the value
+      name: index
+      type: ''
+    returns:
+    - desc: 'if value at #index is a dmVMath::Matrix4*'
+      type: ''
+    type: function
+  - desc: Push a matrix4 value onto the Lua stack. Will increase the stack by 1.
+    name: :PushMatrix4
+    parameters:
+    - desc: Lua state
+      name: L
+      type: lua_State*
+    - desc: dmVMath::Matrix4 value to push
+      name: matrix
+      type: dmVMath::Matrix4
+    type: function
+  - desc: Check if the value in the supplied index on the lua stack is a dmVMath::Matrix4.
+    name: :CheckMatrix4
+    parameters:
+    - desc: Lua state
+      name: L
+      type: lua_State*
+    - desc: Index of the value
+      name: index
+      type: int
+    returns:
+    - desc: The pointer to the value
+      type: dmVMath::Matrix4*
+    type: function
+  - desc: 'Check if the value at #index is a hash'
+    name: :IsHash
+    parameters:
+    - desc: Lua state
+      name: L
+      type: lua_State*
+    - desc: Index of the value
+      name: index
+      type: int
+    returns:
+    - desc: 'if the value at #index is a hash'
+      type: ''
+    type: function
+  - desc: Push a hash value onto the supplied lua state, will increase the stack by
+      1.
+    name: :PushHash
+    parameters:
+    - desc: Lua state
+      name: L
+      type: lua_State*
+    - desc: '[tyoe: dmhash_t] Hash value to push'
+      name: hash
+      type: ''
+    type: function
+  - desc: Check if the value in the supplied index on the lua stack is a hash.
+    name: :CheckHash
+    parameters:
+    - desc: Lua state
+      name: L
+      type: lua_State*
+    - desc: Index of the value
+      name: index
+      type: int
+    returns:
+    - desc: hash value
+      type: ''
+    type: function
+  - desc: 'Check if the value in the supplied index on the lua stack is a hash or
+      string.
+
+      If it is a string, it gets hashed on the fly'
+    name: :CheckHashOrString
+    parameters:
+    - desc: Lua state
+      name: L
+      type: lua_State*
+    - desc: Index of the value
+      name: index
+      type: int
+    returns:
+    - desc: hash value
+      type: ''
+    type: function
+  - desc: Convert a Json string to Lua table.
+    name: :JsonToLua
+    parameters:
+    - desc: lua state
+      name: L
+      type: lua_State*
+    - desc: json string
+      name: json
+      type: const char*
+    - desc: length of json string
+      name: json_len
+      type: size_t
+    returns:
+    - desc: 1 if it succeeds. Throws a Lua error if it fails
+      type: int
+    type: function
+  - desc: Convert a Lua table to a Json string
+    name: :LuaToJson
+    parameters:
+    - desc: lua state
+      name: L
+      type: lua_State*
+    - desc: '[out] Pointer to char*, which will receive a newly allocated string.
+        Use free().'
+      name: json
+      type: char**
+    - desc: length of json string
+      name: json_len
+      type: size_t*
+    returns:
+    - desc: <0 if it fails. >=0 if it succeeds.
+      type: int
+    type: function
+  - desc: callback info struct that will hold the relevant info needed to make a callback
+      into Lua
+    name: :LuaCallbackInfo
+    type: struct
+  - desc: 'Stores the current Lua state plus references to the script instance (self)
+      and the callback.
+
+      Expects SetInstance() to have been called prior to using this method.
+
+
+      The allocated data is created on the Lua stack and references are made against
+      the
+
+      instances own context table.
+
+
+      If the callback is not explicitly deleted with DestroyCallback() the references
+      and
+
+      data will stay around until the script instance is deleted.'
+    name: :CreateCallback
+    parameters:
+    - desc: Lua state
+      name: L
+      type: ''
+    - desc: Lua stack index of the function
+      name: index
+      type: ''
+    returns:
+    - desc: callback struct if successful, 0 otherwise
+      type: ''
+    type: function
+  - desc: Check if Lua callback is valid.
+    name: :IsCallbackValid
+    parameters:
+    - desc: Lua callback struct
+      name: cbk
+      type: ''
+    type: function
+  - desc: Deletes the Lua callback
+    name: :DestroyCallback
+    parameters:
+    - desc: Lua callback struct
+      name: cbk
+      type: ''
+    type: function
+  - desc: Gets the Lua context from a callback struct
+    name: :GetCallbackLuaContext
+    parameters:
+    - desc: Lua callback struct
+      name: cbk
+      type: ''
+    returns:
+    - desc: Lua state
+      type: ''
+    type: function
+  - desc: "The Lua stack after a successful call:\n```\n   [-4] old instance\n   [-3]\
+      \ context table\n   [-2] callback\n   [-1] self\n```\n In the event of an unsuccessful\
+      \ call, the Lua stack is unchanged"
+    name: :SetupCallback
+    parameters:
+    - desc: Lua callback struct
+      name: cbk
+      type: ''
+    returns:
+    - desc: if the setup was successful
+      type: ''
+    type: function
+  - desc: "Sets the previous instance\nExpects Lua stack:\n```\n   [-2] old instance\n\
+      \   [-1] context table\n```\nBoth values are removed from the stack"
+    name: :TeardownCallback
+    parameters:
+    - desc: Lua callback struct
+      name: cbk
+      type: ''
+    type: function
+  - desc: 'This function wraps lua_pcall with the addition of specifying an error
+      handler which produces a backtrace.
+
+      In the case of an error, the error is logged and popped from the stack.'
+    name: :PCall
+    parameters:
+    - desc: lua state
+      name: L
+      type: ''
+    - desc: number of arguments
+      name: nargs
+      type: ''
+    - desc: number of results
+      name: nresult
+      type: ''
+    returns:
+    - desc: code from pcall
+      type: ''
+    type: function
+  name: dmScript
+  type: table

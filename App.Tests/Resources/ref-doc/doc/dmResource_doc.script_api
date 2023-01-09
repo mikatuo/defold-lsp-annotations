@@ -1,0 +1,57 @@
+- desc: Resource descriptor
+  name: SResourceDescriptor
+  parameters: []
+  type: function
+- desc: 'Declare and register new extension to the engine.
+
+    This macro is used to declare the extension callback functions used by the engine
+    to communicate with the extension.'
+  name: DM_DECLARE_RESOURCE_TYPE
+  type: macro
+- desc: Get a resource from factory
+  name: Get
+  parameters:
+  - desc: Factory handle
+    name: factory
+    type: dmResource::HFactory
+  - desc: Resource name
+    name: name
+    type: const char*
+  - desc: Created resource
+    name: resource
+    type: void**
+  returns:
+  - desc: RESULT_OK on success
+    type: dmResource::Result
+  type: function
+- desc: Release resource
+  name: Release
+  parameters:
+  - desc: Factory handle
+    name: factory
+    type: dmResource::HFactory
+  - desc: Resource pointer
+    name: resource
+    type: void*
+  type: function
+- desc: 'Hint the preloader what to load before Create is called on the resource.
+
+    The resources are not guaranteed to be loaded before Create is called.
+
+    This function can be called from a worker thread.'
+  name: PreloadHint
+  parameters:
+  - desc: Preloader handle
+    name: factory
+    type: dmResource::HPreloadHintInfo
+  - desc: Resource name
+    name: name
+    type: const char*
+  returns:
+  - desc: if successfully invoking preloader.
+    type: bool
+  type: function
+- desc: Functions for managing resource types.
+  members: []
+  name: dmResource
+  type: table

@@ -1,0 +1,6 @@
+- desc: 'The WebView module has been moved into an external extension library
+
+    available on [here](https://defold.github.io/extension-webview/).'
+  members: []
+  name: webview
+  type: table

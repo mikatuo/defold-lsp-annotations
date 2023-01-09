@@ -1,0 +1,1812 @@
+{
+  "elements": [
+    {
+      "type": "TYPEDEF",
+      "name": "HContext",
+      "brief": "Context handle",
+      "description": "Context handle",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "TYPEDEF",
+      "name": "HTexture",
+      "brief": "Texture handle",
+      "description": "Texture handle",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "TYPEDEF",
+      "name": "HVertexProgram",
+      "brief": "Vertex program handle",
+      "description": "Vertex program handle",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "TYPEDEF",
+      "name": "HFragmentProgram",
+      "brief": "Fragment program handle",
+      "description": "Fragment program handle",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "TYPEDEF",
+      "name": "HProgram",
+      "brief": "Program handle",
+      "description": "Program handle",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "TYPEDEF",
+      "name": "HVertexBuffer",
+      "brief": "Vertex buffer handle",
+      "description": "Vertex buffer handle",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "TYPEDEF",
+      "name": "HIndexBuffer",
+      "brief": "Index buffer handle",
+      "description": "Index buffer handle",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "TYPEDEF",
+      "name": "HVertexDeclaration",
+      "brief": "Vertex declaration handle",
+      "description": "Vertex declaration handle",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "ENUM",
+      "name": "HandleResult",
+      "brief": "",
+      "description": "",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "HANDLE_RESULT_OK",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "HANDLE_RESULT_NOT_AVAILABLE",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "HANDLE_RESULT_ERROR",
+          "doc": "",
+          "type": ""
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "ENUM",
+      "name": "RenderTargetAttachment",
+      "brief": "",
+      "description": "",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "ATTACHMENT_COLOR",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "ATTACHMENT_DEPTH",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "ATTACHMENT_STENCIL",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "MAX_ATTACHMENT_COUNT",
+          "doc": "",
+          "type": ""
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "ENUM",
+      "name": "TextureFormat",
+      "brief": "",
+      "description": "",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "TEXTURE_FORMAT_LUMINANCE",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_LUMINANCE_ALPHA",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_RGB",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_RGBA",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_RGB_16BPP",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_RGBA_16BPP",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_DEPTH",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_STENCIL",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_RGB_PVRTC_2BPPV1",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_RGB_PVRTC_4BPPV1",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_RGBA_PVRTC_2BPPV1",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_RGBA_PVRTC_4BPPV1",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_RGB_ETC1",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_R_ETC2",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_RG_ETC2",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_RGBA_ETC2",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_RGBA_ASTC_4x4",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_RGB_BC1",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_RGBA_BC3",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_R_BC4",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_RG_BC5",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_RGBA_BC7",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_RGB16F",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_RGB32F",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_RGBA16F",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_RGBA32F",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_R16F",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_RG16F",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_R32F",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_RG32F",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TEXTURE_FORMAT_COUNT",
+          "doc": "",
+          "type": ""
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "ENUM",
+      "name": "CompareFunc",
+      "brief": "",
+      "description": "",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "COMPARE_FUNC_NEVER",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "COMPARE_FUNC_LESS",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "COMPARE_FUNC_LEQUAL",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "COMPARE_FUNC_GREATER",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "COMPARE_FUNC_GEQUAL",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "COMPARE_FUNC_EQUAL",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "COMPARE_FUNC_NOTEQUAL",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "COMPARE_FUNC_ALWAYS",
+          "doc": "",
+          "type": ""
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "ENUM",
+      "name": "FaceWinding",
+      "brief": "",
+      "description": "",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "FACE_WINDING_CCW",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "FACE_WINDING_CW",
+          "doc": "",
+          "type": ""
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "ENUM",
+      "name": "StencilOp",
+      "brief": "",
+      "description": "",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "STENCIL_OP_KEEP",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "STENCIL_OP_ZERO",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "STENCIL_OP_REPLACE",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "STENCIL_OP_INCR",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "STENCIL_OP_INCR_WRAP",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "STENCIL_OP_DECR",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "STENCIL_OP_DECR_WRAP",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "STENCIL_OP_INVERT",
+          "doc": "",
+          "type": ""
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "ENUM",
+      "name": "BufferUsage",
+      "brief": "",
+      "description": "",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "BUFFER_USAGE_STREAM_DRAW",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "BUFFER_USAGE_DYNAMIC_DRAW",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "BUFFER_USAGE_STATIC_DRAW",
+          "doc": "<div class=\"codehilite\"><pre><span></span><code><span class=\"nv\">Preferred</span> <span class=\"k\">for</span> <span class=\"nv\">buffers</span> <span class=\"nv\">that</span> <span class=\"nv\">never</span> <span class=\"nv\">change</span>\n</code></pre></div>",
+          "type": ""
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "ENUM",
+      "name": "BufferAccess",
+      "brief": "",
+      "description": "",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "BUFFER_ACCESS_READ_ONLY",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "BUFFER_ACCESS_WRITE_ONLY",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "BUFFER_ACCESS_READ_WRITE",
+          "doc": "",
+          "type": ""
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "ENUM",
+      "name": "IndexBufferFormat",
+      "brief": "",
+      "description": "",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "INDEXBUFFER_FORMAT_16",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "INDEXBUFFER_FORMAT_32",
+          "doc": "",
+          "type": ""
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "ENUM",
+      "name": "PrimitiveType",
+      "brief": "Primitive type",
+      "description": "Primitive type",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "PRIMITIVE_LINES",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "PRIMITIVE_TRIANGLES",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "PRIMITIVE_TRIANGLE_STRIP",
+          "doc": "",
+          "type": ""
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "ENUM",
+      "name": "Type",
+      "brief": "Data type",
+      "description": "Data type",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "TYPE_BYTE",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TYPE_UNSIGNED_BYTE",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TYPE_SHORT",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TYPE_UNSIGNED_SHORT",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TYPE_INT",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TYPE_UNSIGNED_INT",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TYPE_FLOAT",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TYPE_FLOAT_VEC4",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TYPE_FLOAT_MAT4",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TYPE_SAMPLER_2D",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "TYPE_SAMPLER_CUBE",
+          "doc": "",
+          "type": ""
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "ENUM",
+      "name": "BlendFactor",
+      "brief": "Blend factor",
+      "description": "Blend factor",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "BLEND_FACTOR_ZERO",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "BLEND_FACTOR_ONE",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "BLEND_FACTOR_SRC_COLOR",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "BLEND_FACTOR_ONE_MINUS_SRC_COLOR",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "BLEND_FACTOR_DST_COLOR",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "BLEND_FACTOR_ONE_MINUS_DST_COLOR",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "BLEND_FACTOR_SRC_ALPHA",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "BLEND_FACTOR_ONE_MINUS_SRC_ALPHA",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "BLEND_FACTOR_DST_ALPHA",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "BLEND_FACTOR_ONE_MINUS_DST_ALPHA",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "BLEND_FACTOR_SRC_ALPHA_SATURATE",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "BLEND_FACTOR_CONSTANT_COLOR",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "BLEND_FACTOR_ONE_MINUS_CONSTANT_COLOR",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "BLEND_FACTOR_CONSTANT_ALPHA",
+          "doc": "",
+          "type": ""
+        },
+        {
+          "name": "BLEND_FACTOR_ONE_MINUS_CONSTANT_ALPHA",
+          "doc": "",
+          "type": ""
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "STRUCT",
+      "name": "VertexElement",
+      "brief": "",
+      "description": "",
+      "returnvalues": [],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [
+        {
+          "name": "m_Name",
+          "doc": "name of the element (e.g. \"position\")",
+          "type": "const char*"
+        },
+        {
+          "name": "m_Stream",
+          "doc": "stream index",
+          "type": "uint32_t"
+        },
+        {
+          "name": "m_Size",
+          "doc": "number of elements (e.g. 3 for \"position\")",
+          "type": "uint32_t"
+        },
+        {
+          "name": "m_Type",
+          "doc": "data type",
+          "type": "dmGraphics::Type"
+        },
+        {
+          "name": "m_Normalize",
+          "doc": "if set, will normalize the output in the program",
+          "type": "bool"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "NewVertexDeclaration",
+      "brief": "Create new vertex declaration",
+      "description": "Create new vertex declaration",
+      "returnvalues": [
+        {
+          "name": "declaration",
+          "doc": "the vertex declaration",
+          "types": [
+            "dmGraphics::HVertexDeclaration"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "context",
+          "doc": "the context",
+          "types": [
+            "dmGraphics::HContext"
+          ]
+        },
+        {
+          "name": "element",
+          "doc": "the array of vertex elements",
+          "types": [
+            "dmGraphics::VertexElement*"
+          ]
+        },
+        {
+          "name": "count",
+          "doc": "the number of items in the element array",
+          "types": [
+            "uint32_t"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "NewVertexDeclaration",
+      "brief": "Create new vertex declaration",
+      "description": "Create new vertex declaration",
+      "returnvalues": [
+        {
+          "name": "declaration",
+          "doc": "the vertex declaration",
+          "types": [
+            "dmGraphics::HVertexDeclaration"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "context",
+          "doc": "the context",
+          "types": [
+            "dmGraphics::HContext"
+          ]
+        },
+        {
+          "name": "element",
+          "doc": "the array of vertex elements",
+          "types": [
+            "dmGraphics::VertexElement*"
+          ]
+        },
+        {
+          "name": "count",
+          "doc": "the number of items in the element array",
+          "types": [
+            "uint32_t"
+          ]
+        },
+        {
+          "name": "stride",
+          "doc": "the stride between the start of each vertex (in bytes)",
+          "types": [
+            "uint32_t"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "DeleteVertexDeclaration",
+      "brief": "Delete vertex declaration",
+      "description": "Delete vertex declaration",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "vertex_declaration",
+          "doc": "the vertex declaration",
+          "types": [
+            "dmGraphics::HVertexDeclaration"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "NewVertexBuffer",
+      "brief": "Create new vertex buffer with initial data",
+      "description": "Create new vertex buffer with initial data",
+      "returnvalues": [
+        {
+          "name": "buffer",
+          "doc": "the vertex buffer",
+          "types": [
+            "dmGraphics::HVertexBuffer"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "context",
+          "doc": "the context",
+          "types": [
+            "dmGraphics::HContext"
+          ]
+        },
+        {
+          "name": "size",
+          "doc": "the size of the buffer (in bytes). May be 0",
+          "types": [
+            "uint32_t"
+          ]
+        },
+        {
+          "name": "data",
+          "doc": "the data",
+          "types": [
+            "void*"
+          ]
+        },
+        {
+          "name": "buffer_usage",
+          "doc": "the usage",
+          "types": [
+            "dmGraphics::BufferUsage"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "DeleteVertexBuffer",
+      "brief": "Delete vertex buffer",
+      "description": "Delete vertex buffer",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "buffer",
+          "doc": "the buffer",
+          "types": [
+            "dmGraphics::HVertexBuffer"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "SetVertexBufferData",
+      "brief": "Set vertex buffer data",
+      "description": "Set vertex buffer data",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "buffer",
+          "doc": "the buffer",
+          "types": [
+            "dmGraphics::HVertexBuffer"
+          ]
+        },
+        {
+          "name": "size",
+          "doc": "the size of the buffer (in bytes). May be 0",
+          "types": [
+            "uint32_t"
+          ]
+        },
+        {
+          "name": "data",
+          "doc": "the data",
+          "types": [
+            "void*"
+          ]
+        },
+        {
+          "name": "buffer_usage",
+          "doc": "the usage",
+          "types": [
+            "dmGraphics::BufferUsage"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "SetVertexBufferSubData",
+      "brief": "Set subset of vertex buffer data",
+      "description": "Set subset of vertex buffer data",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "buffer",
+          "doc": "the buffer",
+          "types": [
+            "dmGraphics::HVertexBuffer"
+          ]
+        },
+        {
+          "name": "offset",
+          "doc": "the offset into the desination buffer (in bytes)",
+          "types": [
+            "uint32_t"
+          ]
+        },
+        {
+          "name": "size",
+          "doc": "the size of the buffer (in bytes). May be 0",
+          "types": [
+            "uint32_t"
+          ]
+        },
+        {
+          "name": "data",
+          "doc": "the data",
+          "types": [
+            "void*"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "GetMaxElementsVertices",
+      "brief": "Get the max number of vertices allowed by the syst...",
+      "description": "Get the max number of vertices allowed by the system in a vertex buffer",
+      "returnvalues": [
+        {
+          "name": "count",
+          "doc": "the count",
+          "types": [
+            "uint32_t"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "context",
+          "doc": "the context",
+          "types": [
+            "dmGraphics::HContext"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "NewIndexBuffer",
+      "brief": "Create new index buffer with initial data",
+      "description": "Create new index buffer with initial data",
+      "returnvalues": [
+        {
+          "name": "buffer",
+          "doc": "the index buffer",
+          "types": [
+            "dmGraphics::HIndexBuffer"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "context",
+          "doc": "the context",
+          "types": [
+            "dmGraphics::HContext"
+          ]
+        },
+        {
+          "name": "size",
+          "doc": "the size of the buffer (in bytes). May be 0",
+          "types": [
+            "uint32_t"
+          ]
+        },
+        {
+          "name": "data",
+          "doc": "the data",
+          "types": [
+            "void*"
+          ]
+        },
+        {
+          "name": "buffer_usage",
+          "doc": "the usage",
+          "types": [
+            "dmGraphics::BufferUsage"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "DeleteIndexBuffer",
+      "brief": "Delete the index buffer",
+      "description": "Delete the index buffer",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "buffer",
+          "doc": "the index buffer",
+          "types": [
+            "dmGraphics::HIndexBuffer"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "SetIndexBufferData",
+      "brief": "Set index buffer data",
+      "description": "Set index buffer data",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "buffer",
+          "doc": "the buffer",
+          "types": [
+            "dmGraphics::HIndexBuffer"
+          ]
+        },
+        {
+          "name": "size",
+          "doc": "the size of the buffer (in bytes). May be 0",
+          "types": [
+            "uint32_t"
+          ]
+        },
+        {
+          "name": "data",
+          "doc": "the data",
+          "types": [
+            "void*"
+          ]
+        },
+        {
+          "name": "buffer_usage",
+          "doc": "the usage",
+          "types": [
+            "dmGraphics::BufferUsage"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "SetIndexBufferSubData",
+      "brief": "Set subset of index buffer data",
+      "description": "Set subset of index buffer data",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "buffer",
+          "doc": "the buffer",
+          "types": [
+            "dmGraphics::HVertexBuffer"
+          ]
+        },
+        {
+          "name": "offset",
+          "doc": "the offset into the desination buffer (in bytes)",
+          "types": [
+            "uint32_t"
+          ]
+        },
+        {
+          "name": "size",
+          "doc": "the size of the buffer (in bytes). May be 0",
+          "types": [
+            "uint32_t"
+          ]
+        },
+        {
+          "name": "data",
+          "doc": "the data",
+          "types": [
+            "void*"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "IsIndexBufferFormatSupported",
+      "brief": "Check if the index format is supported",
+      "description": "Check if the index format is supported",
+      "returnvalues": [],
+      "parameters": [
+        {
+          "name": "context",
+          "doc": "the context",
+          "types": [
+            "dmGraphics::HContext"
+          ]
+        },
+        {
+          "name": "format",
+          "doc": "the format",
+          "types": [
+            "dmGraphics::IndexBufferFormat"
+          ]
+        },
+        {
+          "name": "result",
+          "doc": "true if the format is supoprted",
+          "types": [
+            "bool"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "GetMaxElementsIndices",
+      "brief": "Get the max number of indices allowed by the syste...",
+      "description": "Get the max number of indices allowed by the system in an index buffer",
+      "returnvalues": [
+        {
+          "name": "count",
+          "doc": "the count",
+          "types": [
+            "uint32_t"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "context",
+          "doc": "the context",
+          "types": [
+            "dmGraphics::HContext"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "IsExtensionSupported",
+      "brief": "check if an extension is supported",
+      "description": "check if an extension is supported",
+      "returnvalues": [
+        {
+          "name": "result",
+          "doc": "true if the extension was supported",
+          "types": [
+            "bool"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "context",
+          "doc": "the context",
+          "types": [
+            "dmGraphics::HContext"
+          ]
+        },
+        {
+          "name": "extension",
+          "doc": "the extension.",
+          "types": [
+            "const char*"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "IsTextureFormatSupported",
+      "brief": "check if a specific texture format is supported",
+      "description": "check if a specific texture format is supported",
+      "returnvalues": [
+        {
+          "name": "result",
+          "doc": "true if the texture format was supported",
+          "types": [
+            "bool"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "context",
+          "doc": "the context",
+          "types": [
+            "dmGraphics::HContext"
+          ]
+        },
+        {
+          "name": "format",
+          "doc": "the texture format.",
+          "types": [
+            "TextureFormat"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "GetNumSupportedExtensions",
+      "brief": "",
+      "description": "",
+      "returnvalues": [
+        {
+          "name": "count",
+          "doc": "the number of supported extensions",
+          "types": [
+            "uint32_t"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "context",
+          "doc": "the context",
+          "types": [
+            "dmGraphics::HContext"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "GetSupportedExtension",
+      "brief": "get the supported extension",
+      "description": "get the supported extension",
+      "returnvalues": [
+        {
+          "name": "extension",
+          "doc": "the extension. 0 if index was out of bounds",
+          "types": [
+            "const char*"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "name": "context",
+          "doc": "the context",
+          "types": [
+            "dmGraphics::HContext"
+          ]
+        },
+        {
+          "name": "index",
+          "doc": "the index of the extension",
+          "types": [
+            "uint32_t"
+          ]
+        }
+      ],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "dmGraphics::GetNativeiOSUIWindow",
+      "brief": "get iOS UIWindow",
+      "description": "Get iOS UIWindow native handle (id). Any other platform return zero.",
+      "returnvalues": [
+        {
+          "name": "id",
+          "doc": "native handle",
+          "types": [
+            "id"
+          ]
+        }
+      ],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "dmGraphics::GetNativeiOSUIView",
+      "brief": "get iOS UIView",
+      "description": "Get iOS UIView native handle (id). Any other platform return zero.",
+      "returnvalues": [
+        {
+          "name": "id",
+          "doc": "native handle",
+          "types": [
+            "id"
+          ]
+        }
+      ],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "dmGraphics::GetNativeiOSEAGLContext",
+      "brief": "get iOS EAGLContext",
+      "description": "Get iOS EAGLContext native handle (id). Any other platform return zero.",
+      "returnvalues": [
+        {
+          "name": "id",
+          "doc": "native handle",
+          "types": [
+            "id"
+          ]
+        }
+      ],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "dmGraphics::GetNativeOSXNSWindow",
+      "brief": "get OSX NSWindow",
+      "description": "Get OSX NSWindow native handle (id). Any other platform return zero.",
+      "returnvalues": [
+        {
+          "name": "id",
+          "doc": "native handle",
+          "types": [
+            "id"
+          ]
+        }
+      ],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "dmGraphics::GetNativeOSXNSView",
+      "brief": "get OSX NSView",
+      "description": "Get OSX NSView native handle (id). Any other platform return zero.",
+      "returnvalues": [
+        {
+          "name": "id",
+          "doc": "native handle",
+          "types": [
+            "id"
+          ]
+        }
+      ],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "dmGraphics::GetNativeOSXNSOpenGLContext",
+      "brief": "get OSX NSOpenGLContext",
+      "description": "Get OSX NSOpenGLContext native handle (id). Any other platform return zero.",
+      "returnvalues": [
+        {
+          "name": "id",
+          "doc": "native handle",
+          "types": [
+            "id"
+          ]
+        }
+      ],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "dmGraphics::GetNativeWindowsHWND",
+      "brief": "get Win32 HWND",
+      "description": "Get Win32 windows native handle (HWND). Any other platform return zero.",
+      "returnvalues": [
+        {
+          "name": "HWND",
+          "doc": "native handle",
+          "types": [
+            "HWND"
+          ]
+        }
+      ],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "dmGraphics::GetNativeWindowsHGLRC",
+      "brief": "get Win32 HGLRC",
+      "description": "Get Win32 gl rendercontext native handle (HGLRC). Any other platform return zero.",
+      "returnvalues": [
+        {
+          "name": "HGLRC",
+          "doc": "native handle",
+          "types": [
+            "HGLRC"
+          ]
+        }
+      ],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "dmGraphics::GetNativeAndroidEGLContext",
+      "brief": "get Android EGLContext",
+      "description": "Get Android EGLContext native handle (EGLContext). Any other platform return zero.",
+      "returnvalues": [
+        {
+          "name": "EGLContext",
+          "doc": "native handle",
+          "types": [
+            "EGLContext"
+          ]
+        }
+      ],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "dmGraphics::GetNativeAndroidEGLSurface",
+      "brief": "get Android EGLSurface",
+      "description": "Get Android EGLSurface native handle (EGLSurface). Any other platform return zero.",
+      "returnvalues": [
+        {
+          "name": "EGLSurface",
+          "doc": "native handle",
+          "types": [
+            "EGLSurface"
+          ]
+        }
+      ],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "dmGraphics::GetNativeAndroidJavaVM",
+      "brief": "get Android native JavaVM",
+      "description": "Get Android JavaVM ptr. Any other platform return zero.",
+      "returnvalues": [
+        {
+          "name": "JavaVM*",
+          "doc": "native handle",
+          "types": [
+            "JavaVM*"
+          ]
+        }
+      ],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "dmGraphics::GetNativeAndroidActivity",
+      "brief": "get Android native jobject",
+      "description": "Get Android native jobject. Any other platform return zero.",
+      "returnvalues": [
+        {
+          "name": "jobject",
+          "doc": "native handle",
+          "types": [
+            "jobject"
+          ]
+        }
+      ],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "dmGraphics::GetNativeAndroidApp",
+      "brief": "get Android app object",
+      "description": "Get Android app object. Any other platform return zero.",
+      "returnvalues": [
+        {
+          "name": "app",
+          "doc": "native handle",
+          "types": [
+            "struct android_app*"
+          ]
+        }
+      ],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "dmGraphics::GetNativeX11Window",
+      "brief": "get Linux X11Window",
+      "description": "Get Linux X11Window windows native handle (Window). Any other platform return zero.",
+      "returnvalues": [
+        {
+          "name": "Window",
+          "doc": "native handle",
+          "types": [
+            "Window"
+          ]
+        }
+      ],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    },
+    {
+      "type": "FUNCTION",
+      "name": "dmGraphics::GetNativeX11GLXContext",
+      "brief": "get Linux X11GLXContext",
+      "description": "Get Linux X11GLXContext native handle (GLXContext). Any other platform return zero.",
+      "returnvalues": [
+        {
+          "name": "GLXContext",
+          "doc": "native handle",
+          "types": [
+            "GLXContext"
+          ]
+        }
+      ],
+      "parameters": [],
+      "examples": "",
+      "replaces": "",
+      "error": "",
+      "tparams": [],
+      "members": [],
+      "notes": []
+    }
+  ],
+  "info": {
+    "namespace": "dmGraphics",
+    "name": "Graphics",
+    "brief": "SDK Graphics API documentation",
+    "description": "Platform specific native graphics functions.",
+    "path": "engine/dlib/src/dmsdk/graphics/graphics_native.h",
+    "file": "dmsdk/graphics/graphics_native.h",
+    "group": "DEFOLD SDK"
+  }
+}

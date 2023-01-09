@@ -1,0 +1,196 @@
+- desc: "[Lua BitOp](http://bitop.luajit.org/api.html) is a C extension module for\
+    \ Lua 5.1/5.2 which adds bitwise operations on numbers.\n\nLua BitOp is Copyright\
+    \ &copy; 2008-2012 Mike Pall.\nLua BitOp is free software, released under the\
+    \ MIT license (same license as the Lua core).\n\nLua BitOp is compatible with\
+    \ the built-in bitwise operations in LuaJIT 2.0 and is used\non platforms where\
+    \ Defold runs without LuaJIT.\n\nFor clarity the examples assume the definition\
+    \ of a helper function `printx()`.\nThis prints its argument as an unsigned 32\
+    \ bit hexadecimal number on all platforms:\n\n```lua\nfunction printx(x)\n  print(\"\
+    0x\"..bit.tohex(x))\nend\n```"
+  members:
+  - desc: Normalizes a number to the numeric range for bit operations and returns
+      it. This function is usually not needed since all bit operations already normalize
+      all of their input arguments.
+    name: tobit
+    parameters:
+    - desc: number to normalize
+      name: x
+      type: number
+    returns:
+    - desc: normalized number
+      type: number
+    type: function
+  - desc: Converts its first argument to a hex string. The number of hex digits is
+      given by the absolute value of the optional second argument. Positive numbers
+      between 1 and 8 generate lowercase hex digits. Negative numbers generate uppercase
+      hex digits. Only the least-significant 4*|n| bits are used. The default is to
+      generate 8 lowercase hex digits.
+    name: tohex
+    parameters:
+    - desc: number to convert
+      name: x
+      type: number
+    - desc: number of hex digits to return
+      name: n
+      type: number
+    returns:
+    - desc: hexadecimal string
+      type: string
+    type: function
+  - desc: Returns the bitwise not of its argument.
+    name: bnot
+    parameters:
+    - desc: number
+      name: x
+      type: number
+    returns:
+    - desc: bitwise not of number x
+      type: number
+    type: function
+  - desc: Returns the bitwise or of all of its arguments. Note that more than two
+      arguments are allowed.
+    name: bor
+    parameters:
+    - desc: number
+      name: x1
+      type: number
+    - desc: number(s)
+      name: x2...
+      optional: true
+      type: number
+    returns:
+    - desc: bitwise or of the provided arguments
+      type: number
+    type: function
+  - desc: Returns the bitwise and of all of its arguments. Note that more than two
+      arguments are allowed.
+    name: band
+    parameters:
+    - desc: number
+      name: x1
+      type: number
+    - desc: number(s)
+      name: x2...
+      optional: true
+      type: number
+    returns:
+    - desc: bitwise and of the provided arguments
+      type: number
+    type: function
+  - desc: Returns the bitwise xor of all of its arguments. Note that more than two
+      arguments are allowed.
+    name: bxor
+    parameters:
+    - desc: number
+      name: x1
+      type: number
+    - desc: number(s)
+      name: x2...
+      optional: true
+      type: number
+    returns:
+    - desc: bitwise xor of the provided arguments
+      type: number
+    type: function
+  - desc: 'Returns the bitwise logical left-shift of its first argument by the number
+      of bits given by the second argument.
+
+      Logical shifts treat the first argument as an unsigned number and shift in 0-bits.
+
+      Only the lower 5 bits of the shift count are used (reduces to the range [0..31]).'
+    name: lshift
+    parameters:
+    - desc: number
+      name: x
+      type: number
+    - desc: number of bits
+      name: n
+      type: number
+    returns:
+    - desc: bitwise logical left-shifted number
+      type: number
+    type: function
+  - desc: 'Returns the bitwise logical right-shift of its first argument by the number
+      of bits given by the second argument.
+
+      Logical shifts treat the first argument as an unsigned number and shift in 0-bits.
+
+      Only the lower 5 bits of the shift count are used (reduces to the range [0..31]).'
+    name: rshift
+    parameters:
+    - desc: number
+      name: x
+      type: number
+    - desc: number of bits
+      name: n
+      type: number
+    returns:
+    - desc: bitwise logical right-shifted number
+      type: number
+    type: function
+  - desc: 'Returns the bitwise arithmetic right-shift of its first argument by the
+      number of bits given by the second argument.
+
+      Arithmetic right-shift treats the most-significant bit as a sign bit and replicates
+      it.
+
+      Only the lower 5 bits of the shift count are used (reduces to the range [0..31]).'
+    name: arshift
+    parameters:
+    - desc: number
+      name: x
+      type: number
+    - desc: number of bits
+      name: n
+      type: number
+    returns:
+    - desc: bitwise arithmetic right-shifted number
+      type: number
+    type: function
+  - desc: 'Returns the bitwise left rotation of its first argument by the number of
+      bits given by the second argument. Bits shifted out on one side are shifted
+      back in on the other side.
+
+      Only the lower 5 bits of the rotate count are used (reduces to the range [0..31]).'
+    name: rol
+    parameters:
+    - desc: number
+      name: x
+      type: number
+    - desc: number of bits
+      name: n
+      type: number
+    returns:
+    - desc: bitwise left-rotated number
+      type: number
+    type: function
+  - desc: 'Returns the bitwise right rotation of its first argument by the number
+      of bits given by the second argument. Bits shifted out on one side are shifted
+      back in on the other side.
+
+      Only the lower 5 bits of the rotate count are used (reduces to the range [0..31]).'
+    name: ror
+    parameters:
+    - desc: number
+      name: x
+      type: number
+    - desc: number of bits
+      name: n
+      type: number
+    returns:
+    - desc: bitwise right-rotated number
+      type: number
+    type: function
+  - desc: Swaps the bytes of its argument and returns it. This can be used to convert
+      little-endian 32 bit numbers to big-endian 32 bit numbers or vice versa.
+    name: bswap
+    parameters:
+    - desc: number
+      name: x
+      type: number
+    returns:
+    - desc: bitwise swapped number
+      type: number
+    type: function
+  name: bit
+  type: table

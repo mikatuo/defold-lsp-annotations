@@ -1,0 +1,999 @@
+- desc: 'Post this message to a game object instance to make that instance acquire
+    the user input focus.
+
+
+    User input is distributed by the engine to every instance that has
+
+    requested it. The last instance to request focus will receive it first.
+
+    This means that the scripts in the instance will have first-hand-chance
+
+    at reacting on user input, possibly consuming it (by returning
+
+    <code>true</code> from <code>on_input</code>) so that no other instances
+
+    can react on it. The most common case is for a script to send this message
+
+    to itself when it needs to respond to user input.
+
+
+    A script belonging to an instance which has the user input focus will
+
+    receive the input actions in its <code>on_input</code> callback function.
+
+    See [ref:on_input] for more information on how user input can be
+
+    handled.'
+  name: acquire_input_focus
+  type: message
+- desc: 'Post this message to an instance to make that instance release the user input
+    focus.
+
+    See [ref:acquire_input_focus] for more information on how the user input handling
+
+    works.'
+  name: release_input_focus
+  type: message
+- desc: 'When this message is sent to an instance, it sets the parent of that instance.
+    This means that the instance will exist
+
+    in the geometrical space of its parent, like a basic transformation hierarchy
+    or scene graph. If no parent is specified,
+
+    the instance will be detached from any parent and exist in world space. A script
+    can send this message to itself to set
+
+    the parent of its instance.'
+  name: set_parent
+  type: message
+- desc: 'This message enables the receiving component. All components are enabled
+    by default, which means they will receive input, updates
+
+    and be a part of the simulation. A component is disabled when it receives the
+    <code>disable</code> message.
+
+
+    [icon:alert] Components that currently supports this message are:
+
+
+    - Collection Proxy
+
+    - Collision Object
+
+    - Gui
+
+    - Label
+
+    - Spine Model
+
+    - Sprite
+
+    - Tile Grid
+
+    - Model
+
+    - Mesh'
+  name: enable
+  type: message
+- desc: 'This message disables the receiving component. All components are enabled
+    by default, which means they will receive input, updates
+
+    and be a part of the simulation. A component is disabled when it receives the
+    <code>disable</code> message.
+
+
+    [icon:alert] Components that currently supports this message are:
+
+
+    - Collection Proxy
+
+    - Collision Object
+
+    - Gui
+
+    - Label
+
+    - Spine Model
+
+    - Sprite
+
+    - Tile Grid
+
+    - Model
+
+    - Mesh'
+  name: disable
+  type: message
+- desc: 'The position of the game object.
+
+    The type of the property is vector3.'
+  name: position
+  type: property
+- desc: 'The rotation of the game object.
+
+    The type of the property is quaternion.'
+  name: rotation
+  type: property
+- desc: 'The rotation of the game object expressed in Euler angles.
+
+    Euler angles are specified in degrees in the interval (-360, 360).
+
+    The type of the property is vector3.'
+  name: euler
+  type: property
+- desc: The uniform scale of the game object. The type of the property is number.
+  name: scale
+  type: property
+- desc: 'This is a callback-function, which is called by the engine when a script
+    component is initialized. It can be used
+
+    to set the initial state of the script.'
+  name: init
+  parameters:
+  - desc: reference to the script state to be used for storing data
+    name: self
+    type: object
+  type: function
+- desc: 'This is a callback-function, which is called by the engine when a script
+    component is finalized (destroyed). It can
+
+    be used to e.g. take some last action, report the finalization to other game object
+    instances, delete spawned objects
+
+    or release user input focus (see [ref:release_input_focus]).'
+  name: final
+  parameters:
+  - desc: reference to the script state to be used for storing data
+    name: self
+    type: object
+  type: function
+- desc: 'This is a callback-function, which is called by the engine every frame to
+    update the state of a script component.
+
+    It can be used to perform any kind of game related tasks, e.g. moving the game
+    object instance.'
+  name: update
+  parameters:
+  - desc: reference to the script state to be used for storing data
+    name: self
+    type: object
+  - desc: the time-step of the frame update
+    name: dt
+    type: number
+  type: function
+- desc: 'This is a callback-function, which is called by the engine whenever a message
+    has been sent to the script component.
+
+    It can be used to take action on the message, e.g. send a response back to the
+    sender of the message.
+
+
+    The `message` parameter is a table containing the message data. If the message
+    is sent from the engine, the
+
+    documentation of the message specifies which data is supplied.'
+  name: on_message
+  parameters:
+  - desc: reference to the script state to be used for storing data
+    name: self
+    type: object
+  - desc: id of the received message
+    name: message_id
+    type: hash
+  - desc: a table containing the message data
+    name: message
+    type: table
+  - desc: address of the sender
+    name: sender
+    type: url
+  type: function
+- desc: 'This is a callback-function, which is called by the engine when user input
+    is sent to the game object instance of the script.
+
+    It can be used to take action on the input, e.g. move the instance according to
+    the input.
+
+
+    For an instance to obtain user input, it must first acquire input focus
+
+    through the message `acquire_input_focus`.
+
+
+    Any instance that has obtained input will be put on top of an
+
+    input stack. Input is sent to all listeners on the stack until the
+
+    end of stack is reached, or a listener returns `true`
+
+    to signal that it wants input to be consumed.
+
+
+    See the documentation of [ref:acquire_input_focus] for more
+
+    information.
+
+
+    The `action` parameter is a table containing data about the input mapped to the
+
+    `action_id`.
+
+    For mapped actions it specifies the value of the input and if it was just pressed
+    or released.
+
+    Actions are mapped to input in an input_binding-file.
+
+
+    Mouse movement is specifically handled and uses `nil` as its `action_id`.
+
+    The `action` only contains positional parameters in this case, such as x and y
+    of the pointer.
+
+
+    Here is a brief description of the available table fields:
+
+
+    Field       | Description
+
+    ----------- | ----------------------------------------------------------
+
+    `value`     | The amount of input given by the user. This is usually 1 for buttons
+    and 0-1 for analogue inputs. This is not present for mouse movement.
+
+    `pressed`   | If the input was pressed this frame. This is not present for mouse
+    movement.
+
+    `released`  | If the input was released this frame. This is not present for mouse
+    movement.
+
+    `repeated`  | If the input was repeated this frame. This is similar to how a key
+    on a keyboard is repeated when you hold it down. This is not present for mouse
+    movement.
+
+    `x`         | The x value of a pointer device, if present.
+
+    `y`         | The y value of a pointer device, if present.
+
+    `screen_x`  | The screen space x value of a pointer device, if present.
+
+    `screen_y`  | The screen space y value of a pointer device, if present.
+
+    `dx`        | The change in x value of a pointer device, if present.
+
+    `dy`        | The change in y value of a pointer device, if present.
+
+    `screen_dx` | The change in screen space x value of a pointer device, if present.
+
+    `screen_dy` | The change in screen space y value of a pointer device, if present.
+
+    `gamepad`   | The index of the gamepad device that provided the input.
+
+    `touch`     | List of touch input, one element per finger, if present. See table
+    below about touch input
+
+
+    Touch input table:
+
+
+    Field       | Description
+
+    ----------- | ----------------------------------------------------------
+
+    `id`        | A number identifying the touch input during its duration.
+
+    `pressed`   | True if the finger was pressed this frame.
+
+    `released`  | True if the finger was released this frame.
+
+    `tap_count` | Number of taps, one for single, two for double-tap, etc
+
+    `x`         | The x touch location.
+
+    `y`         | The y touch location.
+
+    `dx`        | The change in x value.
+
+    `dy`        | The change in y value.
+
+    `acc_x`     | Accelerometer x value (if present).
+
+    `acc_y`     | Accelerometer y value (if present).
+
+    `acc_z`     | Accelerometer z value (if present).'
+  name: on_input
+  parameters:
+  - desc: reference to the script state to be used for storing data
+    name: self
+    type: object
+  - desc: id of the received input action, as mapped in the input_binding-file
+    name: action_id
+    type: hash
+  - desc: a table containing the input data, see above for a description
+    name: action
+    type: table
+  returns:
+  - desc: optional boolean to signal if the input should be consumed (not passed on
+      to others) or not, default is false
+    type: boolean
+  type: function
+- desc: 'This is a callback-function, which is called by the engine when the script
+    component is reloaded, e.g. from the editor.
+
+    It can be used for live development, e.g. to tweak constants or set up the state
+    properly for the instance.'
+  name: on_reload
+  parameters:
+  - desc: reference to the script state to be used for storing data
+    name: self
+    type: object
+  type: function
+- desc: 'Functions, core hooks, messages and constants for manipulation of
+
+    game objects. The "go" namespace is accessible from game object script
+
+    files.'
+  members:
+  - desc: gets a named property of the specified game object or component
+    name: get
+    parameters:
+    - desc: url of the game object or component having the property
+      name: url
+      type:
+      - string
+      - hash
+      - url
+    - desc: id of the property to retrieve
+      name: property
+      type:
+      - string
+      - hash
+    - desc: 'optional options table
+
+        - index [type:integer] index into array property (1 based)
+
+        - key [type:hash] name of internal property'
+      name: options
+      optional: true
+      type: table
+    returns:
+    - desc: the value of the specified property
+      type: any
+    type: function
+  - desc: sets a named property of the specified game object or component, or a material
+      constant
+    name: set
+    parameters:
+    - desc: url of the game object or component having the property
+      name: url
+      type:
+      - string
+      - hash
+      - url
+    - desc: id of the property to set
+      name: property
+      type:
+      - string
+      - hash
+    - desc: the value to set
+      name: value
+      type: any
+    - desc: 'optional options table
+
+        - index [type:integer] index into array property (1 based)
+
+        - key [type:hash] name of internal property'
+      name: options
+      optional: true
+      type: table
+    type: function
+  - desc: The position is relative the parent (if any). Use [ref:go.get_world_position]
+      to retrieve the global world position.
+    name: get_position
+    parameters:
+    - desc: optional id of the game object instance to get the position for, by default
+        the instance of the calling script
+      name: id
+      optional: true
+      type:
+      - string
+      - hash
+      - url
+    returns:
+    - desc: instance position
+      type: vector3
+    type: function
+  - desc: The rotation is relative to the parent (if any). Use [ref:go.get_world_rotation]
+      to retrieve the global world rotation.
+    name: get_rotation
+    parameters:
+    - desc: optional id of the game object instance to get the rotation for, by default
+        the instance of the calling script
+      name: id
+      optional: true
+      type:
+      - string
+      - hash
+      - url
+    returns:
+    - desc: instance rotation
+      type: quaternion
+    type: function
+  - desc: The scale is relative the parent (if any). Use [ref:go.get_world_scale]
+      to retrieve the global world 3D scale factor.
+    name: get_scale
+    parameters:
+    - desc: optional id of the game object instance to get the scale for, by default
+        the instance of the calling script
+      name: id
+      optional: true
+      type:
+      - string
+      - hash
+      - url
+    returns:
+    - desc: instance scale factor
+      type: vector3
+    type: function
+  - desc: The uniform scale is relative the parent (if any). If the underlying scale
+      vector is non-uniform the min element of the vector is returned as the uniform
+      scale factor.
+    name: get_scale_uniform
+    parameters:
+    - desc: optional id of the game object instance to get the uniform scale for,
+        by default the instance of the calling script
+      name: id
+      optional: true
+      type:
+      - string
+      - hash
+      - url
+    returns:
+    - desc: uniform instance scale factor
+      type: number
+    type: function
+  - desc: The position is relative to the parent (if any). The global world position
+      cannot be manually set.
+    name: set_position
+    parameters:
+    - desc: position to set
+      name: position
+      type: vector3
+    - desc: optional id of the game object instance to set the position for, by default
+        the instance of the calling script
+      name: id
+      optional: true
+      type:
+      - string
+      - hash
+      - url
+    type: function
+  - desc: The rotation is relative to the parent (if any). The global world rotation
+      cannot be manually set.
+    name: set_rotation
+    parameters:
+    - desc: rotation to set
+      name: rotation
+      type: quaternion
+    - desc: optional id of the game object instance to get the rotation for, by default
+        the instance of the calling script
+      name: id
+      optional: true
+      type:
+      - string
+      - hash
+      - url
+    type: function
+  - desc: 'The scale factor is relative to the parent (if any). The global world scale
+      factor cannot be manually set.
+
+
+      [icon:attention] Physics are currently not affected when setting scale from
+      this function.'
+    name: set_scale
+    parameters:
+    - desc: vector or uniform scale factor, must be greater than 0
+      name: scale
+      type:
+      - number
+      - vector3
+    - desc: optional id of the game object instance to get the scale for, by default
+        the instance of the calling script
+      name: id
+      optional: true
+      type:
+      - string
+      - hash
+      - url
+    type: function
+  - desc: 'Sets the parent for a game object instance. This means that the instance
+      will exist in the geometrical space of its parent,
+
+      like a basic transformation hierarchy or scene graph. If no parent is specified,
+      the instance will be detached from any parent and exist in world
+
+      space.
+
+      This function will generate a `set_parent` message. It is not until the message
+      has been processed that the change actually takes effect. This
+
+      typically happens later in the same frame or the beginning of the next frame.
+      Refer to the manual to learn how messages are processed by the
+
+      engine.'
+    name: set_parent
+    parameters:
+    - desc: optional id of the game object instance to set parent for, defaults to
+        the instance containing the calling script
+      name: id
+      optional: true
+      type:
+      - string
+      - hash
+      - url
+    - desc: optional id of the new parent game object, defaults to detaching game
+        object from its parent
+      name: parent_id
+      optional: true
+      type:
+      - string
+      - hash
+      - url
+    - desc: optional boolean, set to true to maintain the world transform when changing
+        spaces. Defaults to false.
+      name: keep_world_transform
+      optional: true
+      type: boolean
+    type: function
+  - desc: Get the parent for a game object instance.
+    name: get_parent
+    parameters:
+    - desc: optional id of the game object instance to get parent for, defaults to
+        the instance containing the calling script
+      name: id
+      optional: true
+      type:
+      - string
+      - hash
+      - url
+    returns:
+    - desc: parent instance or nil
+      type: hash
+    type: function
+  - desc: 'The function will return the world position calculated at the end of the
+      previous frame.
+
+      Use [ref:go.get_position] to retrieve the position relative to the parent.'
+    name: get_world_position
+    parameters:
+    - desc: optional id of the game object instance to get the world position for,
+        by default the instance of the calling script
+      name: id
+      optional: true
+      type:
+      - string
+      - hash
+      - url
+    returns:
+    - desc: instance world position
+      type: vector3
+    type: function
+  - desc: 'The function will return the world rotation calculated at the end of the
+      previous frame.
+
+      Use [ref:go.get_rotation] to retrieve the rotation relative to the parent.'
+    name: get_world_rotation
+    parameters:
+    - desc: optional id of the game object instance to get the world rotation for,
+        by default the instance of the calling script
+      name: id
+      optional: true
+      type:
+      - string
+      - hash
+      - url
+    returns:
+    - desc: instance world rotation
+      type: quaternion
+    type: function
+  - desc: 'The function will return the world 3D scale factor calculated at the end
+      of the previous frame.
+
+      Use [ref:go.get_scale] to retrieve the 3D scale factor relative to the parent.
+
+      This vector is derived by decomposing the transformation matrix and should be
+      used with care.
+
+      For most cases it should be fine to use [ref:go.get_world_scale_uniform] instead.'
+    name: get_world_scale
+    parameters:
+    - desc: optional id of the game object instance to get the world scale for, by
+        default the instance of the calling script
+      name: id
+      optional: true
+      type:
+      - string
+      - hash
+      - url
+    returns:
+    - desc: instance world 3D scale factor
+      type: vector3
+    type: function
+  - desc: 'The function will return the world scale factor calculated at the end of
+      the previous frame.
+
+      Use [ref:go.get_scale_uniform] to retrieve the scale factor relative to the
+      parent.'
+    name: get_world_scale_uniform
+    parameters:
+    - desc: optional id of the game object instance to get the world scale for, by
+        default the instance of the calling script
+      name: id
+      optional: true
+      type:
+      - string
+      - hash
+      - url
+    returns:
+    - desc: instance world scale factor
+      type: number
+    type: function
+  - desc: The function will return the world transform matrix calculated at the end
+      of the previous frame.
+    name: get_world_transform
+    parameters:
+    - desc: optional id of the game object instance to get the world transform for,
+        by default the instance of the calling script
+      name: id
+      optional: true
+      type:
+      - string
+      - hash
+      - url
+    returns:
+    - desc: instance world transform
+      type: matrix4
+    type: function
+  - desc: 'Returns or constructs an instance identifier. The instance id is a hash
+
+      of the absolute path to the instance.
+
+
+      - If `path` is specified, it can either be absolute or relative to the instance
+      of the calling script.
+
+      - If `path` is not specified, the id of the game object instance the script
+      is attached to will be returned.'
+    name: get_id
+    parameters:
+    - desc: path of the instance for which to return the id
+      name: path
+      optional: true
+      type: string
+    returns:
+    - desc: instance id
+      type: hash
+    type: function
+  - desc: 'This is only supported for numerical properties. If the node property is
+      already being
+
+      animated, that animation will be canceled and replaced by the new one.
+
+
+      If a `complete_function` (lua function) is specified, that function will be
+      called when the animation has completed.
+
+      By starting a new animation in that function, several animations can be sequenced
+      together. See the examples for more information.
+
+
+      [icon:attention] If you call `go.animate()` from a game object''s `final()`
+      function,
+
+      any passed `complete_function` will be ignored and never called upon animation
+      completion.
+
+
+      See the <a href="/manuals/properties">properties guide</a> for which properties
+      can be animated and the <a href="/manuals/animation">animation guide</a> for
+      how
+
+      them.'
+    name: animate
+    parameters:
+    - desc: url of the game object or component having the property
+      name: url
+      type:
+      - string
+      - hash
+      - url
+    - desc: id of the property to animate
+      name: property
+      type:
+      - string
+      - hash
+    - desc: 'playback mode of the animation
+
+
+        - `go.PLAYBACK_ONCE_FORWARD`
+
+        - `go.PLAYBACK_ONCE_BACKWARD`
+
+        - `go.PLAYBACK_ONCE_PINGPONG`
+
+        - `go.PLAYBACK_LOOP_FORWARD`
+
+        - `go.PLAYBACK_LOOP_BACKWARD`
+
+        - `go.PLAYBACK_LOOP_PINGPONG`'
+      name: playback
+      type: constant
+    - desc: target property value
+      name: to
+      type:
+      - number
+      - vector3
+      - vector4
+      - quaternion
+    - desc: easing to use during animation. Either specify a constant, see the <a
+        href="/manuals/animation#_easing">animation guide</a> for a complete list,
+        or a vmath.vector with a curve
+      name: easing
+      type:
+      - constant
+      - vector
+    - desc: duration of the animation in seconds
+      name: duration
+      type: number
+    - desc: delay before the animation starts in seconds
+      name: delay
+      optional: true
+      type: number
+    - desc: 'optional function to call when the animation has completed
+
+
+        `self`
+
+        :        [type:object] The current object.
+
+
+        `url`
+
+        :        [type:url] The game object or component instance for which the property
+        is animated.
+
+
+        `property`
+
+        :        [type:hash] The id of the animated property.'
+      name: complete_function
+      optional: true
+      type: function(self, url, property)
+    type: function
+  - desc: 'By calling this function, all or specified stored property animations of
+      the game object or component will be canceled.
+
+
+      See the <a href="/manuals/properties">properties guide</a> for which properties
+      can be animated and the <a href="/manuals/animation">animation guide</a> for
+      how to animate them.'
+    name: cancel_animations
+    parameters:
+    - desc: url of the game object or component
+      name: url
+      type:
+      - string
+      - hash
+      - url
+    - desc: optional id of the property to cancel
+      name: property
+      optional: true
+      type:
+      - string
+      - hash
+    type: function
+  - desc: 'Delete one or more game objects identified by id. Deletion is asynchronous
+      meaning that
+
+      the game object(s) are scheduled for deletion which will happen at the end of
+      the current
+
+      frame. Note that game objects scheduled for deletion will be counted against
+
+      `max_instances` in "game.project" until they are actually removed.
+
+
+      [icon:attention] Deleting a game object containing a particle FX component emitting
+      particles will not immediately stop the particle FX from emitting particles.
+      You need to manually stop the particle FX using `particlefx.stop()`.
+
+      [icon:attention] Deleting a game object containing a sound component that is
+      playing will not immediately stop the sound from playing. You need to manually
+      stop the sound using `sound.stop()`.'
+    name: delete
+    parameters:
+    - desc: optional id or table of id's of the instance(s) to delete, the instance
+        of the calling script is deleted by default
+      name: id
+      optional: true
+      type:
+      - string
+      - hash
+      - url
+      - table
+    - desc: optional boolean, set to true to recursively delete child hiearchy in
+        child to parent order
+      name: recursive
+      optional: true
+      type: boolean
+    type: function
+  - desc: 'This function defines a property which can then be used in the script through
+      the self-reference.
+
+      The properties defined this way are automatically exposed in the editor in game
+      objects and collections which use the script.
+
+      Note that you can only use this function outside any callback-functions like
+      init and update.'
+    name: property
+    parameters:
+    - desc: the id of the property
+      name: name
+      type: string
+    - desc: default value of the property. In the case of a url, only the empty constructor
+        msg.url() is allowed. In the case of a resource one of the resource constructors
+        (eg resource.atlas(), resource.font() etc) is expected.
+      name: value
+      type:
+      - number
+      - hash
+      - url
+      - vector3
+      - vector4
+      - quaternion
+      - resource
+    type: function
+  - desc: no playback
+    name: PLAYBACK_NONE
+    type: number
+  - desc: once forward
+    name: PLAYBACK_ONCE_FORWARD
+    type: number
+  - desc: once backward
+    name: PLAYBACK_ONCE_BACKWARD
+    type: number
+  - desc: once ping pong
+    name: PLAYBACK_ONCE_PINGPONG
+    type: number
+  - desc: loop forward
+    name: PLAYBACK_LOOP_FORWARD
+    type: number
+  - desc: loop backward
+    name: PLAYBACK_LOOP_BACKWARD
+    type: number
+  - desc: ping pong loop
+    name: PLAYBACK_LOOP_PINGPONG
+    type: number
+  - desc: linear interpolation
+    name: EASING_LINEAR
+    type: number
+  - desc: in-quadratic
+    name: EASING_INQUAD
+    type: number
+  - desc: out-quadratic
+    name: EASING_OUTQUAD
+    type: number
+  - desc: in-out-quadratic
+    name: EASING_INOUTQUAD
+    type: number
+  - desc: out-in-quadratic
+    name: EASING_OUTINQUAD
+    type: number
+  - desc: in-cubic
+    name: EASING_INCUBIC
+    type: number
+  - desc: out-cubic
+    name: EASING_OUTCUBIC
+    type: number
+  - desc: in-out-cubic
+    name: EASING_INOUTCUBIC
+    type: number
+  - desc: out-in-cubic
+    name: EASING_OUTINCUBIC
+    type: number
+  - desc: in-quartic
+    name: EASING_INQUART
+    type: number
+  - desc: out-quartic
+    name: EASING_OUTQUART
+    type: number
+  - desc: in-out-quartic
+    name: EASING_INOUTQUART
+    type: number
+  - desc: out-in-quartic
+    name: EASING_OUTINQUART
+    type: number
+  - desc: in-quintic
+    name: EASING_INQUINT
+    type: number
+  - desc: out-quintic
+    name: EASING_OUTQUINT
+    type: number
+  - desc: in-out-quintic
+    name: EASING_INOUTQUINT
+    type: number
+  - desc: out-in-quintic
+    name: EASING_OUTINQUINT
+    type: number
+  - desc: in-sine
+    name: EASING_INSINE
+    type: number
+  - desc: out-sine
+    name: EASING_OUTSINE
+    type: number
+  - desc: in-out-sine
+    name: EASING_INOUTSINE
+    type: number
+  - desc: out-in-sine
+    name: EASING_OUTINSINE
+    type: number
+  - desc: in-exponential
+    name: EASING_INEXPO
+    type: number
+  - desc: out-exponential
+    name: EASING_OUTEXPO
+    type: number
+  - desc: in-out-exponential
+    name: EASING_INOUTEXPO
+    type: number
+  - desc: out-in-exponential
+    name: EASING_OUTINEXPO
+    type: number
+  - desc: in-circlic
+    name: EASING_INCIRC
+    type: number
+  - desc: out-circlic
+    name: EASING_OUTCIRC
+    type: number
+  - desc: in-out-circlic
+    name: EASING_INOUTCIRC
+    type: number
+  - desc: out-in-circlic
+    name: EASING_OUTINCIRC
+    type: number
+  - desc: in-elastic
+    name: EASING_INELASTIC
+    type: number
+  - desc: out-elastic
+    name: EASING_OUTELASTIC
+    type: number
+  - desc: in-out-elastic
+    name: EASING_INOUTELASTIC
+    type: number
+  - desc: out-in-elastic
+    name: EASING_OUTINELASTIC
+    type: number
+  - desc: in-back
+    name: EASING_INBACK
+    type: number
+  - desc: out-back
+    name: EASING_OUTBACK
+    type: number
+  - desc: in-out-back
+    name: EASING_INOUTBACK
+    type: number
+  - desc: out-in-back
+    name: EASING_OUTINBACK
+    type: number
+  - desc: in-bounce
+    name: EASING_INBOUNCE
+    type: number
+  - desc: out-bounce
+    name: EASING_OUTBOUNCE
+    type: number
+  - desc: in-out-bounce
+    name: EASING_INOUTBOUNCE
+    type: number
+  - desc: out-in-bounce
+    name: EASING_OUTINBOUNCE
+    type: number
+  name: go
+  type: table

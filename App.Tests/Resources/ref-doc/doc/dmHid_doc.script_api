@@ -1,0 +1,275 @@
+- desc: HID context handle
+  name: dmHID::HContext
+  type: typedef
+- desc: gamepad context handle
+  name: dmHID::HGamepad
+  type: typedef
+- desc: mouse context handle
+  name: dmHID::HMouse
+  type: typedef
+- desc: keyboard context handle
+  name: dmHID::HKeyboard
+  type: typedef
+- desc: touch device context handle
+  name: dmHID::HTouchDevice
+  type: typedef
+- desc: invalid gamepad handle
+  name: 'dmHID::INVALID_GAMEPAD_HANDLE [type: dmHID::HGamepad]'
+  parameters: []
+  type: function
+- desc: invalid keyboard handle
+  name: 'dmHID::INVALID_KEYBOARD_HANDLE [type: dmHID::HKeyboard]'
+  parameters: []
+  type: function
+- desc: invalid mouse handle
+  name: 'dmHID::INVALID_MOUSE_HANDLE [type: dmHID::HMouse]'
+  parameters: []
+  type: function
+- desc: invalid touch devicehandle
+  name: 'dmHID::INVALID_TOUCHDEVICE_HANDLE [type: dmHID::HTouchDevice]'
+  parameters: []
+  type: function
+- desc: Maximum number of gamepads supported
+  name: 'dmHID::MAX_GAMEPAD_COUNT [type: uint32_t]'
+  parameters: []
+  type: function
+- desc: Maximum number of gamepad axis supported
+  name: 'dmHID::MAX_GAMEPAD_AXIS_COUNT [type: uint32_t]'
+  parameters: []
+  type: function
+- desc: Maximum number of gamepad buttons supported
+  name: 'dmHID::MAX_GAMEPAD_BUTTON_COUNT [type: uint32_t]'
+  parameters: []
+  type: function
+- desc: Maximum number of gamepad hats supported
+  name: 'dmHID::MAX_GAMEPAD_HAT_COUNT [type: uint32_t]'
+  parameters: []
+  type: function
+- desc: Maximum number of simultaneous touches supported
+  name: 'dmHID::MAX_TOUCH_COUNT [type: uint32_t]'
+  parameters: []
+  type: function
+- desc: Maximum number of keyboards supported
+  name: 'dmHID::MAX_KEYBOARD_COUNT [type: uint32_t]'
+  parameters: []
+  type: function
+- desc: Maximum number of mice supported
+  name: 'dmHID::MAX_MOUSE_COUNT [type: uint32_t]'
+  parameters: []
+  type: function
+- desc: Maximum number of touch devices supported
+  name: 'dmHID::MAX_TOUCH_DEVICE_COUNT [type: uint32_t]'
+  parameters: []
+  type: function
+- desc: max number of characters
+  name: dmHID::MAX_CHAR_COUNT
+  parameters: []
+  type: function
+- desc: touch phase enumeration
+  name: Phase
+  type: enum
+- desc: keyboard key enumeration
+  name: Key
+  type: enum
+- desc: mouse button enumeration
+  name: MouseButton
+  type: enum
+- desc: Contains the current state of a keyboard
+  name: KeyboardPacket
+  type: struct
+- desc: Contains the current state of a mouse
+  name: MousePacket
+  type: struct
+- desc: Contains the current state of a gamepad
+  name: GamepadPacket
+  type: struct
+- desc: Data for a single touch, e.g. finger
+  name: Touch
+  type: struct
+- desc: gets a keyboard handle
+  name: GetKeyboard
+  parameters:
+  - desc: context in which to find the gamepad
+    name: context
+    type: dmHID::HContext
+  - desc: device index
+    name: index
+    type: uint8_t
+  returns:
+  - desc: Handle to keyboard. dmHID::INVALID_KEYBOARD_HANDLE if not available
+    type: dmHID::HKeyboard
+  type: function
+- desc: gets a mouse handle
+  name: GetMouse
+  parameters:
+  - desc: context in which to find the gamepad
+    name: context
+    type: dmHID::HContext
+  - desc: device index
+    name: index
+    type: uint8_t
+  returns:
+  - desc: Handle to mouse. dmHID::INVALID_MOUSE_HANDLE if not available
+    type: dmHID::HMouse
+  type: function
+- desc: gets a touch device handle
+  name: GetTouchDevice
+  parameters:
+  - desc: context in which to find the gamepad
+    name: context
+    type: dmHID::HContext
+  - desc: device index
+    name: index
+    type: uint8_t
+  returns:
+  - desc: Handle to touch device. dmHID::INVALID_TOUCH_DEVICE_HANDLE if not available
+    type: dmHID::HTouchDevice
+  type: function
+- desc: gets a gamepad device handle
+  name: GetGamePad
+  parameters:
+  - desc: context in which to find the gamepad
+    name: context
+    type: dmHID::HContext
+  - desc: device index
+    name: index
+    type: uint8_t
+  returns:
+  - desc: Handle to gamepad. dmHID::INVALID_GAMEPAD_HANDLE if not available
+    type: dmHID::HGamepad
+  type: function
+- desc: Adds a touch event touch.
+  name: AddTouch
+  parameters:
+  - desc: device handle
+    name: device
+    type: dmHID::HTouchDevice
+  - desc: x-coordinate of the position
+    name: x
+    type: int32_t
+  - desc: y-coordinate of the position
+    name: y
+    type: int32_t
+  - desc: identifier of touch
+    name: id
+    type: uint32_t
+  - desc: phase of touch
+    name: phase
+    type: dmHID::Phase
+  type: function
+- desc: Sets the state of a gamepad button.
+  name: SetGamepadButton
+  parameters:
+  - desc: device handle
+    name: gamepad
+    type: dmHID::HGamepad
+  - desc: The requested button [0, dmHID::MAX_GAMEPAD_BUTTON_COUNT)
+    name: button
+    type: uint32_t
+  - desc: Button state
+    name: value
+    type: bool
+  type: function
+- desc: Sets the state of a gamepad axis.
+  name: SetGamepadAxis
+  parameters:
+  - desc: device handle
+    name: gamepad
+    type: dmHID::HGamepad
+  - desc: The requested axis [0, dmHID::MAX_GAMEPAD_AXIS_COUNT)
+    name: axis
+    type: uint32_t
+  - desc: axis value [-1, 1]
+    name: value
+    type: float
+  type: function
+- desc: Sets the state of a mouse button.
+  name: SetMouseButton
+  parameters:
+  - desc: device handle
+    name: mouse
+    type: dmHID::HMouse
+  - desc: The requested button
+    name: button
+    type: dmHID::MouseButton
+  - desc: Button state
+    name: value
+    type: bool
+  type: function
+- desc: Sets the position of a mouse.
+  name: SetMousePosition
+  parameters:
+  - desc: device handle
+    name: mouse
+    type: dmHID::HMouse
+  - desc: x-coordinate of the position
+    name: x
+    type: int32_t
+  - desc: y-coordinate of the position
+    name: y
+    type: int32_t
+  type: function
+- desc: Sets the mouse wheel.
+  name: SetMouseWheel
+  parameters:
+  - desc: device handle
+    name: mouse
+    type: dmHID::HMouse
+  - desc: wheel value
+    name: value
+    type: int32_t
+  type: function
+- desc: Obtain a mouse packet reflecting the current input state of a HID context.
+  name: GetMousePacket
+  parameters:
+  - desc: context from which to retrieve the packet
+    name: mouse
+    type: dmHID::HMouse
+  - desc: Mouse packet out argument
+    name: out_packet
+    type: dmHID::MousePacket*
+  returns:
+  - desc: If the packet was successfully updated or not.
+    type: bool
+  type: function
+- desc: Convenience function to retrieve the state of a mouse button from a mouse
+    packet.
+  name: GetMouseButton
+  parameters:
+  - desc: Mouse packet
+    name: packet
+    type: dmHID::MousePacket*
+  - desc: The requested button
+    name: button
+    type: dmHID::MouseButton
+  returns:
+  - desc: If the button was pressed or not
+    type: bool
+  type: function
+- desc: Sets the state of a key.
+  name: SetKey
+  parameters:
+  - desc: context handle
+    name: keyboard
+    type: dmHID::HKeyboard
+  - desc: The requested key
+    name: key
+    type: dmHID::Key
+  - desc: Key state
+    name: value
+    type: bool
+  type: function
+- desc: Add text input
+  name: AddKeyboardChar
+  parameters:
+  - desc: context handle
+    name: keyboard
+    type: dmHID::HContext
+  - desc: The character (unicode)
+    name: chr
+    type: int
+  type: function
+- desc: Used to add input to the engine
+  members: []
+  name: dmHid
+  type: table

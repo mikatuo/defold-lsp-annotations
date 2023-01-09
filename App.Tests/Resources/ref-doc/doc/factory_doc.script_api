@@ -1,0 +1,145 @@
+- desc: 'Functions for controlling factory components which are used to
+
+    dynamically spawn game objects into the runtime.'
+  members:
+  - desc: 'This returns status of the factory.
+
+
+      Calling this function when the factory is not marked as dynamic loading always
+      returns
+
+      factory.STATUS_LOADED.'
+    name: get_status
+    parameters:
+    - desc: the factory component to get status from
+      name: url
+      optional: true
+      type:
+      - string
+      - hash
+      - url
+    returns:
+    - desc: 'status of the factory component
+
+
+        - `factory.STATUS_UNLOADED`
+
+        - `factory.STATUS_LOADING`
+
+        - `factory.STATUS_LOADED`'
+      type: constant
+    type: function
+  - desc: unloaded
+    name: STATUS_UNLOADED
+    type: number
+  - desc: loading
+    name: STATUS_LOADING
+    type: number
+  - desc: loaded
+    name: STATUS_LOADED
+    type: number
+  - desc: 'This decreases the reference count for each resource loaded with factory.load.
+      If reference is zero, the resource is destroyed.
+
+
+      Calling this function when the factory is not marked as dynamic loading does
+      nothing.'
+    name: unload
+    parameters:
+    - desc: the factory component to unload
+      name: url
+      optional: true
+      type:
+      - string
+      - hash
+      - url
+    type: function
+  - desc: 'Resources are referenced by the factory component until the existing (parent)
+      collection is destroyed or factory.unload is called.
+
+
+      Calling this function when the factory is not marked as dynamic loading does
+      nothing.'
+    name: load
+    parameters:
+    - desc: the factory component to load
+      name: url
+      optional: true
+      type:
+      - string
+      - hash
+      - url
+    - desc: 'function to call when resources are loaded.
+
+
+        `self`
+
+        : [type:object] The current object.
+
+
+        `url`
+
+        : [type:url] url of the factory component
+
+
+        `result`
+
+        : [type:boolean] True if resources were loaded successfully'
+      name: complete_function
+      optional: true
+      type: function(self, url, result))
+    type: function
+  - desc: 'The URL identifies which factory should create the game object.
+
+      If the game object is created inside of the frame (e.g. from an update callback),
+      the game object will be created instantly, but none of its component will be
+      updated in the same frame.
+
+
+      Properties defined in scripts in the created game object can be overridden through
+      the properties-parameter below.
+
+      See go.property for more information on script properties.
+
+
+      [icon:attention] Calling [ref:factory.create] on a factory that is marked as
+      dynamic without having loaded resources
+
+      using [ref:factory.load] will synchronously load and create resources which
+      may affect application performance.'
+    name: create
+    parameters:
+    - desc: the factory that should create a game object.
+      name: url
+      type:
+      - string
+      - hash
+      - url
+    - desc: the position of the new game object, the position of the game object calling
+        `factory.create()` is used by default, or if the value is `nil`.
+      name: position
+      optional: true
+      type: vector3
+    - desc: the rotation of the new game object, the rotation of the game object calling
+        `factory.create()` is used by default, or if the value is `nil`.
+      name: rotation
+      optional: true
+      type: quaternion
+    - desc: the properties defined in a script attached to the new game object.
+      name: properties
+      optional: true
+      type: table
+    - desc: the scale of the new game object (must be greater than 0), the scale of
+        the game object containing the factory is used by default, or if the value
+        is `nil`
+      name: scale
+      optional: true
+      type:
+      - number
+      - vector3
+    returns:
+    - desc: the global id of the spawned game object
+      type: hash
+    type: function
+  name: factory
+  type: table

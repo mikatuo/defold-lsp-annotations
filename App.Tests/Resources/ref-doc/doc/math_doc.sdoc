@@ -1,0 +1,363 @@
+elements {
+  type: FUNCTION
+  name: "math.abs"
+  brief: "absolute value"
+  description: "Returns the absolute value of x."
+  parameters {
+    name: "x"
+    doc: ""
+    types: ""
+  }
+}
+elements {
+  type: FUNCTION
+  name: "math.acos"
+  brief: "arc cosine"
+  description: "Returns the arc cosine of x (in radians)."
+  parameters {
+    name: "x"
+    doc: ""
+    types: ""
+  }
+}
+elements {
+  type: FUNCTION
+  name: "math.asin"
+  brief: "arc sine"
+  description: "Returns the arc sine of x (in radians)."
+  parameters {
+    name: "x"
+    doc: ""
+    types: ""
+  }
+}
+elements {
+  type: FUNCTION
+  name: "math.atan"
+  brief: "arc tangent"
+  description: "Returns the arc tangent of x (in radians)."
+  parameters {
+    name: "x"
+    doc: ""
+    types: ""
+  }
+}
+elements {
+  type: FUNCTION
+  name: "math.atan2"
+  brief: "arc tangent of v1/v2"
+  description: "Returns the arc tangent of <code>y/x</code> (in radians),\nbut uses the signs of both parameters to find the\nquadrant of the result.\n(It also handles correctly the case of x being zero.)"
+  parameters {
+    name: "y"
+    doc: ""
+    types: ""
+  }
+  parameters {
+    name: "x"
+    doc: ""
+    types: ""
+  }
+}
+elements {
+  type: FUNCTION
+  name: "math.ceil"
+  brief: "next higher integer value"
+  description: "Returns the smallest integer larger than or equal to x."
+  parameters {
+    name: "x"
+    doc: ""
+    types: ""
+  }
+}
+elements {
+  type: FUNCTION
+  name: "math.cos"
+  brief: "cosine"
+  description: "Returns the cosine of x (assumed to be in radians)."
+  parameters {
+    name: "x"
+    doc: ""
+    types: ""
+  }
+}
+elements {
+  type: FUNCTION
+  name: "math.cosh"
+  brief: "hyperbolic cosine"
+  description: "Returns the hyperbolic cosine of x."
+  parameters {
+    name: "x"
+    doc: ""
+    types: ""
+  }
+}
+elements {
+  type: FUNCTION
+  name: "math.deg"
+  brief: "convert from radians to degrees"
+  description: "Returns the angle x (given in radians) in degrees."
+  parameters {
+    name: "x"
+    doc: ""
+    types: ""
+  }
+}
+elements {
+  type: FUNCTION
+  name: "math.exp"
+  brief: "raises e to a power"
+  description: "Returns the value e<sup>x</sup>."
+  parameters {
+    name: "x"
+    doc: ""
+    types: ""
+  }
+}
+elements {
+  type: FUNCTION
+  name: "math.floor"
+  brief: "next smaller integer value"
+  description: "Returns the largest integer smaller than or equal to x."
+  parameters {
+    name: "x"
+    doc: ""
+    types: ""
+  }
+}
+elements {
+  type: FUNCTION
+  name: "math.fmod"
+  brief: "the modulus (remainder) of doing: v1 / v2"
+  description: "Returns the remainder of the division of x by y\nthat rounds the quotient towards zero."
+  parameters {
+    name: "x"
+    doc: ""
+    types: ""
+  }
+  parameters {
+    name: "y"
+    doc: ""
+    types: ""
+  }
+}
+elements {
+  type: FUNCTION
+  name: "math.frexp"
+  brief: "break number into mantissa and exponent"
+  description: "Returns m and e such that x = m2<sup>e</sup>,\ne is an integer and the absolute value of m is\nin the range [0.5, 1)\n(or zero when x is zero)."
+  parameters {
+    name: "x"
+    doc: ""
+    types: ""
+  }
+}
+elements {
+  type: VARIABLE
+  name: "math.huge"
+  brief: "a huge value"
+  description: "The value HUGE_VAL,\na value larger than or equal to any other numerical value."
+}
+elements {
+  type: FUNCTION
+  name: "math.ldexp"
+  brief: "compute m* 2^n"
+  description: "Returns m2<sup>e</sup> (e should be an integer)."
+  parameters {
+    name: "m"
+    doc: ""
+    types: ""
+  }
+  parameters {
+    name: "e"
+    doc: ""
+    types: ""
+  }
+}
+elements {
+  type: FUNCTION
+  name: "math.log"
+  brief: "natural log"
+  description: "Returns the natural logarithm of x."
+  parameters {
+    name: "x"
+    doc: ""
+    types: ""
+  }
+}
+elements {
+  type: FUNCTION
+  name: "math.log10"
+  brief: "log to the base 10"
+  description: "Returns the base-10 logarithm of x."
+  parameters {
+    name: "x"
+    doc: ""
+    types: ""
+  }
+}
+elements {
+  type: FUNCTION
+  name: "math.max"
+  brief: "the highest of one or more numbers"
+  description: "Returns the maximum value among its arguments."
+  parameters {
+    name: "x"
+    doc: ""
+    types: ""
+  }
+  parameters {
+    name: "..."
+    doc: ""
+    types: ""
+  }
+}
+elements {
+  type: FUNCTION
+  name: "math.min"
+  brief: "the lowest of one or more numbers"
+  description: "Returns the minimum value among its arguments."
+  parameters {
+    name: "x"
+    doc: ""
+    types: ""
+  }
+  parameters {
+    name: "..."
+    doc: ""
+    types: ""
+  }
+}
+elements {
+  type: FUNCTION
+  name: "math.modf"
+  brief: "returns the integral and fractional part of its argument"
+  description: "Returns two numbers,\nthe integral part of x and the fractional part of x."
+  parameters {
+    name: "x"
+    doc: ""
+    types: ""
+  }
+}
+elements {
+  type: VARIABLE
+  name: "math.pi"
+  brief: "the value of pi"
+  description: "The value of PI."
+}
+elements {
+  type: FUNCTION
+  name: "math.pow"
+  brief: "raise a number to a power"
+  description: "Returns x<sup>y</sup>.\n(You can also use the expression <code>x^y</code> to compute this value.)"
+  parameters {
+    name: "x"
+    doc: ""
+    types: ""
+  }
+  parameters {
+    name: "y"
+    doc: ""
+    types: ""
+  }
+}
+elements {
+  type: FUNCTION
+  name: "math.rad"
+  brief: "convert degrees to radians"
+  description: "Returns the angle x (given in degrees) in radians."
+  parameters {
+    name: "x"
+    doc: ""
+    types: ""
+  }
+}
+elements {
+  type: FUNCTION
+  name: "math.random"
+  brief: "generate a random number"
+  description: "This function is an interface to the simple\npseudo-random generator function rand provided by ANSI C.\n(No guarantees can be given for its statistical properties.)\nWhen called without arguments,\nreturns a uniform pseudo-random real number\nin the range [0,1).\nWhen called with an integer number m,\nmath.random returns\na uniform pseudo-random integer in the range [1, m].\nWhen called with two integer numbers m and n,\nmath.random returns a uniform pseudo-random\ninteger in the range [m, n]."
+  parameters {
+    name: "[m]"
+    doc: ""
+    types: ""
+  }
+  parameters {
+    name: "[n]"
+    doc: ""
+    types: ""
+  }
+}
+elements {
+  type: FUNCTION
+  name: "math.randomseed"
+  brief: "seeds the random number generator"
+  description: "Sets x as the \"seed\"\nfor the pseudo-random generator:\nequal seeds produce equal sequences of numbers."
+  parameters {
+    name: "x"
+    doc: ""
+    types: ""
+  }
+}
+elements {
+  type: FUNCTION
+  name: "math.sin"
+  brief: "sine"
+  description: "Returns the sine of x (assumed to be in radians)."
+  parameters {
+    name: "x"
+    doc: ""
+    types: ""
+  }
+}
+elements {
+  type: FUNCTION
+  name: "math.sinh"
+  brief: "hyperbolic sine"
+  description: "Returns the hyperbolic sine of x."
+  parameters {
+    name: "x"
+    doc: ""
+    types: ""
+  }
+}
+elements {
+  type: FUNCTION
+  name: "math.sqrt"
+  brief: "square root"
+  description: "Returns the square root of x.\n(You can also use the expression <code>x^0.5</code> to compute this value.)"
+  parameters {
+    name: "x"
+    doc: ""
+    types: ""
+  }
+}
+elements {
+  type: FUNCTION
+  name: "math.tan"
+  brief: "tangent"
+  description: "Returns the tangent of x (assumed to be in radians)."
+  parameters {
+    name: "x"
+    doc: ""
+    types: ""
+  }
+}
+elements {
+  type: FUNCTION
+  name: "math.tanh"
+  brief: "hyperbolic tangent"
+  description: "Returns the hyperbolic tangent of x."
+  parameters {
+    name: "x"
+    doc: ""
+    types: ""
+  }
+}
+info {
+  namespace: "math"
+  name: "Math"
+  brief: "Lua math standard library"
+  description: "Documentation for the Lua math standard library.\nFrom <a href=\"https://www.lua.org/manual/5.1/\">Lua 5.1 Reference Manual</a>\nby Roberto Ierusalimschy, Luiz Henrique de Figueiredo, Waldemar Celes.\nCopyright &copy; 2006-2012 Lua.org, PUC-Rio.\nFreely available under the terms of the <a href=\"https://www.lua.org/license.html\">Lua license</a>."
+  path: ""
+  file: ""
+}

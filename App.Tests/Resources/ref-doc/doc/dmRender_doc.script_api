@@ -1,0 +1,449 @@
+- desc: The render context
+  name: HRenderContext
+  type: typedef
+- desc: Material instance handle
+  name: HMaterial
+  type: typedef
+- desc: Font map handle
+  name: HFontMap
+  type: typedef
+- desc: Shader constant handle
+  name: HConstant
+  type: typedef
+- desc: Shader constant buffer handle. Holds name and values for a constant.
+  name: HNamedConstantBuffer
+  type: typedef
+- desc: ''
+  name: Result
+  type: enum
+- desc: Struct holding stencil operation setup
+  name: StencilTestParams
+  type: struct
+- desc: Render objects represent an actual draw call
+  name: RenderObject
+  type: struct
+- desc: 'Represents a renderable object (e.g. a single sprite)
+
+    The renderer will (each frame) collect all entries with the current material tag,
+    then batch these objects together.
+
+    Batching is done based on the batch key and Z value (or order for GUI nodes)
+
+    The caller will also register a callback function where the batched entries will
+    be returned.
+
+    Each callback then represents a draw call, and will register a RenderObject'
+  name: RenderListEntry
+  parameters:
+  - desc: the world position of the object
+    name: m_WorldPosition
+    type: dmVMath::Point3
+  - desc: the order to sort on (used if m_MajorOrder != RENDER_ORDER_WORLD)
+    name: m_Order
+    type: uint32_t
+  - desc: 'the batch key to sort on (note: only 48 bits are currently used by renderer)'
+    name: m_BatchKey
+    type: uint32_t
+  - desc: the key to the list of material tags
+    name: m_TagListKey
+    type: uint32_t
+  - desc: user data (available in the render dispatch callback)
+    name: m_UserData
+    type: uint64_t
+  - desc: used to sort within a batch
+    name: m_MinorOrder
+    type: uint32_t:4
+  - desc: 'If RENDER_ORDER_WORLD, then sorting is done based on the world position.
+
+      Otherwise the sorting uses the m_Order value directly.'
+    name: m_MajorOrder
+    type: uint32_t:2
+  - desc: The dispatch function callback (dmRender::HRenderListDispatch)
+    name: m_Dispatch
+    type: uint32_t:8
+  type: function
+- desc: Render batch callback states
+  name: RenderListOperation
+  type: enum
+- desc: Render order
+  name: RenderOrder
+  type: enum
+- desc: Visibility status
+  name: Visibility
+  type: enum
+- desc: Visibility dispatch function callback.
+  name: RenderListVisibilityParams
+  type: struct
+- desc: Render dispatch function callback.
+  name: RenderListDispatchFn
+  type: typedef
+- desc: Render dispatch function callback.
+  name: RenderListDispatchParams
+  type: struct
+- desc: Render dispatch function handle.
+  name: HRenderListDispatch
+  type: typedef
+- desc: Render dispatch function callback.
+  name: RenderListDispatchFn
+  type: typedef
+- desc: Register a render dispatch function
+  name: RenderListMakeDispatch
+  parameters:
+  - desc: the context
+    name: context
+    type: dmRender::HRenderContext
+  - desc: the render batch callback function
+    name: dispatch_fn
+    type: dmRender::RenderListDispatchFn
+  - desc: the render list visibility callback function. May be 0
+    name: visibility_fn
+    type: dmRender::RenderListVisibilityFn
+  - desc: userdata to the callback
+    name: user_data
+    type: void*
+  returns:
+  - desc: the render dispatch function handle
+    type: dmRender::HRenderListDispatch
+  type: function
+- desc: Allocates an array of render entries
+  name: RenderListAlloc
+  parameters:
+  - desc: the context
+    name: context
+    type: dmRender::HRenderContext
+  - desc: the number of entries to allocate
+    name: entries
+    type: uint32_t
+  returns:
+  - desc: the render list entry array
+    type: dmRender::RenderListEntry*
+  type: function
+- desc: Adds a render object to the current render frame
+  name: RenderListSubmit
+  parameters:
+  - desc: the context
+    name: context
+    type: dmRender::HRenderContext
+  - desc: the start of the array
+    name: begin
+    type: dmRender::RenderListEntry*
+  - desc: 'the end of the array (i.e. "while begin!=end: *begin ..."")'
+    name: end
+    type: dmRender::RenderListEntry*
+  type: function
+- desc: Adds a render object to the current render frame
+  name: AddToRender
+  parameters:
+  - desc: the context
+    name: context
+    type: dmRender::HRenderContext
+  - desc: the render object
+    name: ro
+    type: dmRender::RenderObject*
+  returns:
+  - desc: the result
+    type: dmRender::Result
+  type: function
+- desc: Gets the key to the material tag list
+  name: GetMaterialTagListKey
+  parameters:
+  - desc: the material
+    name: material
+    type: dmGraphics::HMaterial
+  returns:
+  - desc: the list key
+    type: uint32_t
+  type: function
+- desc: Creates a shader program constant
+  name: NewConstant
+  parameters:
+  - desc: the name of the material constant
+    name: name_hash
+    type: dmhash_t
+  returns:
+  - desc: the constant
+    type: dmRender::HConstant
+  type: function
+- desc: Deletes a shader program constant
+  name: DeleteConstant
+  parameters:
+  - desc: The shader constant
+    name: constant
+    type: dmRender::HConstant
+  type: function
+- desc: Gets the shader program constant values
+  name: GetConstantValues
+  parameters:
+  - desc: The shader constant
+    name: constant
+    type: dmRender::HConstant
+  - desc: (out) the array num_values
+    name: num_values
+    type: uint32_t*
+  returns:
+  - desc: the uniform values
+    type: dmVMath::Vector4*
+  type: function
+- desc: Sets the shader program constant values
+  name: SetConstantValues
+  parameters:
+  - desc: The shader constant
+    name: constant
+    type: dmRender::HConstant
+  - desc: the array values
+    name: values
+    type: dmVMath::Vector4*
+  - desc: the array size (number of Vector4's)
+    name: num_values
+    type: uint32_t
+  returns:
+  - desc: the result
+    type: dmRender::Result
+  type: function
+- desc: Gets the shader program constant name
+  name: GetConstantName
+  parameters:
+  - desc: The shader constant
+    name: constant
+    type: dmRender::HConstant
+  returns:
+  - desc: the hash name
+    type: dmhash_t
+  type: function
+- desc: Gets the shader program constant name
+  name: GetConstantName
+  parameters:
+  - desc: The shader constant
+    name: constant
+    type: dmRender::HConstant
+  - desc: the hash name
+    name: name
+    type: dmhash_t
+  type: function
+- desc: Gets the shader program constant location
+  name: GetConstantLocation
+  parameters:
+  - desc: The shader constant
+    name: constant
+    type: dmRender::HConstant
+  returns:
+  - desc: the location
+    type: int32_t
+  type: function
+- desc: Sets the shader program constant location
+  name: SetConstantLocation
+  parameters:
+  - desc: The shader constant
+    name: constant
+    type: dmRender::HConstant
+  - desc: the location
+    name: location
+    type: int32_t
+  type: function
+- desc: Gets the type of the constant
+  name: GetConstantType
+  parameters:
+  - desc: The shader constant
+    name: constant
+    type: dmRender::HConstant
+  returns:
+  - desc: the type of the constant
+    type: dmRenderDDF::MaterialDesc::ConstantType
+  type: function
+- desc: Sets the type of the constant
+  name: SetConstantType
+  parameters:
+  - desc: The shader constant
+    name: constant
+    type: dmRender::HConstant
+  - desc: the type of the constant
+    name: type
+    type: dmRenderDDF::MaterialDesc::ConstantType
+  type: function
+- desc: Allocates a named constant buffer
+  name: NewNamedConstantBuffer
+  parameters: []
+  returns:
+  - desc: the constants buffer
+    type: dmRender::HNamedConstantBuffer
+  type: function
+- desc: Deletes a named constant buffer
+  name: DeleteNamedConstantBuffer
+  parameters:
+  - desc: the constants buffer
+    name: buffer
+    type: dmRender::HNamedConstantBuffer
+  type: function
+- desc: Clears a named constant buffer from any constants.
+  name: ClearNamedConstantBuffer
+  parameters:
+  - desc: the constants buffer
+    name: buffer
+    type: dmRender::HNamedConstantBuffer
+  type: function
+- desc: Removes a named constant from the buffer
+  name: RemoveNamedConstant
+  parameters:
+  - desc: the constants buffer
+    name: buffer
+    type: dmRender::HNamedConstantBuffer
+  - desc: the name of the constant
+    name: name_hash
+    type: dmhash_t
+  type: function
+- desc: Sets one or more named constants to the buffer
+  name: SetNamedConstant
+  parameters:
+  - desc: the constants buffer
+    name: buffer
+    type: dmRender::HNamedConstantBuffer
+  - desc: the name of the constant
+    name: name_hash
+    type: dmhash_t
+  - desc: the values
+    name: values
+    type: dmVMath::Vector4*
+  - desc: the number of values
+    name: num_values
+    type: uint32_t
+  type: function
+- desc: 'Sets one or more named constants to the buffer with a specified data type.
+
+    Currently only dmRenderDDF::MaterialDesc::CONSTANT_TYPE_USER and dmRenderDDF::MaterialDesc::CONSTANT_TYPE_USER_MATRIX4
+
+    are supported.'
+  name: SetNamedConstant
+  parameters:
+  - desc: the constants buffer
+    name: buffer
+    type: dmRender::HNamedConstantBuffer
+  - desc: the name of the constant
+    name: name_hash
+    type: dmhash_t
+  - desc: the values
+    name: values
+    type: dmVMath::Vector4*
+  - desc: the number of values
+    name: num_values
+    type: uint32_t
+  - desc: The constant type
+    name: constant_type
+    type: dmRenderDDF::MaterialDesc::ConstantType
+  type: function
+- desc: Sets a list of named constants to the buffer
+  name: SetNamedConstants
+  parameters:
+  - desc: the constants buffer
+    name: buffer
+    type: dmRender::HNamedConstantBuffer
+  - desc: the constants
+    name: constants
+    type: dmRender::HConstant*
+  - desc: the number of constants
+    name: num_constants
+    type: uint32_t
+  type: function
+- desc: Sets a named constant in the buffer at a specific index
+  name: SetNamedConstantAtIndex
+  parameters:
+  - desc: the constants buffer
+    name: buffer
+    type: dmRender::HNamedConstantBuffer
+  - desc: the name of the constant
+    name: name_hash
+    type: dmhash_t
+  - desc: the value
+    name: value
+    type: dmVMath::Vector4
+  - desc: the index of the value to set
+    name: value_index
+    type: uint32_t
+  returns:
+  - desc: the result
+    type: Result
+  type: function
+- desc: Gets a named constant from the buffer
+  name: GetNamedConstant
+  parameters:
+  - desc: the constants buffer
+    name: buffer
+    type: dmRender::HNamedConstantBuffer
+  - desc: the name of the constant
+    name: name_hash
+    type: dmhash_t
+  - desc: (out) the values. May not be null.
+    name: values
+    type: dmVMath::Vector4**
+  - desc: (out) the number of values. May not be null.
+    name: num_values
+    type: uint32_t*
+  returns:
+  - desc: true if constant existed.
+    type: bool
+  type: function
+- desc: Gets a named constant from the buffer - with type information
+  name: GetNamedConstant
+  parameters:
+  - desc: the constants buffer
+    name: buffer
+    type: dmRender::HNamedConstantBuffer
+  - desc: the name of the constant
+    name: name_hash
+    type: dmhash_t
+  - desc: (out) the values. May not be null.
+    name: values
+    type: dmVMath::Vector4**
+  - desc: (out) the number of values. May not be null.
+    name: num_values
+    type: uint32_t*
+  - desc: (out) the constant type.
+    name: constant_type
+    type: dmRenderDDF::MaterialDesc::ConstantType*
+  returns:
+  - desc: true if constant existed.
+    type: bool
+  type: function
+- desc: Gets number of constants in the buffer
+  name: GetNamedConstantCount
+  parameters:
+  - desc: the constants buffer
+    name: buffer
+    type: dmRender::HNamedConstantBuffer
+  returns:
+  - desc: true if constant existed.
+    type: bool
+  type: function
+- desc: Iterates over the constants
+  name: IterateNamedConstants
+  parameters:
+  - desc: the constants buffer
+    name: buffer
+    type: dmRender::HNamedConstantBuffer
+  - desc: the callback function void (*callback)(dmhash_t name_hash, void* ctx)
+    name: callback
+    type: void (*callback)(dmhash_t name_hash, void* ctx)
+  - desc: the callback context
+    name: ctx
+    type: void*
+  type: function
+- desc: '[file:<dmsdk/render/render.h>]
+
+
+    Api for render specific data'
+  members:
+  - desc: Get the vertex space (local or world)
+    name: :GetMaterialVertexSpace
+    parameters:
+    - desc: the material
+      name: material
+      type: dmRender::HMaterial
+    returns:
+    - desc: the vertex space
+      type: dmRenderDDF::MaterialDesc::VertexSpace
+    type: function
+  - desc: The maximum number of textures the render object can hold (currently 8)
+    name: :RenderObject::MAX_TEXTURE_COUNT
+    parameters: []
+    type: function
+  name: dmRender
+  type: table

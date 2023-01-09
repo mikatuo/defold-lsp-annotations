@@ -1,0 +1,654 @@
+- desc: 'Terminates the game application and reports the specified <code>code</code>
+    to the OS.
+
+    This message can only be sent to the designated `@system` socket.'
+  name: exit
+  type: message
+- desc: 'Toggles the on-screen profiler.
+
+    The profiler is a real-time tool that shows the numbers of milliseconds spent
+
+    in each scope per frame as well as counters. The profiler is very useful for
+
+    tracking down performance and resource problems.
+
+
+    In addition to the on-screen profiler, Defold includes a web-based profiler that
+
+    allows you to sample a series of data points and then analyze them in detail.
+
+    The web profiler is available at `http://<device IP>:8002` where <device IP> is
+
+    the IP address of the device you are running your game on.
+
+
+    This message can only be sent to the designated `@system` socket.'
+  name: toggle_profile
+  type: message
+- desc: 'Toggles the on-screen physics visual debugging mode which is very useful
+    for
+
+    tracking down issues related to physics. This mode visualizes
+
+    all collision object shapes and normals at detected contact points. Toggling
+
+    this mode on is equal to setting `physics.debug` in the "game.project" settings,
+
+    but set in run-time.
+
+
+    This message can only be sent to the designated `@system` socket.'
+  name: toggle_physics_debug
+  type: message
+- desc: 'Starts video recording of the game frame-buffer to file. Current video format
+    is the
+
+    open vp8 codec in the ivf container. It''s possible to upload this format directly
+
+    to YouTube. The VLC video player has native support but with the known issue that
+
+    not the entire file is played back. It''s probably an issue with VLC.
+
+    The Miro Video Converter has support for vp8/ivf.
+
+
+    [icon:macos] [icon:windows] [icon:linux] Video recording is only supported on
+    desktop platforms.
+
+
+    [icon:attention] Audio is currently not supported
+
+
+    [icon:attention] Window width and height must be a multiple of 8 to be able to
+    record video.
+
+
+    This message can only be sent to the designated `@system` socket.'
+  name: start_record
+  type: message
+- desc: 'Stops the currently active video recording.
+
+
+    [icon:macos] [icon:windows] [icon:linux] Video recording is only supported on
+    desktop platforms.
+
+
+    This message can only be sent to the designated `@system` socket.'
+  name: stop_record
+  type: message
+- desc: 'Reboots the game engine with a specified set of arguments.
+
+    Arguments will be translated into command line arguments. Sending the reboot
+
+    command is equivalent to starting the engine with the same arguments.
+
+
+    On startup the engine reads configuration from "game.project" in the
+
+    project root.
+
+
+    This message can only be sent to the designated `@system` socket.'
+  name: reboot
+  type: message
+- desc: 'Set the vsync swap interval. The interval with which to swap the front and
+    back buffers
+
+    in sync with vertical blanks (v-blank), the hardware event where the screen image
+    is updated
+
+    with data from the front buffer. A value of 1 swaps the buffers at every v-blank,
+    a value of
+
+    2 swaps the buffers every other v-blank and so on. A value of 0 disables waiting
+    for v-blank
+
+    before swapping the buffers. Default value is 1.
+
+
+    When setting the swap interval to 0 and having `vsync` disabled in
+
+    "game.project", the engine will try to respect the set frame cap value from
+
+    "game.project" in software instead.
+
+
+    This setting may be overridden by driver settings.
+
+
+    This message can only be sent to the designated `@system` socket.'
+  name: set_vsync
+  type: message
+- desc: 'Set game update-frequency (frame cap). This option is equivalent to `display.update_frequency`
+    in
+
+    the "game.project" settings but set in run-time. If `Vsync` checked in "game.project",
+    the rate will
+
+    be clamped to a swap interval that matches any detected main monitor refresh rate.
+    If `Vsync` is
+
+    unchecked the engine will try to respect the rate in software using timers. There
+    is no
+
+    guarantee that the frame cap will be achieved depending on platform specifics
+    and hardware settings.
+
+
+    This message can only be sent to the designated `@system` socket.'
+  name: set_update_frequency
+  type: message
+- desc: 'Functions and messages for using system resources, controlling the engine,
+
+    error handling and debugging.'
+  members:
+  - desc: 'The table can later be loaded by <code>sys.load</code>.
+
+      Use <code>sys.get_save_file</code> to obtain a valid location for the file.
+
+      Internally, this function uses a workspace buffer sized output file sized 512kb.
+
+      This size reflects the output file size which must not exceed this limit.
+
+      Additionally, the total number of rows that any one table may contain is limited
+      to 65536
+
+      (i.e. a 16 bit range). When tables are used to represent arrays, the values
+      of
+
+      keys are permitted to fall within a 32 bit range, supporting sparse arrays,
+      however
+
+      the limit on the total number of rows remains in effect.'
+    name: save
+    parameters:
+    - desc: file to write to
+      name: filename
+      type: string
+    - desc: lua table to save
+      name: table
+      type: table
+    returns:
+    - desc: a boolean indicating if the table could be saved or not
+      type: boolean
+    type: function
+  - desc: If the file exists, it must have been created by <code>sys.save</code> to
+      be loaded.
+    name: load
+    parameters:
+    - desc: file to read from
+      name: filename
+      type: string
+    returns:
+    - desc: lua table, which is empty if the file could not be found
+      type: table
+    type: function
+  - desc: The save-file path is operating system specific and is typically located
+      under the user's home directory.
+    name: get_save_file
+    parameters:
+    - desc: user defined id of the application, which helps define the location of
+        the save-file
+      name: application_id
+      type: string
+    - desc: file-name to get path for
+      name: file_name
+      type: string
+    returns:
+    - desc: path to save-file
+      type: string
+    type: function
+  - desc: The path from which the application is run.
+    name: get_application_path
+    parameters: []
+    returns:
+    - desc: path to application executable
+      type: string
+    type: function
+  - desc: Get string config value from the game.project configuration file with optional
+      default value
+    name: get_config_string
+    parameters:
+    - desc: key to get value for. The syntax is SECTION.KEY
+      name: key
+      type: string
+    - desc: (optional) default value to return if the value does not exist
+      name: default_value
+      optional: true
+      type: string
+    returns:
+    - desc: config value as a string. default_value if the config key does not exist.
+        nil if no default value was supplied.
+      type: string
+    type: function
+  - desc: Get integer config value from the game.project configuration file with optional
+      default value
+    name: get_config_int
+    parameters:
+    - desc: key to get value for. The syntax is SECTION.KEY
+      name: key
+      type: string
+    - desc: (optional) default value to return if the value does not exist
+      name: default_value
+      optional: true
+      type: integer
+    returns:
+    - desc: config value as an integer. default_value if the config key does not exist.
+        nil if no default value was supplied.
+      type: integer
+    type: function
+  - desc: Get number config value from the game.project configuration file with optional
+      default value
+    name: get_config_number
+    parameters:
+    - desc: key to get value for. The syntax is SECTION.KEY
+      name: key
+      type: string
+    - desc: (optional) default value to return if the value does not exist
+      name: default_value
+      optional: true
+      type: number
+    returns:
+    - desc: config value as an number. default_value if the config key does not exist.
+        nil if no default value was supplied.
+      type: number
+    type: function
+  - desc: Open URL in default application, typically a browser
+    name: open_url
+    parameters:
+    - desc: url to open
+      name: url
+      type: string
+    - desc: 'table with attributes
+
+
+        `target`
+
+        - [type:string] [icon:html5]: Optional. Specifies the target attribute or
+        the name of the window. The following values are supported:
+
+        - `_self` - (default value) URL replaces the current page.
+
+        - `_blank` - URL is loaded into a new window, or tab.
+
+        - `_parent` - URL is loaded into the parent frame.
+
+        - `_top` - URL replaces any framesets that may be loaded.
+
+        - `name` - The name of the window (Note: the name does not specify the title
+        of the new window).'
+      name: attributes
+      optional: true
+      type: table
+    returns:
+    - desc: a boolean indicating if the url could be opened or not
+      type: boolean
+    type: function
+  - desc: 'Loads a custom resource. Specify the full filename of the resource that
+      you want
+
+      to load. When loaded, the file data is returned as a string.
+
+      If loading fails, the function returns nil plus the error message.
+
+
+      In order for the engine to include custom resources in the build process, you
+      need
+
+      to specify them in the "custom_resources" key in your "game.project" settings
+      file.
+
+      You can specify single resource files or directories. If a directory is included
+
+      in the resource list, all files and directories in that directory is recursively
+
+      included:
+
+
+      For example "main/data/,assets/level_data.json".'
+    name: load_resource
+    parameters:
+    - desc: resource to load, full path
+      name: filename
+      type: string
+    returns:
+    - desc: loaded data, or `nil` if the resource could not be loaded
+      type: string
+    - desc: the error message, or `nil` if no error occurred
+      type: string
+    type: function
+  - desc: Returns a table with system information.
+    name: get_sys_info
+    parameters:
+    - desc: 'optional options table
+
+        - ignore_secure [type:boolean] this flag ignores values might be secured by
+        OS e.g. `device_ident`'
+      name: options
+      optional: true
+      type: table
+    returns:
+    - desc: 'table with system information in the following fields:
+
+
+        `device_model`
+
+        : [type:string] [icon:ios][icon:android] Only available on iOS and Android.
+
+
+        `manufacturer`
+
+        : [type:string] [icon:ios][icon:android] Only available on iOS and Android.
+
+
+        `system_name`
+
+        : [type:string] The system name: "Darwin", "Linux", "Windows", "HTML5", "Android"
+        or "iPhone OS"
+
+
+        `system_version`
+
+        : [type:string] The system OS version.
+
+
+        `api_version`
+
+        : [type:string] The API version on the system.
+
+
+        `language`
+
+        : [type:string] Two character ISO-639 format, i.e. "en".
+
+
+        `device_language`
+
+        : [type:string] Two character ISO-639 format (i.e. "sr") and, if applicable,
+        followed by a dash (-) and an ISO 15924 script code (i.e. "sr-Cyrl" or "sr-Latn").
+        Reflects the device preferred language.
+
+
+        `territory`
+
+        : [type:string] Two character ISO-3166 format, i.e. "US".
+
+
+        `gmt_offset`
+
+        : [type:number] The current offset from GMT (Greenwich Mean Time), in minutes.
+
+
+        `device_ident`
+
+        : [type:string] This value secured by OS. [icon:ios] "identifierForVendor"
+        on iOS. [icon:android] "android_id" on Android. On Android, you need to add
+        `READ_PHONE_STATE` permission to be able to get this data. We don''t use this
+        permission in Defold.
+
+
+        `user_agent`
+
+        : [type:string] [icon:html5] The HTTP user agent, i.e. "Mozilla/5.0 (Macintosh;
+        Intel Mac OS X 10_12_3) AppleWebKit/602.4.8 (KHTML, like Gecko) Version/10.0.3
+        Safari/602.4.8"'
+      type: table
+    type: function
+  - desc: Returns a table with engine information.
+    name: get_engine_info
+    parameters: []
+    returns:
+    - desc: 'table with engine information in the following fields:
+
+
+        `version`
+
+        : [type:string] The current Defold engine version, i.e. "1.2.96"
+
+
+        `version_sha1`
+
+        : [type:string] The SHA1 for the current engine build, i.e. "0060183cce2e29dbd09c85ece83cbb72068ee050"
+
+
+        `is_debug`
+
+        : [type:boolean] If the engine is a debug or release version'
+      type: table
+    type: function
+  - desc: 'Returns a table with application information for the requested app.
+
+
+      [icon:iOS] On iOS, the `app_string` is an url scheme for the app that is queried.
+      Your
+
+      game needs to list the schemes that are queried in an `LSApplicationQueriesSchemes`
+      array
+
+      in a custom "Info.plist".
+
+
+      [icon:android] On Android, the `app_string` is the package identifier for the
+      app.'
+    name: get_application_info
+    parameters:
+    - desc: platform specific string with application package or query, see above
+        for details.
+      name: app_string
+      type: string
+    returns:
+    - desc: 'table with application information in the following fields:
+
+
+        `installed`
+
+        : [type:boolean] `true` if the application is installed, `false` otherwise.'
+      type: table
+    type: function
+  - desc: Returns an array of tables with information on network interfaces.
+    name: get_ifaddrs
+    parameters: []
+    returns:
+    - desc: 'an array of tables. Each table entry contain the following fields:
+
+
+        `name`
+
+        : [type:string] Interface name
+
+
+        `address`
+
+        : [type:string] IP address. [icon:attention] might be `nil` if not available.
+
+
+        `mac`
+
+        : [type:string] Hardware MAC address. [icon:attention] might be nil if not
+        available.
+
+
+        `up`
+
+        : [type:boolean] `true` if the interface is up (available to transmit and
+        receive data), `false` otherwise.
+
+
+        `running`
+
+        : [type:boolean] `true` if the interface is running, `false` otherwise.'
+      type: table
+    type: function
+  - desc: 'Set the Lua error handler function.
+
+      The error handler is a function which is called whenever a lua runtime error
+      occurs.'
+    name: set_error_handler
+    parameters:
+    - desc: 'the function to be called on error
+
+
+        `source`
+
+        : [type:string] The runtime context of the error. Currently, this is always
+        `"lua"`.
+
+
+        `message`
+
+        : [type:string] The source file, line number and error message.
+
+
+        `traceback`
+
+        : [type:string] The stack traceback.'
+      name: error_handler
+      type: function(source, message, traceback)
+    type: function
+  - desc: Sets the host that is used to check for network connectivity against.
+    name: set_connectivity_host
+    parameters:
+    - desc: hostname to check against
+      name: host
+      type: string
+    type: function
+  - desc: '[icon:ios] [icon:android] Returns the current network connectivity status
+
+      on mobile platforms.
+
+
+      On desktop, this function always return `sys.NETWORK_CONNECTED`.'
+    name: get_connectivity
+    parameters: []
+    returns:
+    - desc: 'network connectivity status:
+
+
+        - `sys.NETWORK_DISCONNECTED` (no network connection is found)
+
+        - `sys.NETWORK_CONNECTED_CELLULAR` (connected through mobile cellular)
+
+        - `sys.NETWORK_CONNECTED` (otherwise, Wifi)'
+      type: constant
+    type: function
+  - desc: Terminates the game application and reports the specified <code>code</code>
+      to the OS.
+    name: exit
+    parameters:
+    - desc: exit code to report to the OS, 0 means clean exit
+      name: code
+      type: number
+    type: function
+  - desc: 'Reboots the game engine with a specified set of arguments.
+
+      Arguments will be translated into command line arguments. Calling reboot
+
+      function is equivalent to starting the engine with the same arguments.
+
+
+      On startup the engine reads configuration from "game.project" in the
+
+      project root.'
+    name: reboot
+    parameters:
+    - desc: argument 1
+      name: arg1
+      type: string
+    - desc: argument 2
+      name: arg2
+      type: string
+    - desc: argument 3
+      name: arg3
+      type: string
+    - desc: argument 4
+      name: arg4
+      type: string
+    - desc: argument 5
+      name: arg5
+      type: string
+    - desc: argument 6
+      name: arg6
+      type: string
+    type: function
+  - desc: 'Set the vsync swap interval. The interval with which to swap the front
+      and back buffers
+
+      in sync with vertical blanks (v-blank), the hardware event where the screen
+      image is updated
+
+      with data from the front buffer. A value of 1 swaps the buffers at every v-blank,
+      a value of
+
+      2 swaps the buffers every other v-blank and so on. A value of 0 disables waiting
+      for v-blank
+
+      before swapping the buffers. Default value is 1.
+
+
+      When setting the swap interval to 0 and having `vsync` disabled in
+
+      "game.project", the engine will try to respect the set frame cap value from
+
+      "game.project" in software instead.
+
+
+      This setting may be overridden by driver settings.'
+    name: set_vsync_swap_interval
+    parameters:
+    - desc: target swap interval.
+      name: swap_interval
+      type: number
+    type: function
+  - desc: 'Set game update-frequency (frame cap). This option is equivalent to `display.update_frequency`
+      in
+
+      the "game.project" settings but set in run-time. If `Vsync` checked in "game.project",
+      the rate will
+
+      be clamped to a swap interval that matches any detected main monitor refresh
+      rate. If `Vsync` is
+
+      unchecked the engine will try to respect the rate in software using timers.
+      There is no
+
+      guarantee that the frame cap will be achieved depending on platform specifics
+      and hardware settings.'
+    name: set_update_frequency
+    parameters:
+    - desc: target frequency. 60 for 60 fps
+      name: frequency
+      type: number
+    type: function
+  - desc: 'The buffer can later deserialized by <code>sys.deserialize</code>.
+
+      This method has all the same limitations as <code>sys.save</code>.'
+    name: serialize
+    parameters:
+    - desc: lua table to serialize
+      name: table
+      type: table
+    returns:
+    - desc: serialized data buffer
+      type: string
+    type: function
+  - desc: deserializes buffer into a lua table
+    name: deserialize
+    parameters:
+    - desc: buffer to deserialize from
+      name: buffer
+      type: string
+    returns:
+    - desc: lua table with deserialized data
+      type: table
+    type: function
+  - desc: no network connection found
+    name: NETWORK_DISCONNECTED
+    type: number
+  - desc: network connected through mobile cellular
+    name: NETWORK_CONNECTED_CELLULAR
+    type: number
+  - desc: network connected through other, non cellular, connection
+    name: NETWORK_CONNECTED
+    type: number
+  name: sys
+  type: table

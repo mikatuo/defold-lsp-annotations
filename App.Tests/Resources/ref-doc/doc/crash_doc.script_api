@@ -1,0 +1,161 @@
+- desc: Native crash logging functions and constants.
+  members:
+  - desc: 'Performs the same steps as if a crash had just occured but
+
+      allows the program to continue.
+
+      The generated dump can be read by crash.load_previous'
+    name: write_dump
+    parameters: []
+    type: function
+  - desc: Crashes occuring before the path is set will be stored to a default engine
+      location.
+    name: set_file_path
+    parameters:
+    - desc: file path to use
+      name: path
+      type: string
+    type: function
+  - desc: 'The crash dump will be removed from disk upon a successful
+
+      load, so loading is one-shot.'
+    name: load_previous
+    parameters: []
+    returns:
+    - desc: handle to the loaded dump, or nil if no dump was found
+      type: number
+    type: function
+  - desc: releases a previously loaded crash dump
+    name: release
+    parameters:
+    - desc: handle to loaded crash dump
+      name: handle
+      type: number
+    type: function
+  - desc: 'Store a user value that will get written to a crash dump when
+
+      a crash occurs. This can be user id:s, breadcrumb data etc.
+
+      There are 32 slots indexed from 0. Each slot stores at most 255 characters.'
+    name: set_user_field
+    parameters:
+    - desc: slot index. 0-indexed
+      name: index
+      type: number
+    - desc: string value to store
+      name: value
+      type: string
+    type: function
+  - desc: 'The function returns a table containing entries with sub-tables that
+
+      have fields ''name'' and ''address'' set for all loaded modules.'
+    name: get_modules
+    parameters:
+    - desc: crash dump handle
+      name: handle
+      type: number
+    returns:
+    - desc: module table
+      type: table
+    type: function
+  - desc: reads user field from a loaded crash dump
+    name: get_user_field
+    parameters:
+    - desc: crash dump handle
+      name: handle
+      type: number
+    - desc: user data slot index
+      name: index
+      type: number
+    returns:
+    - desc: user data value recorded in the crash dump
+      type: string
+    type: function
+  - desc: reads a system field from a loaded crash dump
+    name: get_sys_field
+    parameters:
+    - desc: crash dump handle
+      name: handle
+      type: number
+    - desc: system field enum. Must be less than [ref:crash.SYSFIELD_MAX]
+      name: index
+      type: number
+    returns:
+    - desc: value recorded in the crash dump, or nil if it didn't exist
+      type: string
+    type: function
+  - desc: read signal number from a crash report
+    name: get_signum
+    parameters:
+    - desc: crash dump handle
+      name: handle
+      type: number
+    returns:
+    - desc: signal number
+      type: number
+    type: function
+  - desc: A table is returned containing the addresses of the call stack.
+    name: get_backtrace
+    parameters:
+    - desc: crash dump handle
+      name: handle
+      type: number
+    returns:
+    - desc: table containing the backtrace
+      type: table
+    type: function
+  - desc: 'The format of read text blob is platform specific
+
+      and not guaranteed
+
+      but can be useful for manual inspection.'
+    name: get_extra_data
+    parameters:
+    - desc: crash dump handle
+      name: handle
+      type: number
+    returns:
+    - desc: string with the platform specific data
+      type: string
+    type: function
+  - desc: engine version as release number
+    name: SYSFIELD_ENGINE_VERSION
+    type: number
+  - desc: engine version as hash
+    name: SYSFIELD_ENGINE_HASH
+    type: number
+  - desc: device model as reported by sys.get_sys_info
+    name: SYSFIELD_DEVICE_MODEL
+    type: number
+  - desc: device manufacturer as reported by sys.get_sys_info
+    name: SYSFIELD_MANUFACTURER
+    type: number
+  - desc: system name as reported by sys.get_sys_info
+    name: SYSFIELD_SYSTEM_NAME
+    type: number
+  - desc: system version as reported by sys.get_sys_info
+    name: SYSFIELD_SYSTEM_VERSION
+    type: number
+  - desc: system language as reported by sys.get_sys_info
+    name: SYSFIELD_LANGUAGE
+    type: number
+  - desc: system device language as reported by sys.get_sys_info
+    name: SYSFIELD_DEVICE_LANGUAGE
+    type: number
+  - desc: system territory as reported by sys.get_sys_info
+    name: SYSFIELD_TERRITORY
+    type: number
+  - desc: android build fingerprint
+    name: SYSFIELD_ANDROID_BUILD_FINGERPRINT
+    type: number
+  - desc: The max number of sysfields.
+    name: SYSFIELD_MAX
+    type: number
+  - desc: The max number of user fields.
+    name: USERFIELD_MAX
+    type: number
+  - desc: The max size of a single user field.
+    name: USERFIELD_SIZE
+    type: number
+  name: crash
+  type: table

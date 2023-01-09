@@ -1,0 +1,4 @@
+- desc: Vector Math functions.
+  members: []
+  name: dmVMath
+  type: table
