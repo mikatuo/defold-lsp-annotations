@@ -10,8 +10,14 @@ namespace ConsoleApp
 
         static async Task Main(string[] args)
         {
+            ///////////////////////////////////////////
+            // uncomment a following line to generate /
+            // annotations for a specific version     /
+            ///////////////////////////////////////////
+            //var options = new ProgramArgs(new [] { "1.4.1", "stable" }); // https://d.defold.com/stable/
+            //var options = new ProgramArgs(new [] { "1.4.2-alpha", "alpha" }); // https://d.defold.com/alpha/
+            
             var options = new ProgramArgs(args);
-
             DefoldRelease release = await FindDefoldRelease(options.ReleaseType, options.ReleaseVersion);
             DefoldApiReferenceArchive apiRefArchive = await DownloadDefoldApiRefArchive(release);
 
