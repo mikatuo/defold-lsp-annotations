@@ -35,7 +35,7 @@ Examples:
 4. Enjoy!
 
 Examples:
-[player.script](https://user-images.githubusercontent.com/7230306/211432819-a1bf3700-2469-44ff-b895-86d33300e37e.png),
-[main.script](https://user-images.githubusercontent.com/7230306/211432920-85a12ac1-0064-4b2c-bd15-5495557e8f66.png)
+[player.script](https://user-images.githubusercontent.com/7230306/211433659-11c93653-1b59-402b-8d6a-c28d7059fdb3.png),
+[main.script](https://user-images.githubusercontent.com/7230306/211433750-b9fd32b9-3862-4dbf-b940-8c9b44bf0a12.png)
 
 Note: You might notice that [Luanalysis](https://github.com/Benjamin-Dobell/IntelliJ-Luanalysis) actually does much a better job at type checking.
