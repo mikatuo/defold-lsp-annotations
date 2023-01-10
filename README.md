@@ -4,8 +4,9 @@
 
 1. Click `Ctrl+Alt+S` to open settings
 2. Go to `Plugins` and install the [Luanalysis](https://github.com/Benjamin-Dobell/IntelliJ-Luanalysis) plugin
-2. Unzip the archive with annotations into `.defold` folder
-3. Enjoy!
+3. Grab annotations from the [Releases](https://github.com/mikatuo/Defold-Emmylua-Annotations/releases)
+4. Unzip the archive with annotations into `.defold` folder
+5. Enjoy!
 
 Examples:
 [player.script](https://user-images.githubusercontent.com/7230306/211431570-f5a05423-2693-450b-8406-8c1cf99d9157.png), 
@@ -15,7 +16,8 @@ Examples:
 
 1. Install the EmmyLua plugin
 2. Unzip the archive with annotations into `.defold` folder
-3. Create `.vscode/settings.json` if it does not exist already and add the following lines:
+3. Grab annotations from the [Releases](https://github.com/mikatuo/Defold-Emmylua-Annotations/releases)
+4. Create `.vscode/settings.json` if it does not exist already and add the following lines:
 ```json
 {
     "Lua.diagnostics.globals": [
@@ -32,7 +34,7 @@ Examples:
     }
 }
 ```
-4. Enjoy!
+5. Enjoy!
 
 Examples:
 [player.script](https://user-images.githubusercontent.com/7230306/211433659-11c93653-1b59-402b-8d6a-c28d7059fdb3.png),
