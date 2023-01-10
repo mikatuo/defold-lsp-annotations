@@ -9,8 +9,8 @@
 5. Enjoy!
 
 Examples:
-[player.script](https://user-images.githubusercontent.com/7230306/211431570-f5a05423-2693-450b-8406-8c1cf99d9157.png), 
-[main.script](https://user-images.githubusercontent.com/7230306/211431591-7bc300dd-57ba-422d-b8a5-c5582f685707.png)
+![player.script](https://user-images.githubusercontent.com/7230306/211431570-f5a05423-2693-450b-8406-8c1cf99d9157.png), 
+![main.script](https://user-images.githubusercontent.com/7230306/211431591-7bc300dd-57ba-422d-b8a5-c5582f685707.png)
 
 # Use in VS Code
 
@@ -37,7 +37,7 @@ Examples:
 5. Enjoy!
 
 Examples:
-[player.script](https://user-images.githubusercontent.com/7230306/211433659-11c93653-1b59-402b-8d6a-c28d7059fdb3.png),
-[main.script](https://user-images.githubusercontent.com/7230306/211433750-b9fd32b9-3862-4dbf-b940-8c9b44bf0a12.png)
+![player.script](https://user-images.githubusercontent.com/7230306/211433659-11c93653-1b59-402b-8d6a-c28d7059fdb3.png),
+![main.script](https://user-images.githubusercontent.com/7230306/211433750-b9fd32b9-3862-4dbf-b940-8c9b44bf0a12.png)
 
-Note: You might notice that [Luanalysis](https://github.com/Benjamin-Dobell/IntelliJ-Luanalysis) actually does much a better job at type checking.
+Note: You might notice that the [Luanalysis](https://github.com/Benjamin-Dobell/IntelliJ-Luanalysis) plugin in IntelliJ actually does much a better job at type checking than the Emmylua plugin in VS Code.
