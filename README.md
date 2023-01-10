@@ -1,4 +1,4 @@
-[EmmyLua](https://github.com/EmmyLua) annotations for [Defold](https://defold.com)
+## [EmmyLua](https://github.com/EmmyLua) annotations for [Defold](https://defold.com)
 
 # Use in IntelliJ IDEA (recommended)
 
