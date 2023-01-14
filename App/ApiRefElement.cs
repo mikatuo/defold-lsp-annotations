@@ -14,6 +14,8 @@
         public string[] TParams { get; set; }
         public string[] Members { get; set; }
         public string[] Notes { get; set; }
+        public bool OutgoingMessage { get; set; }
+        public bool IncomingMessage { get; set; }
         bool ReturnsNothing => ReturnValues == null || ReturnValues.Length == 0;
 
         public ApiRefElement()
@@ -36,6 +38,8 @@
                     return FunctionAnnotation();
                 case "variable":
                     return VariableAnnotation();
+                case "message":
+                    return MessageAnnotation();
                 default:
                     return null;
             }
@@ -66,6 +70,21 @@
 
             lines.AddRange(DescriptionAnnotation());
             lines.Add($"{Name} = nil");
+
+            return string.Join("\n", lines);
+        }
+
+        string? MessageAnnotation()
+        {
+            var lines = new List<string>();
+
+            lines.AddRange(DescriptionAnnotation());
+            
+            lines.Add($"---@shape {Name}_msg");
+            foreach (var parameter in Parameters) {
+                var types = parameter.TypeAnnotation();
+                lines.Add($"---@field {parameter.Name} {types}");
+            }
 
             return string.Join("\n", lines);
         }

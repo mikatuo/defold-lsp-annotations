@@ -14,6 +14,8 @@ namespace Core
         public string TypeAnnotation()
         {
             var typesAnnotation = string.Join("|", Types);
+            if (Optional && !Types.Contains("nil"))
+                    typesAnnotation += "|nil";
             return typesAnnotation.Length == 0
                 ? "any"
                 : typesAnnotation;

@@ -13,19 +13,21 @@ namespace App
             yield return $"---{apiRef.Info.Brief}";
             foreach (var line in apiRef.Info.DescriptionAnnotation())
                 yield return line;
-            yield return $"---@class {apiRef.Info.Namespace}";
+            //yield return $"---@class {apiRef.Info.Namespace}";
             yield return $"{apiRef.Info.Namespace} = {{}}";
 
-            // generate functions
+            // generate annotations for functions, messages, constants
             foreach (var element in apiRef.Elements) {
+                if (element.Type.ToLowerInvariant() == "function") {
+                    yield return $"---Docs: https://defold.com/ref/stable/{apiRef.Info.Namespace}/?q={element.Name}#{element.Name}";
+                    yield return "---";
+                }
                 var annotations = element.ToAnnotation();
                 if (annotations is null)
                     continue;
                 yield return annotations;
+                yield return "";
             }
-
-            // return the module
-            //yield return $"return {apiRef.Info.Namespace}";
         }
 
         #region Defold Base Types

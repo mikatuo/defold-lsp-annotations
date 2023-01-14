@@ -67,18 +67,28 @@ namespace App
         {
             apiRef.Info.Description = apiRef.Info.Description;
             foreach (var element in apiRef.Elements) {
-                CleanUpParameters(element);
+                EnhanceParameters(element);
                 CleanUpReturnValues(element);
-                element.Description = element.Description;
+                EnhanceMessages(element);
             }
         }
-        
-        static void CleanUpParameters(ApiRefElement element)
+
+        static Dictionary<string, string[]> _parameterTypeOverrides = new Dictionary<string, string[]>(StringComparer.OrdinalIgnoreCase) {
+            ["sound.play>play_properties"] = new [] { "{delay:number|nil, gain:number|nil, pan:number|nil, speed:number|nil}|nil" },
+            ["sound.play>complete_function"] = new [] { "fun(self, message_id:hash, message:sound_done_msg, sender)" },
+        };
+        static void EnhanceParameters(ApiRefElement element)
         {
             foreach (var parameter in element.Parameters) {
+                parameter.Types = parameter.Types.Select(x =>
+                    x.Replace("function(", "fun(")
+                    .Replace("message_id", ", message_id:hash")
+                ).ToArray();
                 if (parameter.Name.StartsWith('[')) {
                     parameter.Name = parameter.Name.Trim('[', ']');
                     parameter.Optional = true;
+                    if (_parameterTypeOverrides.ContainsKey($"{element.Name}>{parameter.Name}"))
+                        parameter.Types = _parameterTypeOverrides[$"{element.Name}>{parameter.Name}"];
                 }
                 parameter.Description = parameter.Description.Replace("\n", "");
             }
@@ -86,9 +96,23 @@ namespace App
 
         static void CleanUpReturnValues(ApiRefElement element)
         {
-            foreach (var parameter in element.ReturnValues) {
+            foreach (var parameter in element.ReturnValues)
                 parameter.Description = parameter.Description.Replace("\n", "");
+        }
+        
+        static void EnhanceMessages(ApiRefElement element)
+        {
+            if (!StringComparer.OrdinalIgnoreCase.Equals(element.Type, "message"))
+                return;
+            // automatic identification does not work correctly for animation_done
+            // because example text contains "msg.post" in it
+            if (element.Name == "animation_done") {
+                element.IncomingMessage = true;
+                return;
             }
+            // the element is a message
+            element.OutgoingMessage = element.Description.StartsWith("Post") || element.Examples.Contains("msg.post");
+            element.IncomingMessage = !element.OutgoingMessage;
         }
 
         static string StripHtmlMarkup(string value)
