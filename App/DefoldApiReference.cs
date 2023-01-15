@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using App.Infrastructure;
+using System.Text.Json.Serialization;
 
 namespace Core
 {
@@ -33,7 +34,7 @@ namespace Core
 
         public string ToAnnitation()
         {
-            var typesAnnotation = string.Join("|", Types);
+            var typesAnnotation = Types.JoinToString("|");
             return typesAnnotation.Length == 0
                 ? "any"
                 : typesAnnotation;

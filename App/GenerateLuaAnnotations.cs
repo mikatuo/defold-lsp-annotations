@@ -13,7 +13,7 @@ namespace App
             yield return $"---{apiRef.Info.Brief}";
             foreach (var line in apiRef.Info.DescriptionAnnotation())
                 yield return line;
-            //yield return $"---@class {apiRef.Info.Namespace}";
+            yield return $"---@class {apiRef.Info.Namespace}";
             yield return $"{apiRef.Info.Namespace} = {{}}";
 
             // generate annotations for functions, messages, constants
@@ -54,27 +54,26 @@ namespace App
                 "---@alias quat quaternion",
                 "",
                 "---@class url",
-                "---@field socket",
-                "---@field path",
-                "---@field fragment",
+                "---@field socket number|string",
+                "---@field path string|hash",
+                "---@field fragment string|hash",
                 "",
-                "---@alias hash userdata",
-                "---@alias constant userdata",
+                "---@class hash : userdata",
+                "---@class constant : userdata",
                 "---@alias bool boolean",
                 "---@alias float number",
                 "---@alias object userdata",
                 "---@alias matrix4 userdata",
-                "---@alias node userdata",
+                "---@class node : userdata",
                 "",
-                "--mb use number instead of vector4",
                 "---@alias vector vector4",
                 "",
-                "--luasocket",
+                "-- luasocket",
                 "---@alias master userdata",
                 "---@alias unconnected userdata",
                 "---@alias client userdata",
                 "",
-                "--render",
+                "-- render",
                 "---@alias constant_buffer userdata",
                 "---@alias render_target userdata",
                 "---@alias predicate userdata",

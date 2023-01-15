@@ -7,14 +7,16 @@ namespace App
 {
     public class DefoldApiReferenceArchive
     {
+        public DefoldRelease Release { get; internal set; }
         public string[] Files { get; internal set; }
 
         byte[]? _source;
 
         internal DefoldApiReferenceArchive() { } // for unit tests
-        public DefoldApiReferenceArchive(byte[]? source)
+        public DefoldApiReferenceArchive(DefoldRelease release, byte[]? source)
         {
             _source = source;
+            Release = release;
             Files = ListFiles(_source, ".json");
         }
 
@@ -74,8 +76,8 @@ namespace App
         }
 
         static Dictionary<string, string[]> _parameterTypeOverrides = new Dictionary<string, string[]>(StringComparer.OrdinalIgnoreCase) {
-            ["sound.play>play_properties"] = new [] { "{delay:number|nil, gain:number|nil, pan:number|nil, speed:number|nil}|nil" },
-            ["sound.play>complete_function"] = new [] { "fun(self, message_id:hash, message:sound_done_msg, sender)" },
+            ["sound.play>play_properties"] = new [] { "{delay:number|nil, gain:number|nil, pan:number|nil, speed:number|nil}" },
+            ["sound.play>complete_function"] = new [] { "fun(self, message_id:hash, message:sound_done_msg, sender:hash)" },
         };
         static void EnhanceParameters(ApiRefElement element)
         {

@@ -75,7 +75,7 @@ namespace App.Tests
                 "---This message only reports that a collision actually happened and will only be sent once per\n" +
                 "---colliding pair and frame.\n" +
                 "---To retrieve more detailed information, check for the contact_point_response instead.\n" +
-                "---@shape collision_response_msg\n" +
+                "---@class collision_response_msg\n" +
                 "---@field other_id hash\n" +
                 "---@field other_position vector3\n" +
                 "---@field other_group hash\n" +
@@ -127,7 +127,7 @@ namespace App.Tests
                 "---Inversely, to find the linear value from a dB value, use the formula\n" +
                 "---10db/20.\n" +
                 "---A sound will continue to play even if the game object the sound component belonged to is deleted. You can send a stop_sound to stop the sound.\n" +
-                "---@shape play_sound_msg\n" +
+                "---@class play_sound_msg\n" +
                 "---@field delay number|nil\n" +
                 "---@field gain number|nil\n" +
                 "---@field play_id number|nil\n" +

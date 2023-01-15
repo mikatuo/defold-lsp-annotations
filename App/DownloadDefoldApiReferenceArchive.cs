@@ -7,7 +7,7 @@ namespace App
         public async Task<DefoldApiReferenceArchive> DownloadAsync(DefoldRelease release)
         {
             byte[]? apiReferenceZip = await DownloadApiReferenceZip(release);
-            return new DefoldApiReferenceArchive(apiReferenceZip);
+            return new DefoldApiReferenceArchive(release, apiReferenceZip);
         }
 
         #region Private Methods

@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using App.Infrastructure;
+using System.Text.Json.Serialization;
 
 namespace Core
 {
@@ -13,7 +14,7 @@ namespace Core
 
         public string TypeAnnotation()
         {
-            var typesAnnotation = string.Join("|", Types);
+            var typesAnnotation = Types.JoinToString("|");
             if (Optional && !Types.Contains("nil"))
                     typesAnnotation += "|nil";
             return typesAnnotation.Length == 0
