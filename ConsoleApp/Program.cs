@@ -39,8 +39,11 @@ namespace ConsoleApp
             SaveFile("base_defold.lua", GenerateDefoldBaseTypesAnnotations());
             foreach (var filename in apiRefArchive.Files) {
                 DefoldApiReference apiRef = apiRefArchive.Extract(filename);
-                var destinationFilename = $"{apiRef.Info.Name.ToLower()}.lua";
-                SaveFile(destinationFilename, GenerateLuaAnnotations(apiRef));
+                // clean filenames
+                var destFilenameWithoutExtension = apiRef.Info.Name
+                    .Replace(" ", "_").Replace("-", "")
+                    .ToLower();
+                SaveFile($"{destFilenameWithoutExtension}.lua", GenerateLuaAnnotations(apiRef));
             }
         }
 

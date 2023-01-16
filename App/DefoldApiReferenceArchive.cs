@@ -17,7 +17,7 @@ namespace App
         {
             _source = source;
             Release = release;
-            Files = ListFiles(_source, ".json");
+            Files = IgnoreIrrelevantFiles(ListFiles(_source, ".json"));
         }
 
         public DefoldApiReference Extract(string filename)
@@ -32,16 +32,29 @@ namespace App
         }
 
         #region Private Methods
-        string[] ListFiles(byte[]? apiReferenceZip, string v)
+        string[] IgnoreIrrelevantFiles(IEnumerable<string> filenames)
+        {
+            var ignoredFiles = new HashSet<string> {
+                "sharedlibrary_doc.json",
+                "iap_doc.json",
+                "camera_doc.json",
+                "package_doc.json",
+                "string_doc.json",
+            };
+            return filenames
+                .Where(filename => !filename.StartsWith("dm")) // ignore C docs
+                .Where(filename => !ignoredFiles.Contains(filename))
+                .ToArray();
+        }
+
+        IEnumerable<string> ListFiles(byte[]? apiReferenceZip, string v)
         {
             if (apiReferenceZip == null)
                 return Array.Empty<string>();
             using (var zip = new ZipArchive(new MemoryStream(apiReferenceZip))) {
                 return zip.Entries
                     .Where(x => x.Name.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
-                    .Where(x => !x.Name.StartsWith("dm")) // ignore C docs
-                    .Select(x => x.Name)
-                    .ToArray();
+                    .Select(x => x.Name);
             }
         }
 
