@@ -1,43 +1,22 @@
-## [EmmyLua](https://github.com/EmmyLua) annotations for [Defold](https://defold.com)
-
-# Use in IntelliJ IDEA (recommended)
-
-1. Click `Ctrl+Alt+S` to open settings
-2. Go to `Plugins` and install the [Luanalysis](https://github.com/Benjamin-Dobell/IntelliJ-Luanalysis) plugin
-3. Grab annotations from the [Releases](https://github.com/mikatuo/Defold-Emmylua-Annotations/releases)
-4. Unzip the archive with annotations into `.defold` folder
-5. Enjoy!
-
-Examples:
-![player.script](https://user-images.githubusercontent.com/7230306/211431570-f5a05423-2693-450b-8406-8c1cf99d9157.png), 
-![main.script](https://user-images.githubusercontent.com/7230306/211431591-7bc300dd-57ba-422d-b8a5-c5582f685707.png)
+## Lua annotations for [Defold](https://defold.com)
 
 # Use in VS Code
 
-1. Install the EmmyLua plugin
-2. Unzip the archive with annotations into `.defold` folder
-3. Grab annotations from the [Releases](https://github.com/mikatuo/Defold-Emmylua-Annotations/releases)
-4. Create `.vscode/settings.json` if it does not exist already and add the following lines:
-```json
-{
-    "Lua.diagnostics.globals": [
-        "init",
-        "final",
-        "update",
-        "fixed_update",
-        "on_message",
-        "on_input",
-        "on_reload"
-    ],
-    "search.exclude": {
-        "**/.defold": true
-    }
-}
-```
+1. Install [Lua](https://marketplace.visualstudio.com/items?itemName=sumneko.lua) **or** [EmmyLua](https://marketplace.visualstudio.com/items?itemName=tangzx.emmylua) **or** [Defold Lua Extension Pack](https://marketplace.visualstudio.com/items?itemName=mikatuo.defold-lua-extension-pack)
+2. Grab annotations from the [Releases](https://github.com/mikatuo/Defold-Emmylua-Annotations/releases)
+3. Unzip the archive with annotations inside your Defold project into the `.defold` folder
+4. Modify your settings as needed. Have a look at [settings.json](https://github.com/mikatuo/Defold-Lua-Annotations/blob/main/Examples/settings.json) that worked best for me
 5. Enjoy!
 
-Examples:
-![player.script](https://user-images.githubusercontent.com/7230306/211433659-11c93653-1b59-402b-8d6a-c28d7059fdb3.png),
-![main.script](https://user-images.githubusercontent.com/7230306/211433750-b9fd32b9-3862-4dbf-b940-8c9b44bf0a12.png)
+## Examples
 
-Note: You might notice that the [Luanalysis](https://github.com/Benjamin-Dobell/IntelliJ-Luanalysis) plugin in IntelliJ actually does much a better job at type checking than the Emmylua plugin in VS Code.
+TODO
+
+# Use in IntelliJ IDEA
+
+1. In the IDEA click `Ctrl+Alt+S` to open settings
+2. Go to `Plugins` and install the [Luanalysis](https://github.com/Benjamin-Dobell/IntelliJ-Luanalysis) plugin
+3. Grab annotations from the [Releases](https://github.com/mikatuo/Defold-Emmylua-Annotations/releases)
+4. Unzip the archive with annotations inside your Defold project into the `.defold` folder
+5. In the `/.defold/*.lua` files replace all `@class` keywords with `@shape` keywords.
+6. Enjoy!
