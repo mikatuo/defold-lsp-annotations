@@ -1,4 +1,4 @@
-﻿using Core;
+﻿using App.Dtos;
 using FluentAssertions;
 
 namespace App.Tests
@@ -7,12 +7,12 @@ namespace App.Tests
     [Category("Unit")]
     public class ApiRefParameterTest
     {
-        ApiRefParameter Sut;
+        RawApiRefParameter Sut;
 
         [SetUp]
         public void Setup()
         {
-            Sut = new ApiRefParameter();
+            Sut = new RawApiRefParameter();
         }
 
         [Test]

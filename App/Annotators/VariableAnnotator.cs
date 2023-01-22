@@ -1,10 +1,10 @@
-﻿using Core;
+﻿using App.Dtos;
 
 namespace App.Annotators
 {
-    class VariableAnnotator : Annotator
+    class VariableAnnotator : Annotator<RawApiRefElement>
     {
-        public VariableAnnotator(ApiRefElement variableElement)
+        public VariableAnnotator(RawApiRefElement variableElement)
             : base(variableElement)
         {
         }

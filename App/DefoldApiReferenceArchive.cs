@@ -1,4 +1,6 @@
-﻿using Core;
+﻿using App.Dtos;
+using App.Parsers;
+using App.Utils;
 using System.IO.Compression;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -19,16 +21,23 @@ namespace App
             Release = release;
             Files = IgnoreIrrelevantFiles(ListFiles(_source, ".json"));
         }
-
-        public DefoldApiReference Extract(string filename)
+        
+        [Obsolete("TODO: Delete after refactoring")]
+        public RawApiReference ExtractAndDeserialize(string filename)
         {
             if (!Files.Contains(filename))
                 throw new Exception($"The file '{filename}' is not found in the archive.");
             
-            string apiRefJson = StripHtmlMarkup(UnZipFile(filename));
-            var apiRef = Deserialize(apiRefJson);
-            NormalizeAndCleanUp(apiRef);
-            return apiRef;
+            string apiRefJson = UnZipFile(filename);
+            var apiRef = DefoldDocsJsonSerializer.Deserialize(apiRefJson);
+            return NormalizeAndCleanUp(apiRef);
+        }
+
+        public string Extract(string filename)
+        {
+            if (!Files.Contains(filename))
+                throw new Exception($"The file '{filename}' is not found in the archive.");
+            return UnZipFile(filename);
         }
 
         #region Private Methods
@@ -60,62 +69,40 @@ namespace App
 
         string UnZipFile(string filename)
         {
-            using (var zip = new ZipArchive(new MemoryStream(_source))) {
+            using (var zip = new ZipArchive(new MemoryStream(_source!))) {
                 var entry = zip.Entries.Single(x => StringComparer.OrdinalIgnoreCase.Equals(x.Name, filename));
                 using (var reader = new StreamReader(entry.Open()))
                     return reader.ReadToEnd();
             }
         }
 
-        static DefoldApiReference Deserialize(string jsonApiRef)
+        static RawApiReference Deserialize(string jsonApiRef)
         {
             var options = new JsonSerializerOptions {
                 PropertyNameCaseInsensitive = true,
             };
-            var apiRef = JsonSerializer.Deserialize<DefoldApiReference>(jsonApiRef, options);
+            var apiRef = JsonSerializer.Deserialize<RawApiReference>(jsonApiRef, options);
             if (apiRef == null)
                 throw new Exception("Failed to deserialize a Defold API reference file.");
             return apiRef;
         }
 
-        void NormalizeAndCleanUp(DefoldApiReference apiRef)
+        RawApiReference NormalizeAndCleanUp(RawApiReference apiRef)
         {
             apiRef.Info.Description = apiRef.Info.Description;
             foreach (var element in apiRef.Elements) {
-                EnhanceParameters(element);
-                CleanUpReturnValues(element);
                 EnhanceMessages(element);
             }
+            return apiRef;
         }
 
-        static Dictionary<string, string[]> _parameterTypeOverrides = new Dictionary<string, string[]>(StringComparer.OrdinalIgnoreCase) {
-            ["sound.play>play_properties"] = new [] { "{delay:number|nil, gain:number|nil, pan:number|nil, speed:number|nil}" },
-            ["sound.play>complete_function"] = new [] { "fun(self, message_id:hash, message:sound_done_msg, sender:hash)" },
-        };
-        static void EnhanceParameters(ApiRefElement element)
-        {
-            foreach (var parameter in element.Parameters) {
-                parameter.Types = parameter.Types.Select(x =>
-                    x.Replace("function(", "fun(")
-                    .Replace("message_id", ", message_id:hash")
-                ).ToArray();
-                if (parameter.Name.StartsWith('[')) {
-                    parameter.Name = parameter.Name.Trim('[', ']');
-                    parameter.Optional = true;
-                    if (_parameterTypeOverrides.ContainsKey($"{element.Name}>{parameter.Name}"))
-                        parameter.Types = _parameterTypeOverrides[$"{element.Name}>{parameter.Name}"];
-                }
-                parameter.Description = parameter.Description.Replace("\n", "");
-            }
-        }
-
-        static void CleanUpReturnValues(ApiRefElement element)
+        static void CleanUpReturnValues(RawApiRefElement element)
         {
             foreach (var parameter in element.ReturnValues)
                 parameter.Description = parameter.Description.Replace("\n", "");
         }
         
-        static void EnhanceMessages(ApiRefElement element)
+        static void EnhanceMessages(RawApiRefElement element)
         {
             if (!StringComparer.OrdinalIgnoreCase.Equals(element.Type, "message"))
                 return;
@@ -128,13 +115,6 @@ namespace App
             // the element is a message
             element.OutgoingMessage = element.Description.StartsWith("Post") || element.Examples.Contains("msg.post");
             element.IncomingMessage = !element.OutgoingMessage;
-        }
-
-        static string StripHtmlMarkup(string value)
-        {
-            // strip HTML markup
-            var regex = new Regex(@"<[^>]+>");
-            return regex.Replace(value, "");
         }
         #endregion
     }

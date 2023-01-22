@@ -1,9 +1,9 @@
-﻿using App.Infrastructure;
+﻿using App.Utils;
 using System.Text.Json.Serialization;
 
-namespace Core
+namespace App.Dtos
 {
-    public class ApiRefParameter
+    public class RawApiRefParameter
     {
         public string Name { get; set; }
         [JsonPropertyName("doc")]
@@ -16,7 +16,7 @@ namespace Core
         {
             var typesAnnotation = Types.JoinToString("|");
             if (Optional && !Types.Contains("nil"))
-                    typesAnnotation += "|nil";
+                typesAnnotation += "|nil";
             return typesAnnotation.Length == 0
                 ? "any"
                 : typesAnnotation;

@@ -1,4 +1,7 @@
-﻿using Core;
+﻿using App.Annotators;
+using App.Dtos;
+using App.Parsers;
+using System.Xml.Linq;
 
 namespace App
 {
@@ -7,21 +10,36 @@ namespace App
         public IEnumerable<string> DefoldBaseAnnotations()
             => GetDefoldBaseAnnotations();
 
-        public IEnumerable<string> ForApiReference(DefoldApiReference apiRef)
+        public IEnumerable<string> ForApiReference(RawApiReference apiRef)
         {
-            // define the module
-            yield return $"---{apiRef.Info.Brief}";
-            foreach (var line in apiRef.Info.DescriptionAnnotation())
-                yield return line;
-            yield return $"---@class {apiRef.Info.Namespace}";
-            yield return $"{apiRef.Info.Namespace} = {{}}";
+            DefoldApi api = new DefoldDocsParser(apiRef).Parse();
 
-            // generate annotations for functions, messages, constants
+            // define the module
+            yield return $"---{api.Brief}";
+            yield return $"---@class {api.Namespace}";
+            yield return $"{api.Namespace} = {{}}";
+            yield return "";
+
+            // annotate functions
+            foreach (var function in api.Functions) {
+                var annotator = new FunctionAnnotator(function);
+                yield return $"---Docs: https://defold.com/ref/stable/{apiRef.Info.Namespace}/?q={function.Name}#{function.Name}";
+                yield return "---";
+                foreach (var line in annotator.GenerateAnnotations())
+                    yield return line;
+                yield return "";
+            }
+
+            // annotate messages
+            foreach (var message in api.Messages) {
+                var annotator = new MessageAnnotator(message);
+                foreach (var line in annotator.GenerateAnnotations())
+                    yield return line;
+                yield return "";
+            }
+
+            // generate annotations for messages, constants
             foreach (var element in apiRef.Elements) {
-                if (element.Type.ToLowerInvariant() == "function") {
-                    yield return $"---Docs: https://defold.com/ref/stable/{apiRef.Info.Namespace}/?q={element.Name}#{element.Name}";
-                    yield return "---";
-                }
                 var annotations = element.ToAnnotation();
                 if (annotations is null)
                     continue;

@@ -1,29 +1,19 @@
-﻿using App.Infrastructure;
-using Core;
+﻿using App.Dtos;
+using App.Utils;
 
 namespace App.Annotators
 {
-    class FunctionAnnotator : Annotator
+    class FunctionAnnotator : Annotator<DefoldFunction>
     {
-        bool ReturnsNothing => Element.ReturnValues == null || Element.ReturnValues.Length == 0;
-
-        public FunctionAnnotator(ApiRefElement functionElement)
+        public FunctionAnnotator(DefoldFunction functionElement)
             : base(functionElement)
         {
         }
 
         public override IEnumerable<string> GenerateAnnotations()
         {
-            if (SkipConflictingElements())
-                return Result;
-
             Append(DescriptionAnnotation());
             Append(ParametersAnnotation());
-            // Some functions in Defold API reference docs have the same name, but different parameters
-            // in example: msg.post(), msg.post(urlstring), msg.post(socket, path, fragment).
-            // To make intellisense work in the IntelliJ IDEA correctly we have to skip 
-            // msg.post() and msg.post(urlstring) elements and add them as overloads.
-            Append(CustomFunctionOverloadsOrEmpty());
             Append(FunctionOverloadsAnnotationOrEmpty());
             Append(ReturnsAnnotationOrEmpty());
             Append(FunctionDefinition());
@@ -32,54 +22,42 @@ namespace App.Annotators
         }
 
         #region Private Methods
-        static Dictionary<string, Predicate<ApiRefElement>> _skipConflictingElements = new Dictionary<string, Predicate<ApiRefElement>> {
-            // skip msg.url() and msg.url(urlstring)
-            ["msg.url"] = apiRef => apiRef.Parameters.Length is 0 or 1,
-        };
-        bool SkipConflictingElements()
-        {
-            if (_skipConflictingElements.ContainsKey(Element.Name)) {
-                var shouldBeSkipped = _skipConflictingElements[Element.Name](Element);
-                return shouldBeSkipped;
-            }
-            return false;
-        }
-
         IEnumerable<string> DescriptionAnnotation()
-            => Element.Description.Split("\n")
-                .Select(x => x.Trim())
-                .Select(x => $"---{x}");
+            => Element.Description.Select(x => $"---{x}");
 
         IEnumerable<string> ParametersAnnotation()
-            => Element.Parameters.Select(x => x.ToAnnotation());
+            => Element.Parameters.Select(x => $"---@param {x.Name} {TypeAnnotation(x)} {x.Description}");
 
-        static Dictionary<string, string[]> _customOverloadAnnotations = new Dictionary<string, string[]> {
-            // add skipped overloads into the main 'msg.url' function annotation
-            ["msg.url"] = new string[] {
-                "---@overload fun(urlstring: string): url",
-            },
-        };
-        IEnumerable<string> CustomFunctionOverloadsOrEmpty()
+        string TypeAnnotation(DefoldParameter parameter)
         {
-            if (!_customOverloadAnnotations.ContainsKey(Element.Name))
-                yield break;
-
-            foreach (string customOverloadAnnotation in _customOverloadAnnotations[Element.Name])
-                yield return customOverloadAnnotation;
+            var typesAnnotation = parameter.Types.JoinToString("|");
+            if (parameter.Optional && !parameter.Types.Contains("nil"))
+                typesAnnotation += "|nil";
+            return typesAnnotation.Length == 0
+                ? "any"
+                : typesAnnotation;
         }
 
+        string TypeAnnotation(DefoldReturnValue returnValue)
+        {
+            var typesAnnotation = returnValue.Types.JoinToString("|");
+            return typesAnnotation.Length == 0
+                ? "any"
+                : typesAnnotation;
+        }
+        
         IEnumerable<string> FunctionOverloadsAnnotationOrEmpty()
         {
-            if (Element.Parameters.All(x => x.Required))
-                yield break;
-
-            var parameters = new List<ApiRefParameter>(Element.Parameters.Length);
-            parameters.AddRange(Element.Parameters.Where(x => x.Required));
-            int requiredParametersCount = parameters.Count;
-            parameters.AddRange(Element.Parameters.Where(x => x.Optional).SkipLast(1));
-
-            for (int i = parameters.Count; i >= requiredParametersCount; i--)
-                yield return FunctionOverloadAnnotation(parameters.Take(i));
+            foreach (var overload in Element.Overloads) {
+                var formattedParams = overload.Parameters.Select(x => $"{x.Name}: {TypeAnnotation(x)}");
+                if (overload.ReturnValues.Length == 0) {
+                    yield return $"---@overload fun({formattedParams.JoinToString(", ")})";
+                } else {
+                    var returnTypes = Element.ReturnValues.Select(TypeAnnotation);
+                    var formattedReturnTypes = returnTypes.JoinToString(", ");
+                    yield return $"---@overload fun({formattedParams.JoinToString(", ")}): {formattedReturnTypes}";
+                }
+            }
         }
 
         static Dictionary<string, string> _customReturnAnnotations = new Dictionary<string, string> {
@@ -90,29 +68,17 @@ namespace App.Annotators
         };
         IEnumerable<string> ReturnsAnnotationOrEmpty()
         {
-            if (ReturnsNothing) {
+            if (Element.ReturnValues.Length == 0) {
                 if (_customReturnAnnotations.ContainsKey(Element.Name))
                     yield return _customReturnAnnotations[Element.Name];
                 yield break;
             }
-            foreach (ApiRefReturnValue returnValue in Element.ReturnValues)
-                yield return $"---@return {returnValue.Types.JoinToString("|")} {returnValue.Description}";
+            foreach (var returnValue in Element.ReturnValues)
+                yield return $"---@return {returnValue.Types.JoinToString("|")} {returnValue.Name} {returnValue.Description}";
         }
 
         string FunctionDefinition()
             => $"function {Element.Name}({Element.Parameters.Select(x => x.Name).JoinToString(", ")}) end";
-
-        string FunctionOverloadAnnotation(IEnumerable<ApiRefParameter> parameters)
-        {
-            var formattedParams = parameters.Select(x => $"{x.Name}: {x.TypeAnnotation()}");
-            if (ReturnsNothing) {
-                return $"---@overload fun({formattedParams.JoinToString(", ")})";
-            } else {
-                var returnTypes = Element.ReturnValues.Select(x => x.ToAnnitation());
-                var formattedReturnTypes = returnTypes.JoinToString(", ");
-                return $"---@overload fun({formattedParams.JoinToString(", ")}): {formattedReturnTypes}";
-            }
-        }
         #endregion
     }
 }

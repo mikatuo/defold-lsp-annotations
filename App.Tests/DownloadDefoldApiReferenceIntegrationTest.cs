@@ -15,35 +15,25 @@ namespace App.Tests
         }
 
         [Test]
-        public async Task DownloadAsync_with_stubbed_downloaded_json_docs_correctly_parses_api_reference()
+        public async Task DownloadAsync_can_download_and_parse_docs_from_defold_website()
         {
             var release = new DefoldRelease { Version = "1.4.1", Sha1 = "8f96e450ddfb006a99aa134fdd373cace3760571", Type = ReleaseType.Stable };
 
             DefoldApiReferenceArchive apiReference = await Sut.DownloadAsync(release);
 
-            apiReference.Should().BeEquivalentTo(ExpectedApiReference());
+            apiReference.Should().BeEquivalentTo(ExpectedApiReference(release));
         }
 
         #region Test Helpers
-        class StubbedDownloadDefoldApiReference : DownloadDefoldApiReferenceArchive
-        {
-            public byte[] DownloadApiReferenceZipReturns;
-
-            protected override Task<byte[]> DownloadApiReferenceZip(DefoldRelease release)
-            {
-                return Task.FromResult(DownloadApiReferenceZipReturns);
-            }
-        }
-
-        DefoldApiReferenceArchive ExpectedApiReference()
+        DefoldApiReferenceArchive ExpectedApiReference(DefoldRelease release)
         {
             return new DefoldApiReferenceArchive {
+                Release = release,
                 Files = new [] {
                     "base_doc.json",
                     "bit_doc.json",
                     "buffer_doc.json",
                     "builtins_doc.json",
-                    "camera_doc.json",
                     "collectionfactory_doc.json",
                     "collectionproxy_doc.json",
                     "coroutine_doc.json",
@@ -57,7 +47,6 @@ namespace App.Tests
                     "html5_doc.json",
                     "http_doc.json",
                     "iac_doc.json",
-                    "iap_doc.json",
                     "image_doc.json",
                     "io_doc.json",
                     "json_doc.json",
@@ -66,18 +55,15 @@ namespace App.Tests
                     "model_doc.json",
                     "msg_doc.json",
                     "os_doc.json",
-                    "package_doc.json",
                     "particlefx_doc.json",
                     "physics_doc.json",
                     "profiler_doc.json",
                     "push_doc.json",
                     "render_doc.json",
                     "resource_doc.json",
-                    "sharedlibrary_doc.json",
                     "socket_doc.json",
                     "sound_doc.json",
                     "sprite_doc.json",
-                    "string_doc.json",
                     "sys_doc.json",
                     "table_doc.json",
                     "tilemap_doc.json",

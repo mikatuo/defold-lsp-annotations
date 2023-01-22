@@ -1,10 +1,11 @@
-﻿using Core;
+﻿using App.Dtos;
+using App.Utils;
 
 namespace App.Annotators
 {
-    class MessageAnnotator : Annotator
+    class MessageAnnotator : Annotator<DefoldMessage>
     {
-        public MessageAnnotator(ApiRefElement element)
+        public MessageAnnotator(DefoldMessage element)
             : base(element)
         {
         }
@@ -20,16 +21,19 @@ namespace App.Annotators
 
         #region Private Methods
         IEnumerable<string> DescriptionAnnotation()
-            => Element.Description.Split("\n")
-                .Select(x => x.Trim())
-                .Select(x => $"---{x}");
+            => Element.Description.Select(x => $"---{x}");
 
         IEnumerable<string> ParametersAnnotations()
+            => Element.Parameters.Select(x => $"---@field {x.Name} {TypeAnnotation(x)} {x.Description}");
+        
+        string TypeAnnotation(DefoldParameter parameter)
         {
-            foreach (var parameter in Element.Parameters) {
-                var types = parameter.TypeAnnotation();
-                yield return $"---@field {parameter.Name} {types}";
-            }
+            var typesAnnotation = parameter.Types.JoinToString("|");
+            if (parameter.Optional && !parameter.Types.Contains("nil"))
+                typesAnnotation += "|nil";
+            return typesAnnotation.Length == 0
+                ? "any"
+                : typesAnnotation;
         }
         #endregion
     }

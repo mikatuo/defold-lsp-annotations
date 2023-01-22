@@ -1,4 +1,4 @@
-﻿using Core;
+﻿using App.Dtos;
 
 namespace App
 {
@@ -14,13 +14,13 @@ namespace App
             yield return "local M = {}";
             yield return "";
             foreach (var filename in apiRefArchive.Files) {
-                DefoldApiReference apiRef = apiRefArchive.Extract(filename);
+                RawApiReference apiRef = apiRefArchive.ExtractAndDeserialize(filename);
                 // find all outgoing message which can be used in msg.post
-                ApiRefElement[] outgoingMessages = FindOutgoingMessages(apiRef);
+                RawApiRefElement[] outgoingMessages = FindOutgoingMessages(apiRef);
                 if (outgoingMessages.Any()) {
                     yield return $"---{apiRef.Info.Brief}";
                     yield return "";
-                    foreach (ApiRefElement message in outgoingMessages) {
+                    foreach (RawApiRefElement message in outgoingMessages) {
                         if (HashIsNotAddedYet(message.Name)) {
                             MarkThatHashHasBeenAdded(message.Name);
                             yield return $"local h_{message.Name} = hash(\"{message.Name}\")";
@@ -54,10 +54,10 @@ namespace App
         }
 
         #region Private Methods
-        static ApiRefElement[] FindOutgoingMessages(DefoldApiReference apiRef)
+        static RawApiRefElement[] FindOutgoingMessages(RawApiReference apiRef)
             => apiRef.Elements.Where(x => x.OutgoingMessage).ToArray();
 
-        static string FormattedMessageTypes(ApiRefElement message)
+        static string FormattedMessageTypes(RawApiRefElement message)
         {
             var parameters = message.Parameters.Select(x => {
                 var types = x.TypeAnnotation();

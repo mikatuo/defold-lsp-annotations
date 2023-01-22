@@ -1,6 +1,6 @@
-﻿using App;
+using App;
+using App.Dtos;
 using ConsoleApp.Extensions;
-using Core;
 
 namespace ConsoleApp
 {
@@ -15,12 +15,14 @@ namespace ConsoleApp
             // annotations for a specific version     /
             ///////////////////////////////////////////
             //var options = new ProgramArgs(new [] { "1.4.1", "stable" }); // https://d.defold.com/stable/
+            //var options = new ProgramArgs(new [] { "1.4.2-beta", "beta" }); // https://d.defold.com/beta/
             //var options = new ProgramArgs(new [] { "1.4.2-alpha", "alpha" }); // https://d.defold.com/alpha/
-
             var options = new ProgramArgs(args);
+
             DefoldRelease release = await FindDefoldRelease(options.ReleaseType, options.ReleaseVersion);
             DefoldApiReferenceArchive apiRefArchive = await DownloadDefoldApiRefArchive(release);
 
+            OutputDirectory = $".defold_{release.Version}";
             GenerateHelperLuaModules(apiRefArchive);
             GenerateAnnotations(apiRefArchive);
         }
@@ -38,7 +40,7 @@ namespace ConsoleApp
             });
             SaveFile("base_defold.lua", GenerateDefoldBaseTypesAnnotations());
             foreach (var filename in apiRefArchive.Files) {
-                DefoldApiReference apiRef = apiRefArchive.Extract(filename);
+                RawApiReference apiRef = apiRefArchive.ExtractAndDeserialize(filename);
                 // clean filenames
                 var destFilenameWithoutExtension = apiRef.Info.Name
                     .Replace(" ", "_").Replace("-", "")
@@ -79,7 +81,7 @@ namespace ConsoleApp
         static IEnumerable<string> GenerateDefoldBaseTypesAnnotations()
             => new GenerateLuaAnnotations().DefoldBaseAnnotations();
 
-        static IEnumerable<string> GenerateLuaAnnotations(DefoldApiReference apiRef)
+        static IEnumerable<string> GenerateLuaAnnotations(RawApiReference apiRef)
             => new GenerateLuaAnnotations().ForApiReference(apiRef);
 
         static void SaveFile(string filename, IEnumerable<string> lines)

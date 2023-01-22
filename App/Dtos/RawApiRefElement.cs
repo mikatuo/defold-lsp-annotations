@@ -1,16 +1,16 @@
 ﻿using App.Annotators;
-using App.Infrastructure;
+using App.Utils;
 
-namespace Core
+namespace App.Dtos
 {
-    public class ApiRefElement
+    public class RawApiRefElement
     {
         public string Type { get; set; }
         public string Name { get; set; }
         public string Brief { get; set; }
         public string Description { get; set; }
-        public ApiRefReturnValue[] ReturnValues { get; set; }
-        public ApiRefParameter[] Parameters { get; set; }
+        public RawApiRefReturnValue[] ReturnValues { get; set; }
+        public RawApiRefParameter[] Parameters { get; set; }
         public string Examples { get; set; }
         public string Replaces { get; set; }
         public string Error { get; set; }
@@ -20,12 +20,12 @@ namespace Core
         public bool OutgoingMessage { get; set; }
         public bool IncomingMessage { get; set; }
 
-        public ApiRefElement()
+        public RawApiRefElement()
         {
             Error = "";
             Members = Array.Empty<string>();
             Notes = Array.Empty<string>();
-            Parameters = Array.Empty<ApiRefParameter>();
+            Parameters = Array.Empty<RawApiRefParameter>();
             Replaces = "";
             TParams = Array.Empty<string>();
         }
@@ -33,15 +33,10 @@ namespace Core
         public string? ToAnnotation()
         {
             string? result = null;
-            switch (Type.ToLowerInvariant()) {
-                case "function":
-                    result = new FunctionAnnotator(this).GenerateAnnotations().JoinToString("\n");
-                    break;
+            switch (Type.ToLowerInvariant())
+            {
                 case "variable":
                     result = new VariableAnnotator(this).GenerateAnnotations().JoinToString("\n");
-                    break;
-                case "message":
-                    result = new MessageAnnotator(this).GenerateAnnotations().JoinToString("\n");
                     break;
             }
             return string.IsNullOrWhiteSpace(result) ? null : result;

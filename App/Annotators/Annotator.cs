@@ -1,13 +1,11 @@
-﻿using Core;
-
-namespace App.Annotators
+﻿namespace App.Annotators
 {
-    abstract class Annotator : IAnnotator
+    abstract class Annotator<T> : IAnnotator
     {
-        protected ApiRefElement Element { get; }
+        protected T Element { get; }
         protected List<string> Result { get; } = new List<string>();
 
-        public Annotator(ApiRefElement element)
+        public Annotator(T element)
         {
             Element = element;
         }

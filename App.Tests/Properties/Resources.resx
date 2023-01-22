@@ -122,9 +122,9 @@
     <value>..\resources\d.defold.com_stable.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="msg_doc_1.4.1.json" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\msg_doc.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\resources\msg_doc_1.4.1.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="ref_doc_1.4.1.zip" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\ref-doc.zip;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\resources\ref-doc_1.4.1.zip;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

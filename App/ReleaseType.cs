@@ -3,6 +3,7 @@
     public enum ReleaseType
     {
         Stable,
+        Beta,
         Alpha,
     }
 }
