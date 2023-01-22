@@ -1,4 +1,0 @@
-- desc: Functions for working with the resource archive.
-  members: []
-  name: dmResourceArchive
-  type: table

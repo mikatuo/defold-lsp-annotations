@@ -1,8 +1,0 @@
-info {
-  namespace: "dmIntersection"
-  name: "Intersection structs and functions"
-  brief: "Intersection math structs and functions"
-  description: "Intersection math structs and functions"
-  path: "engine/dlib/src/dmsdk/dlib/intersection.h"
-  file: "dmsdk/dlib/intersection.h"
-}
