@@ -29,14 +29,20 @@ namespace ConsoleApp
 
         static void GenerateHelperLuaModules(DefoldApiReferenceArchive apiRefArchive)
         {
-            SaveFile("../defold_hashes.lua", GenerateHashesForIncomingMessages(apiRefArchive));
-            SaveFile("../defold_msgs.lua", GenerateFunctionsForOutgoingMessages(apiRefArchive));
+            SaveFile("../defoldy_hashes.lua", GenerateHashesForIncomingMessages(apiRefArchive));
+            SaveFile("../defoldy_msgs.lua", GenerateFunctionsForOutgoingMessages(apiRefArchive));
+            SaveFile("../defoldy.lua", new [] {
+                "local M = require(\"defoldy_msgs\")",
+                "M.h = require(\"defoldy_hashes\")",
+                "return M",
+            });
         }
 
         static void GenerateAnnotations(DefoldApiReferenceArchive apiRefArchive)
         {
             SaveFile("_readme.txt", new[] {
-                $"Annotations for Defold API v{apiRefArchive.Release.Version} ({apiRefArchive.Release.Type.ToString("G").ToLower()})",
+                $"Annotations for Defold API v{apiRefArchive.Release.Version} ({apiRefArchive.Release.Type.ToString("G").ToLower()}) - {apiRefArchive.Release.Sha1}",
+                "Generated with https://github.com/mikatuo/Defold-Lua-Annotations under the MIT license"
             });
             SaveFile("base_defold.lua", GenerateDefoldBaseTypesAnnotations());
             foreach (var filename in apiRefArchive.Files) {

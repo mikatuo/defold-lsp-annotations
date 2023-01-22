@@ -14,6 +14,8 @@ namespace App
                 RawApiRefElement[] incomingMessages = FindIncomingMessages(apiRef);
                 if (incomingMessages.Any()) {
                     foreach (RawApiRefElement message in incomingMessages) {
+                        yield return $"---Namespace: {apiRef.Info.Namespace}";
+                        yield return "---";
                         foreach (var line in DescriptionAnnotation(message))
                             yield return line;
                         yield return $"M.{message.Name.ToUpperInvariant()} = hash(\"{message.Name}\")";

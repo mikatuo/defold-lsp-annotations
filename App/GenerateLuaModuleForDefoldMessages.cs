@@ -6,6 +6,7 @@ namespace App
     {
         HashSet<string> _definedHashes = new HashSet<string>();
 
+        // TODO: refactor
         public IEnumerable<string> GenerateLines(DefoldApiReferenceArchive apiRefArchive)
         {
             // "enable" and "disable" messages are defined twice (in "go" and "collectionproxy" namespaces)
@@ -20,30 +21,41 @@ namespace App
                 if (outgoingMessages.Any()) {
                     yield return $"---{apiRef.Info.Brief}";
                     yield return "";
-                    foreach (RawApiRefElement message in outgoingMessages) {
-                        if (HashIsNotAddedYet(message.Name)) {
-                            MarkThatHashHasBeenAdded(message.Name);
-                            yield return $"local h_{message.Name} = hash(\"{message.Name}\")";
+                    foreach (RawApiRefElement msg in outgoingMessages) {
+                        if (HashIsNotAddedYet(msg.Name)) {
+                            MarkThatHashHasBeenAdded(msg.Name);
+                            yield return $"local h_{msg.Name} = hash(\"{msg.Name}\")";
                         }
                         yield return "";
-                        yield return $"---Docs: https://defold.com/ref/stable/{apiRef.Info.Namespace}/?q={message.Name}#{message.Name}";
+                        yield return $"---Docs: https://defold.com/ref/stable/{apiRef.Info.Namespace}/?q={msg.Name}#{msg.Name}";
                         yield return "---";
                         yield return $"---Namespace: {apiRef.Info.Namespace}";
                         yield return "---";
-                        yield return $"---{message.Brief}";
+                        yield return $"---{msg.Brief}";
+
+                        if (msg.Name == "acquire_input_focus" || msg.Name == "release_input_focus") {
+                            yield return $"---@param receiver hash|string|url|nil";
+                            yield return $"---@overload fun()";
+                            yield return $"function M.{msg.Name}(receiver)";
+                            yield return $"    msg.post(receiver or \".\", h_{msg.Name})";
+                            yield return $"end";
+                            yield return "";
+                            continue; // go to the next message
+                        }
+
                         yield return $"---@param receiver hash|string|url";
 
-                        string formattedMessageTypes = FormattedMessageTypes(message);
+                        string formattedMessageTypes = FormattedMessageTypes(msg);
                         if (HasEmptyMessage(formattedMessageTypes)) {
-                            yield return $"function M.{message.Name}(receiver)";
-                            yield return $"    msg.post(receiver, h_{message.Name})";
+                            yield return $"function M.{msg.Name}(receiver)";
+                            yield return $"    msg.post(receiver, h_{msg.Name})";
                             yield return $"end";
                         } else {
                             yield return $"---@param message {{{formattedMessageTypes}}}";
-                            if (message.Parameters.All(x => x.Optional))
+                            if (msg.Parameters.All(x => x.Optional))
                                 yield return $"---@overload fun(receiver: hash|string|url)";
-                            yield return $"function M.{message.Name}(receiver, message)";
-                            yield return $"    msg.post(receiver, h_{message.Name}, message)";
+                            yield return $"function M.{msg.Name}(receiver, message)";
+                            yield return $"    msg.post(receiver, h_{msg.Name}, message)";
                             yield return $"end";
                         }
                         yield return "";
