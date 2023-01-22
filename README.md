@@ -8,9 +8,13 @@
 4. Modify your settings as needed. Have a look at [settings.json](https://github.com/mikatuo/Defold-Lua-Annotations/blob/main/Examples/settings.json) that worked best for me
 5. Enjoy!
 
-## Examples
+## Demo
 
-TODO
+![Code_eFgeiVhGoN](https://user-images.githubusercontent.com/7230306/213931566-78acccca-6335-4407-8e1a-3ab000899525.gif)
+
+![Code_QTdS86DU9h](https://user-images.githubusercontent.com/7230306/213931602-ad59d8f3-e409-4691-b070-5a4f8e751566.png)
+
+![Code_8mIXL8p95G](https://user-images.githubusercontent.com/7230306/213931616-2262a7f5-00bd-4757-b2dd-b1458b29322b.png)
 
 # Use in IntelliJ IDEA
 
