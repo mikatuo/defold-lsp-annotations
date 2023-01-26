@@ -14,7 +14,10 @@ namespace App
         {
             DefoldApi api = new DefoldDocsParser(apiRef).Parse();
 
+            yield return $"---@meta"; // https://github.com/sumneko/lua-language-server/wiki/Annotations#meta
+
             // define the module
+            yield return "";
             yield return $"---{api.Brief}";
             yield return $"---@class {api.Namespace}";
             yield return $"{api.Namespace} = {{}}";

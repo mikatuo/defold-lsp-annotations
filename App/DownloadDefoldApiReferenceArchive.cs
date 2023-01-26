@@ -13,7 +13,7 @@ namespace App
         #region Private Methods
         protected virtual async Task<byte[]?> DownloadApiReferenceZip(DefoldRelease release)
         {
-            var client = new RestClient(); // TODO: singleton
+            var client = new RestClient();
             var request = new RestRequest(release.RefDocUrl(), Method.Get);
             var response = await client.GetAsync(request);
             return response.RawBytes;

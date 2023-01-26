@@ -27,13 +27,13 @@ namespace App
                             yield return $"local h_{msg.Name} = hash(\"{msg.Name}\")";
                         }
                         yield return "";
-                        yield return $"---Docs: https://defold.com/ref/stable/{apiRef.Info.Namespace}/?q={msg.Name}#{msg.Name}";
-                        yield return "---";
-                        yield return $"---Namespace: {apiRef.Info.Namespace}";
-                        yield return "---";
-                        yield return $"---{msg.Brief}";
 
                         if (msg.Name == "acquire_input_focus" || msg.Name == "release_input_focus") {
+                            yield return $"---Docs: https://defold.com/ref/stable/{apiRef.Info.Namespace}/?q={msg.Name}#{msg.Name}";
+                            yield return "---";
+                            yield return $"---Namespace: {apiRef.Info.Namespace}";
+                            yield return "---";
+                            yield return $"---{msg.Brief}";
                             yield return $"---@param receiver hash|string|url|nil";
                             yield return $"---@overload fun()";
                             yield return $"function M.{msg.Name}(receiver)";
@@ -43,15 +43,21 @@ namespace App
                             continue; // go to the next message
                         }
 
-                        yield return $"---@param receiver hash|string|url";
-
                         string formattedMessageTypes = FormattedMessageTypes(msg);
+
+                        yield return $"---Docs: https://defold.com/ref/stable/{apiRef.Info.Namespace}/?q={msg.Name}#{msg.Name}";
+                        yield return "---";
+                        yield return $"---Namespace: {apiRef.Info.Namespace}";
+                        yield return "---";
+                        yield return $"---{msg.Brief}";
+                        yield return $"---@param receiver hash|string|url";
                         if (HasEmptyMessage(formattedMessageTypes)) {
                             yield return $"function M.{msg.Name}(receiver)";
                             yield return $"    msg.post(receiver, h_{msg.Name})";
                             yield return $"end";
                         } else {
-                            yield return $"---@param message {{{formattedMessageTypes}}}";
+                            //yield return $"---@param message {{{formattedMessageTypes}}}";
+                            yield return $"---@param message {msg.Name}_msg";
                             if (msg.Parameters.All(x => x.Optional))
                                 yield return $"---@overload fun(receiver: hash|string|url)";
                             yield return $"function M.{msg.Name}(receiver, message)";
@@ -73,7 +79,7 @@ namespace App
         {
             var parameters = message.Parameters.Select(x => {
                 var types = x.TypeAnnotation();
-                return $"{x.Name}:{types}";
+                return $"{x.Name.Trim('[', ']')}:{types}";
             });
             var formattedParameters = string.Join(", ", parameters);
             return formattedParameters;
