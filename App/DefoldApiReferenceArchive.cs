@@ -3,7 +3,6 @@ using App.Parsers;
 using App.Utils;
 using System.IO.Compression;
 using System.Text.Json;
-using System.Text.RegularExpressions;
 
 namespace App
 {
@@ -46,9 +45,21 @@ namespace App
             var ignoredFiles = new HashSet<string> {
                 "sharedlibrary_doc.json",
                 "iap_doc.json",
+                "iac_doc.json",
                 "camera_doc.json",
                 "package_doc.json",
                 "string_doc.json",
+                "bit_doc.json",
+                "coroutine_doc.json",
+                "debug_doc.json",
+                "engine_doc.json",
+                "facebook_doc.json",
+                "io_doc.json",
+                "math_doc.json",
+                "os_doc.json",
+                "push_doc.json",
+                "table_doc.json",
+                "webview_doc.json",
             };
             return filenames
                 .Where(filename => !filename.StartsWith("dm")) // ignore C docs

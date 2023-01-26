@@ -22,7 +22,7 @@ namespace ConsoleApp
             DefoldRelease release = await FindDefoldRelease(options.ReleaseType, options.ReleaseVersion);
             DefoldApiReferenceArchive apiRefArchive = await DownloadDefoldApiRefArchive(release);
 
-            OutputDirectory = $".defold_{release.Version}";
+            OutputDirectory = $".defold-{release.Version}";
             GenerateHelperLuaModules(apiRefArchive);
             GenerateAnnotations(apiRefArchive);
         }
