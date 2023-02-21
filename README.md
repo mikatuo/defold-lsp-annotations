@@ -8,9 +8,9 @@
 
 [Read more...](https://forum.defold.com/t/vscode-extensions-for-defold-aka-defold-extension-pack/72508?u=mikatuo)
 
-<details><summary>Hardcore</summary><p>
+<details><summary>Manual installation</summary><p>
 
-1. Install [Lua](https://marketplace.visualstudio.com/items?itemName=sumneko.lua) **or** [EmmyLua](https://marketplace.visualstudio.com/items?itemName=tangzx.emmylua) **or** [Defold Lua Extension Pack](https://marketplace.visualstudio.com/items?itemName=mikatuo.defold-lua-extension-pack)
+1. Install [Lua](https://marketplace.visualstudio.com/items?itemName=sumneko.lua)
 2. Grab annotations from the [Releases](https://github.com/mikatuo/Defold-Emmylua-Annotations/releases)
 3. Unzip the archive with annotations inside your Defold project into the `.defold` folder
 4. Modify your settings as needed. Have a look at [settings.json](https://github.com/mikatuo/Defold-Lua-Annotations/blob/main/Examples/settings.json) that worked best for me
