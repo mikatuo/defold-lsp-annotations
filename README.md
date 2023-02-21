@@ -2,11 +2,20 @@
 
 # Use in VS Code
 
+1. Install `Defold Buddy` extension or `Defold Extension Pack`
+2. Open a Defold project
+3. You will be prompted to add the annotations into your project
+
+[Read more...](https://forum.defold.com/t/vscode-extensions-for-defold-aka-defold-extension-pack/72508?u=mikatuo)
+
+<details><summary>Hardcore</summary><p>
+
 1. Install [Lua](https://marketplace.visualstudio.com/items?itemName=sumneko.lua) **or** [EmmyLua](https://marketplace.visualstudio.com/items?itemName=tangzx.emmylua) **or** [Defold Lua Extension Pack](https://marketplace.visualstudio.com/items?itemName=mikatuo.defold-lua-extension-pack)
 2. Grab annotations from the [Releases](https://github.com/mikatuo/Defold-Emmylua-Annotations/releases)
 3. Unzip the archive with annotations inside your Defold project into the `.defold` folder
 4. Modify your settings as needed. Have a look at [settings.json](https://github.com/mikatuo/Defold-Lua-Annotations/blob/main/Examples/settings.json) that worked best for me
 5. Enjoy!
+</p></details>
 
 ## Demo
 
