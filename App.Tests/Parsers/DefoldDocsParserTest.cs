@@ -8,8 +8,6 @@ namespace App.Tests.Parsers
     [Category("Unit")]
     public class DefoldDocsParserTest
     {
-        // TODO: fix http.request > callback > response
-
         [Test]
         public void Parse_given_msg_doc_json_returns_correct_count_of_elements()
         {

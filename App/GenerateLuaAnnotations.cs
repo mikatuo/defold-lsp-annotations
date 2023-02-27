@@ -1,6 +1,8 @@
 ﻿using App.Annotators;
 using App.Dtos;
 using App.Parsers;
+using System.Numerics;
+using System.Runtime.Intrinsics;
 using System.Xml.Linq;
 
 namespace App
@@ -56,11 +58,19 @@ namespace App
         {
             return new [] {
                 "---@class vector3",
+                "---@operator add(vector3): vector3",
+                "---@operator sub(vector3): vector3",
+                "---@operator mul(number): vector3",
+                "---@operator div(number): vector3",
                 "---@field x number",
                 "---@field y number",
                 "---@field z number",
                 "",
                 "---@class vector4",
+                "---@operator add(vector4): vector4",
+                "---@operator sub(vector4): vector4",
+                "---@operator mul(number): vector4",
+                "---@operator div(number): vector4",
                 "---@field x number",
                 "---@field y number",
                 "---@field z number",

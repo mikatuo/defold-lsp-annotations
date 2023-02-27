@@ -53,7 +53,7 @@ namespace App.Annotators
                 if (overload.ReturnValues.Length == 0) {
                     yield return $"---@overload fun({formattedParams.JoinToString(", ")})";
                 } else {
-                    var returnTypes = Element.ReturnValues.Select(TypeAnnotation);
+                    var returnTypes = overload.ReturnValues.Select(TypeAnnotation);
                     var formattedReturnTypes = returnTypes.JoinToString(", ");
                     yield return $"---@overload fun({formattedParams.JoinToString(", ")}): {formattedReturnTypes}";
                 }

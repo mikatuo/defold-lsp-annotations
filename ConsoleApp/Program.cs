@@ -14,15 +14,15 @@ namespace ConsoleApp
             // uncomment a following line to generate /
             // annotations for a specific version     /
             ///////////////////////////////////////////
-            //var options = new ProgramArgs(new [] { "1.4.1", "stable" }); // https://d.defold.com/stable/
-            //var options = new ProgramArgs(new [] { "1.4.2-beta", "beta" }); // https://d.defold.com/beta/
+            //var options = new ProgramArgs(new [] { "1.4.3", "stable" }); // https://d.defold.com/stable/
+            //var options = new ProgramArgs(new [] { "1.4.3-beta", "beta" }); // https://d.defold.com/beta/
             //var options = new ProgramArgs(new [] { "1.4.2-alpha", "alpha" }); // https://d.defold.com/alpha/
             var options = new ProgramArgs(args);
 
             DefoldRelease release = await FindDefoldRelease(options.ReleaseType, options.ReleaseVersion);
             DefoldApiReferenceArchive apiRefArchive = await DownloadDefoldApiRefArchive(release);
 
-            OutputDirectory = $".defold-{release.Version}";
+            OutputDirectory = $"defold-lua-{release.Version}";
             GenerateHelperLuaModules(apiRefArchive);
             GenerateAnnotations(apiRefArchive);
         }
