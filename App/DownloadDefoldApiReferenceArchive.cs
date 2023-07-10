@@ -14,7 +14,7 @@ namespace App
         protected virtual async Task<byte[]?> DownloadApiReferenceZip(DefoldRelease release)
         {
             var client = new RestClient();
-            var request = new RestRequest(release.RefDocUrl(), Method.Get);
+            var request = new RestRequest(release.ReferenceDocsArchiveUrl, Method.Get);
             var response = await client.GetAsync(request);
             return response.RawBytes;
         }

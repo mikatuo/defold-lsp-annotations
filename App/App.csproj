@@ -10,6 +10,7 @@
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
       <_Parameter1>App.Tests</_Parameter1>
     </AssemblyAttribute>
+    <PackageReference Include="Octokit" Version="7.0.0" />
      
     <PackageReference Include="RestSharp" Version="108.0.3" />
   </ItemGroup>

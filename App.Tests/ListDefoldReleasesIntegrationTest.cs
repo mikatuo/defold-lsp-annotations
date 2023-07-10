@@ -9,31 +9,21 @@ namespace App.Tests
         ListDefoldReleases Sut;
 
         [Test]
-        public async Task DownloadAsync_downloads_page_returns_some_stable_releases()
+        public async Task DownloadAsync_downloads_page_returns_some_releases()
         {
-            Sut = new ListDefoldReleases(ReleaseType.Stable);
+            Sut = new ListDefoldReleases();
 
             var releases = await Sut.DownloadAsync();
 
-            releases.Should().AllSatisfy(release => {
-                release.Version.Should().MatchRegex(@"\d+\.\d+\.\d+");
-                release.Sha1.Should().MatchRegex(@"[a-z0-9]{40}");
-                release.Type.Should().Be(ReleaseType.Stable);
-            });
-        }
-
-        [Test]
-        public async Task DownloadAsync_downloads_page_returns_some_alpha_releases()
-        {
-            Sut = new ListDefoldReleases(ReleaseType.Alpha);
-
-            var releases = await Sut.DownloadAsync();
-
-            releases.Should().AllSatisfy(release => {
-                release.Version.Should().MatchRegex(@"\d+\.\d+\.\d+-alpha");
-                release.Sha1.Should().MatchRegex(@"[a-z0-9]{40}");
-                release.Type.Should().Be(ReleaseType.Alpha);
-            });
+            var tenRecentReleases = releases.Take(10);
+            tenRecentReleases.Should()
+                .NotBeEmpty()
+                .And.AllSatisfy(release => {
+                    release.Version.Should().MatchRegex(@"\d+\.\d+\.\d+");
+                    release.Sha1.Should().Be("");
+                    release.Type.Should().NotBe(ReleaseType.Unknown);
+                    release.ReferenceDocsArchiveUrl.Should().NotBeNullOrEmpty();
+                });
         }
     }
 }

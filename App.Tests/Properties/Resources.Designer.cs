@@ -61,17 +61,6 @@ namespace App.Tests.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 
-        ///&lt;!-- saved from url=(0028)https://d.defold.com/stable/ --&gt;
-        ///&lt;html&gt;&lt;head&gt;&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;&lt;meta name=&quot;color-scheme&quot; content=&quot;light dark&quot;&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;line-gutter-backdrop&quot;&gt;&lt;/div&gt;&lt;form autocomplete=&quot;off&quot;&gt;&lt;label class=&quot;line-wrap-control&quot;&gt;Line wrap&lt;input type=&quot;checkbox&quot; aria-label=&quot;Line wrap&quot;&gt;&lt;/label&gt;&lt;/form&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;line-number&quot; value=&quot;1&quot;&gt;&lt;/td&gt;&lt;td class=&quot;line-content&quot;&gt;&lt;span class=&quot;html-doctype&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;&lt;/td&gt;&lt;/t [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string d_defold_com_stable_html {
-            get {
-                return ResourceManager.GetString("d.defold.com/stable.html", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] msg_doc_1_4_1_json {

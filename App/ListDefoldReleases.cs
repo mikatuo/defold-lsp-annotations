@@ -1,47 +1,52 @@
-﻿using RestSharp;
-using System.Text.RegularExpressions;
+﻿using Octokit;
 
 namespace App
 {
     public class ListDefoldReleases
     {
-        RestClient _client;
-        ReleaseType _releaseType;
+        GitHubClient _github;
 
-        public ListDefoldReleases(ReleaseType type)
+        public ListDefoldReleases()
         {
-            _releaseType = type;
-            _client = new RestClient();
+            _github = new GitHubClient(new ProductHeaderValue("MikaDefoldLuaAnnotations"));
         }
 
         public async Task<IList<DefoldRelease>> DownloadAsync()
         {
-            string? downloadsPageHtml = await LoadDefoldDownloadsPage();
-            return ExtractReleasesFromHtml(downloadsPageHtml);
+            IReadOnlyList<Release> releases = await LoadReleasesFromGithub();
+            return releases.Select(githubRelease => ParseDefoldRelease(githubRelease))
+                .Where(ReleaseWasParsedCorrectly())
+                .ToArray();
         }
 
         #region Private Methods
-        protected internal virtual async Task<string?> LoadDefoldDownloadsPage()
+        protected internal virtual async Task<IReadOnlyList<Release>> LoadReleasesFromGithub()
+            => await _github.Repository.Release.GetAll("defold", "defold");
+
+        Func<DefoldRelease, bool> ReleaseWasParsedCorrectly()
+            => defoldRelease => defoldRelease != null;
+
+        DefoldRelease ParseDefoldRelease(Release release)
         {
-            var request = new RestRequest($"https://d.defold.com/{_releaseType.ToString("G").ToLower()}/", Method.Get);
-            RestResponse response = await _client.GetAsync(request);
-            return response.Content;
+            var (Version, Type) = ExtractVersionAndType(release);
+            return new DefoldRelease(Version, Type) {
+                // older releases do not have ref-doc.zip assets so it is not always available
+                ReferenceDocsArchiveUrl = GetReferenceDocsDownloadUrlOrDefault(release),
+            };
         }
 
-        IList<DefoldRelease> ExtractReleasesFromHtml(string? downloadsPageHtml)
+        (string Version, ReleaseType Type) ExtractVersionAndType(Release release)
         {
-            if (downloadsPageHtml == null)
-                return Array.Empty<DefoldRelease>();
-
-            var regex = new Regex(@"""tag"":\s*""([^""]*)"",\s*""sha1"":\s*""([^""]*)""");
-            return regex.Matches(downloadsPageHtml).Select(match => {
-                var version = match.Groups[1].Value;
-                var sha1 = match.Groups[2].Value;
-                return new DefoldRelease(version, sha1) {
-                    Type = _releaseType,
-                };
-            }).ToArray();
+            var tokens = release.Name.Split('-').Select(x => x.Trim()).ToArray();
+            var version = tokens[0].TrimStart('v');
+            var type = tokens.Length > 1
+                ? Enum.Parse<ReleaseType>(tokens[1], ignoreCase: true)
+                : ReleaseType.Unknown;
+            return (version, type);
         }
+
+        static string? GetReferenceDocsDownloadUrlOrDefault(Release release)
+            => release.Assets.FirstOrDefault(x => x.Name == "ref-doc.zip")?.BrowserDownloadUrl;
         #endregion
     }
 }

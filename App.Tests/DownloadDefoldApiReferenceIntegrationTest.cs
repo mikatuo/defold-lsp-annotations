@@ -17,7 +17,12 @@ namespace App.Tests
         [Test]
         public async Task DownloadAsync_can_download_and_parse_docs_from_defold_website()
         {
-            var release = new DefoldRelease { Version = "1.4.1", Sha1 = "8f96e450ddfb006a99aa134fdd373cace3760571", Type = ReleaseType.Stable };
+            var release = new DefoldRelease {
+                Version = "1.4.7",
+                Sha1 = "",
+                Type = ReleaseType.Stable,
+                ReferenceDocsArchiveUrl = "https://github.com/defold/defold/releases/download/1.4.7/ref-doc.zip",
+            };
 
             DefoldApiReferenceArchive apiReference = await Sut.DownloadAsync(release);
 
@@ -39,6 +44,7 @@ namespace App.Tests
                     "factory_doc.json",
                     "go_doc.json",
                     "gui_doc.json",
+                    "liveupdate_doc.json",
                     "html5_doc.json",
                     "http_doc.json",
                     "image_doc.json",

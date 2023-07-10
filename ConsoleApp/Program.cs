@@ -14,10 +14,10 @@ namespace ConsoleApp
             // uncomment a following line to generate /
             // annotations for a specific version     /
             ///////////////////////////////////////////
-            //var options = new ProgramArgs(new [] { "1.4.3", "stable" }); // https://d.defold.com/stable/
-            //var options = new ProgramArgs(new [] { "1.4.3-beta", "beta" }); // https://d.defold.com/beta/
-            //var options = new ProgramArgs(new [] { "1.4.2-alpha", "alpha" }); // https://d.defold.com/alpha/
-            var options = new ProgramArgs(args);
+            var options = new ProgramArgs(new[] { "1.4.7", "stable" });
+            //var options = new ProgramArgs(new[] { "1.4.4-beta", "beta" })
+            //var options = new ProgramArgs(new [] { "1.4.2-alpha", "alpha" });
+            //var options = new ProgramArgs(args);
 
             DefoldRelease release = await FindDefoldRelease(options.ReleaseType, options.ReleaseVersion);
             DefoldApiReferenceArchive apiRefArchive = await DownloadDefoldApiRefArchive(release);
@@ -31,7 +31,7 @@ namespace ConsoleApp
         {
             SaveFile("../defoldy_hashes.lua", GenerateHashesForIncomingMessages(apiRefArchive));
             SaveFile("../defoldy_msgs.lua", GenerateFunctionsForOutgoingMessages(apiRefArchive));
-            SaveFile("../defoldy.lua", new [] {
+            SaveFile("../defoldy.lua", new[] {
                 "local M = require(\"defoldy_msgs\")",
                 "M.h = require(\"defoldy_hashes\")",
                 "return M",
@@ -58,14 +58,15 @@ namespace ConsoleApp
         #region Private Methods
         static async Task<DefoldRelease> FindDefoldRelease(ReleaseType type, string version)
         {
-            var releases = await new ListDefoldReleases(type).DownloadAsync();
-            // TODO: get Sha1 of the latest Defold release with a different HTTP call
-            if (StringComparer.OrdinalIgnoreCase.Equals(version, "latest"))
-                return releases.OrderByDescending(x => x.Version).First();
+            var releases = await new ListDefoldReleases().DownloadAsync();
+            var releasesWithDocs = releases.Where(x => x.ReferenceDocsArchiveUrl != null);
 
-            var release = releases.SingleOrDefault(x => x.Version == version);
+            if (StringComparer.OrdinalIgnoreCase.Equals(version, "latest"))
+                return releasesWithDocs.OrderByDescending(x => x.Version).First(x => x.Type == type);
+
+            var release = releasesWithDocs.SingleOrDefault(x => x.Version == version && x.Type == type);
             if (release == null)
-                throw new Exception($"Can not find a release with the version {version}");
+                throw new Exception($"Can not find a {type.ToString("G").ToLowerInvariant()} release with the version {version}");
             return release;
         }
 
