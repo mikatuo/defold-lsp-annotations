@@ -1,57 +1,73 @@
-using App;
+﻿using App;
 using App.Dtos;
 using ConsoleApp.Extensions;
+using System.IO.Compression;
 
 namespace ConsoleApp
 {
     internal class Program
     {
-        static string OutputDirectory = ".defold";
-
         static async Task Main(string[] args)
         {
+            // BUGS:
+            // ---
+            // replace "-" in parameter names with "_" -> tilemap.lua -> tilemap.set_tile > transform-bitmask
+            // ---
+            // luasocket.lua -> connected:setpeername("*")
+            // ---
+            // DOT NOT CREATE EMPTY GLOBAL MODULES, in example:
+            // ---@class builtins
+            // builtins = {}
+            // TODO: parse local vs global functions, if module has no local functions then do not generate "local builtins = {}"
+
             ///////////////////////////////////////////
             // uncomment a following line to generate /
             // annotations for a specific version     /
             ///////////////////////////////////////////
-            var options = new ProgramArgs(new[] { "1.4.7", "stable" });
+            var options = new ProgramArgs(new[] { "1.4.9", "stable" });
             //var options = new ProgramArgs(new[] { "1.4.4-beta", "beta" })
             //var options = new ProgramArgs(new [] { "1.4.2-alpha", "alpha" });
             //var options = new ProgramArgs(args);
 
+            // TODO: parse examples
+
             DefoldRelease release = await FindDefoldRelease(options.ReleaseType, options.ReleaseVersion);
             DefoldApiReferenceArchive apiRefArchive = await DownloadDefoldApiRefArchive(release);
 
-            OutputDirectory = $"defold-lua-{release.Version}";
-            GenerateHelperLuaModules(apiRefArchive);
-            GenerateAnnotations(apiRefArchive);
+            var annotationsOutputDirectory = $"defold-lua-{release.Version}";
+            GenerateAnnotations(apiRefArchive, annotationsOutputDirectory);
+            ZipFile.CreateFromDirectory(annotationsOutputDirectory, $"./{annotationsOutputDirectory}.zip");
+
+            var defoldyOutputDirectory = $"defoldy-{release.Version}";
+            GenerateHelperLuaModules(apiRefArchive, defoldyOutputDirectory);
+            ZipFile.CreateFromDirectory(defoldyOutputDirectory, $"./{defoldyOutputDirectory}.zip");
         }
 
-        static void GenerateHelperLuaModules(DefoldApiReferenceArchive apiRefArchive)
+        static void GenerateHelperLuaModules(DefoldApiReferenceArchive apiRefArchive, string outputDirectory)
         {
-            SaveFile("../defoldy_hashes.lua", GenerateHashesForIncomingMessages(apiRefArchive));
-            SaveFile("../defoldy_msgs.lua", GenerateFunctionsForOutgoingMessages(apiRefArchive));
-            SaveFile("../defoldy.lua", new[] {
+            SaveFile(outputDirectory, "defoldy_hashes.lua", GenerateHashesForIncomingMessages(apiRefArchive));
+            SaveFile(outputDirectory, "defoldy_msgs.lua", GenerateFunctionsForOutgoingMessages(apiRefArchive));
+            SaveFile(outputDirectory, "defoldy.lua", new[] {
                 "local M = require(\"defoldy_msgs\")",
                 "M.h = require(\"defoldy_hashes\")",
                 "return M",
             });
         }
 
-        static void GenerateAnnotations(DefoldApiReferenceArchive apiRefArchive)
+        static void GenerateAnnotations(DefoldApiReferenceArchive apiRefArchive, string outputDirectory)
         {
-            SaveFile("_readme.txt", new[] {
+            SaveFile(outputDirectory, "_readme.txt", new[] {
                 $"Annotations for Defold API v{apiRefArchive.Release.Version} ({apiRefArchive.Release.Type.ToString("G").ToLower()}) - {apiRefArchive.Release.Sha1}",
                 "Generated with https://github.com/mikatuo/Defold-Lua-Annotations under the MIT license"
             });
-            SaveFile("base_defold.lua", GenerateDefoldBaseTypesAnnotations());
+            SaveFile(outputDirectory, "base_defold.lua", GenerateDefoldBaseTypesAnnotations());
             foreach (var filename in apiRefArchive.Files) {
                 RawApiReference apiRef = apiRefArchive.ExtractAndDeserialize(filename);
                 // clean filenames
                 var destFilenameWithoutExtension = apiRef.Info.Name
                     .Replace(" ", "_").Replace("-", "")
                     .ToLower();
-                SaveFile($"{destFilenameWithoutExtension}.lua", GenerateLuaAnnotations(apiRef));
+                SaveFile(outputDirectory, $"{destFilenameWithoutExtension}.lua", GenerateLuaAnnotations(apiRef));
             }
         }
 
@@ -72,7 +88,7 @@ namespace ConsoleApp
 
         static async Task<DefoldApiReferenceArchive> DownloadDefoldApiRefArchive(DefoldRelease release)
             => await new DownloadDefoldApiReferenceArchive().DownloadAsync(release);
-        
+
         static IEnumerable<string> GenerateHashesForIncomingMessages(DefoldApiReferenceArchive apiRefArchive)
         {
             var generator = new GenerateLuaModuleForDefoldHashes();
@@ -91,10 +107,10 @@ namespace ConsoleApp
         static IEnumerable<string> GenerateLuaAnnotations(RawApiReference apiRef)
             => new GenerateLuaAnnotations().ForApiReference(apiRef);
 
-        static void SaveFile(string filename, IEnumerable<string> lines)
+        static void SaveFile(string outputDirectory, string filename, IEnumerable<string> lines)
         {
-            Directory.CreateDirectory(OutputDirectory);
-            var path = Path.Combine(OutputDirectory, filename);
+            Directory.CreateDirectory(outputDirectory);
+            var path = Path.Combine(outputDirectory, filename);
             using (var f = new StreamWriter(path)) {
                 foreach (var line in lines)
                     f.WriteLine(line);
