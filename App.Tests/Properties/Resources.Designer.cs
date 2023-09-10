@@ -65,7 +65,7 @@ namespace App.Tests.Properties {
         /// </summary>
         internal static byte[] msg_doc_1_4_1_json {
             get {
-                object obj = ResourceManager.GetObject("msg_doc_1.4.1.json", resourceCulture);
+                object obj = ResourceManager.GetObject("msg_doc_1_4_1_json", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -75,7 +75,7 @@ namespace App.Tests.Properties {
         /// </summary>
         internal static byte[] ref_doc_1_4_1_zip {
             get {
-                object obj = ResourceManager.GetObject("ref_doc_1.4.1.zip", resourceCulture);
+                object obj = ResourceManager.GetObject("ref_doc_1_4_1_zip", resourceCulture);
                 return ((byte[])(obj));
             }
         }

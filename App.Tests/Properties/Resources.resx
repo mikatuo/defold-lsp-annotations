@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="msg_doc_1.4.1.json" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="msg_doc_1_4_1_json" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\msg_doc_1.4.1.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="ref_doc_1.4.1.zip" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="ref_doc_1_4_1_zip" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\ref-doc_1.4.1.zip;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>
