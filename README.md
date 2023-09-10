@@ -1,3 +1,5 @@
+![example workflow](https://github.com/mikatuo/defold-lua-annotations/actions/workflows/dotnet.yml/badge.svg?event=push)
+
 ## Lua annotations for [Defold](https://defold.com)
 
 # Use in VS Code
