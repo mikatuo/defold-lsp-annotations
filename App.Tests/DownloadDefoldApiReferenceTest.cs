@@ -1,4 +1,4 @@
-﻿using App.Tests.Properties;
+﻿using App.Tests.TestData;
 using FluentAssertions;
 
 namespace App.Tests
@@ -18,7 +18,7 @@ namespace App.Tests
         [Test]
         public async Task DownloadAsync_with_stubbed_downloaded_json_docs_correctly_parses_api_reference()
         {
-            Sut.DownloadApiReferenceZipReturns = Resources.ref_doc_1_4_1_zip;
+            Sut.DownloadApiReferenceZipReturns = "TestData/ref-doc_1.4.1.zip".ReadFileAsBytes();
             var release = new DefoldRelease { Version = "1.4.1", Sha1 = "8f96e450ddfb006a99aa134fdd373cace3760571", Type = ReleaseType.Stable };
 
             DefoldApiReferenceArchive apiRefArchive = await Sut.DownloadAsync(release);

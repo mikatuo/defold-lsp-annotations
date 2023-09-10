@@ -1,6 +1,6 @@
 ﻿using App.Dtos;
 using App.Parsers;
-using App.Tests.Properties;
+using App.Tests.TestData;
 using FluentAssertions;
 using System.Text;
 
@@ -13,7 +13,7 @@ namespace App.Tests.Parsers
         [Test]
         public void Deserialize_given_msg_doc_json_returns_correct_api_reference()
         {
-            var jsonString = ToString(Resources.msg_doc_1_4_1_json);
+            var jsonString = "TestData/msg_doc_1.4.1.json".ReadFileAsString();
 
             RawApiReference result = DefoldDocsJsonSerializer.Deserialize(jsonString);
 
@@ -141,8 +141,5 @@ namespace App.Tests.Parsers
                 }
             });
         }
-
-        string ToString(byte[] jsonBytes)
-            => Encoding.UTF8.GetString(jsonBytes);
     }
 }
