@@ -24,7 +24,7 @@ namespace ConsoleApp
             // uncomment a following line to generate /
             // annotations for a specific version     /
             ///////////////////////////////////////////
-            var options = new ProgramArgs(new[] { "1.4.9", "stable" });
+            var options = new ProgramArgs(new[] { "1.5.0", "stable" });
             //var options = new ProgramArgs(new[] { "1.4.4-beta", "beta" })
             //var options = new ProgramArgs(new [] { "1.4.2-alpha", "alpha" });
             //var options = new ProgramArgs(args);
@@ -35,12 +35,18 @@ namespace ConsoleApp
             DefoldApiReferenceArchive apiRefArchive = await DownloadDefoldApiRefArchive(release);
 
             var annotationsOutputDirectory = $"defold-lua-{release.Version}";
-            GenerateAnnotations(apiRefArchive, annotationsOutputDirectory);
-            ZipFile.CreateFromDirectory(annotationsOutputDirectory, $"./{annotationsOutputDirectory}.zip");
-
             var defoldyOutputDirectory = $"defoldy-{release.Version}";
-            GenerateHelperLuaModules(apiRefArchive, defoldyOutputDirectory);
-            ZipFile.CreateFromDirectory(defoldyOutputDirectory, $"./{defoldyOutputDirectory}.zip");
+
+            try {
+                GenerateAnnotations(apiRefArchive, annotationsOutputDirectory);
+                GenerateHelperLuaModules(apiRefArchive, defoldyOutputDirectory);
+
+                ZipFile.CreateFromDirectory(annotationsOutputDirectory, $"./{annotationsOutputDirectory}.zip");
+                ZipFile.CreateFromDirectory(defoldyOutputDirectory, $"./{defoldyOutputDirectory}.zip");
+            } finally {
+                Directory.Delete(annotationsOutputDirectory, true);
+                Directory.Delete(defoldyOutputDirectory, true);
+            }
         }
 
         static void GenerateHelperLuaModules(DefoldApiReferenceArchive apiRefArchive, string outputDirectory)
