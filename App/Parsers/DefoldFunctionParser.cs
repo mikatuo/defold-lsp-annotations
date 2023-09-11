@@ -38,11 +38,10 @@ namespace App.Parsers
             => Element.Description.StripHtmlMarkup().Split("\n").Select(x => x.Trim()).ToArray();
 
         DefoldReturnValue ParseReturnValue(RawApiRefReturnValue raw)
-            => new DefoldReturnValue {
-                Name = raw.Name.StripHtmlMarkup(),
-                Description = raw.Description.StripHtmlMarkup().Replace("\n", " "),
-                Types = raw.Types,
-            };
+        {
+            var parser = new DefoldReturnValueParser(raw);
+            return parser.Parse();
+        }
 
         IEnumerable<DefoldFunctionOverload> OverloadsFromOptionalParams(DefoldParameter[] parameters, DefoldReturnValue[] returnValues)
         {
