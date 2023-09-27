@@ -1,0 +1,73 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: release
+
+# run the job at 1:00 PM and 1:00 AM UTC
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 13/1 * * *"
+
+jobs:
+  find_defold_release:
+    outputs:
+      latest_defold_release: ${{ steps.find_latest_defold_release.outputs.latest_defold_release }}
+    runs-on: ubuntu-latest
+
+    steps:
+    - id: find_latest_defold_release
+      name: Load latest annotation and Defold releases
+      run: |
+        LATEST_RELEASE=$(curl -s https://api.github.com/repos/mikatuo/defold-lua-annotations/releases/latest | jq -r '.tag_name')
+        LATEST_DEFOLD_RELEASE=$(curl -s https://d.defold.com/stable/info.json | jq -r '.version')
+        echo "LATEST_RELEASE: $LATEST_RELEASE, LATEST_DEFOLD_RELEASE: $LATEST_DEFOLD_RELEASE"
+
+        if [ -z "$LATEST_RELEASE" ]; then
+          echo "Failed to load latest release version"
+          exit 1
+        fi
+        if [ -z "$LATEST_DEFOLD_RELEASE" ]; then
+          echo "Failed to load latest Defold release version"
+          exit 1
+        fi
+        if [ "$LATEST_RELEASE" = "$LATEST_DEFOLD_RELEASE" ]; then
+          echo "No need to release new annotations"
+          exit 0
+        fi
+
+        echo "latest_defold_release=$LATEST_DEFOLD_RELEASE" >> $GITHUB_OUTPUT
+
+  release:
+    needs: find_defold_release
+    if: ${{ needs.find_defold_release.outputs.latest_defold_release != '' }}
+    runs-on: ubuntu-latest
+
+    steps:
+    # generate
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - name: Generate
+      run: |
+        DEFOLD_VERSION=${{ needs.find_defold_release.outputs.latest_defold_release }}
+        RELEASE_TYPE=stable
+        dotnet run --project ./ConsoleApp/ConsoleApp.csproj -- $DEFOLD_VERSION $RELEASE_TYPE
+    # release
+    - name: Publish the release
+      uses: softprops/action-gh-release@v0.1.15
+      with:
+        token: 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
+        name: ${{ needs.find_defold_release.outputs.latest_defold_release }}
+        tag_name: ${{ needs.find_defold_release.outputs.latest_defold_release }}
+        body: |
+          Download [defold-lua-${{ needs.find_defold_release.outputs.latest_defold_release }}.zip](https://github.com/mikatuo/Defold-Lua-Annotations/releases/download/${{ needs.find_defold_release.outputs.latest_defold_release }}/defold-lua-${{ needs.find_defold_release.outputs.latest_defold_release }}.zip) (for VS Code)
+
+          For IntelliJ IDEA + Luanalysis plugin replace all `@class` with `@shape` in the annotations.
+
+          Bonus: "defoldy" helper module: [defoldy-${{ needs.find_defold_release.outputs.latest_defold_release }}.zip](https://github.com/mikatuo/Defold-Lua-Annotations/releases/download/${{ needs.find_defold_release.outputs.latest_defold_release }}/defoldy-${{ needs.find_defold_release.outputs.latest_defold_release }}.zip)
+        files: |
+          defold-lua-${{ needs.find_defold_release.outputs.latest_defold_release }}.zip
+          defoldy-${{ needs.find_defold_release.outputs.latest_defold_release }}.zip

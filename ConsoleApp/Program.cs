@@ -24,10 +24,10 @@ namespace ConsoleApp
             // uncomment a following line to generate /
             // annotations for a specific version     /
             ///////////////////////////////////////////
-            var options = new ProgramArgs(new[] { "1.5.0", "stable" });
+            // var options = new ProgramArgs(new[] { "1.6.0", "stable" });
             //var options = new ProgramArgs(new[] { "1.4.4-beta", "beta" })
             //var options = new ProgramArgs(new [] { "1.4.2-alpha", "alpha" });
-            //var options = new ProgramArgs(args);
+            var options = new ProgramArgs(args);
 
             // TODO: parse examples
 
