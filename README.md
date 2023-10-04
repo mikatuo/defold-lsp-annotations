@@ -1,4 +1,4 @@
-![Tests](https://github.com/mikatuo/defold-lua-annotations/actions/workflows/dotnet.yml/badge.svg?event=push) ![Release](https://github.com/mikatuo/defold-lua-annotations/actions/workflows/release.yml/badge.svg) ![GitHub version](https://badge.fury.io/gh/mikatuo%2Fdefold-lua-annotations.svg)
+![Tests](https://github.com/mikatuo/defold-lua-annotations/actions/workflows/dotnet.yml/badge.svg?event=push) ![Release](https://github.com/mikatuo/defold-lua-annotations/actions/workflows/release.yml/badge.svg) ![GitHub release](https://img.shields.io/github/v/release/mikatuo/defold-lua-annotations.svg?include_prereleases=&sort=semver&color=)
 
 ## Lua annotations for [Defold](https://defold.com)
 
