@@ -1,4 +1,4 @@
-﻿using App.Dtos;
+using App.Dtos;
 using App.Parsers;
 using App.Utils;
 using System.IO.Compression;
@@ -46,7 +46,6 @@ namespace App
                 "sharedlibrary_doc.json",
                 "iap_doc.json",
                 "iac_doc.json",
-                "camera_doc.json",
                 "package_doc.json",
                 "string_doc.json",
                 "bit_doc.json",
