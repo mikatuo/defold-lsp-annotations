@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 
 namespace App.Tests
 {
@@ -51,6 +51,7 @@ namespace App.Tests
                     "json_doc.json",
                     "label_doc.json",
                     "model_doc.json",
+                    "camera_doc.json",
                     "msg_doc.json",
                     "particlefx_doc.json",
                     "physics_doc.json",
