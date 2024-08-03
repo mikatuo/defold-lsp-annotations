@@ -1,0 +1,393 @@
+﻿using App.AnnotatorsTeal;
+using App.Dtos;
+using App.Parsers;
+
+namespace App
+{
+    public class GenerateTealAnnotations
+    {
+        public IEnumerable<string> DefoldBaseAnnotations()
+            => GetDefoldBaseAnnotations();
+
+        public IEnumerable<string> ForApiReference(RawApiReference apiRef)
+        {
+            DefoldApi api = new DefoldDocsParser(apiRef).Parse();
+
+            var extraDefinitions = ReplaceInlineRecordsWithType(api.Functions, api.Messages);
+
+            yield return $"---{api.Brief}";
+
+            var name = api.Namespace;
+
+            if (IdentifierRenameMap.TryGetValue(name, out var newName)) {
+                name = newName;
+            }
+
+            yield return $"global record {name}";
+
+            bool first = true;
+
+            // annotate functions
+            foreach (var function in api.Functions) {
+                if (first) {
+                    first = false;
+                } else {
+                    yield return "";
+                }
+
+                var annotator = new FunctionAnnotator(function);
+                yield return $"\t---Docs: https://defold.com/ref/stable/{apiRef.Info.Namespace}/?q={function.Name}#{function.Name}";
+                yield return "\t---";
+                foreach (var line in annotator.GenerateAnnotations())
+                    yield return line;
+            }
+
+            first = !first;
+
+            // generate annotations for constants
+            foreach (var element in apiRef.Elements) {
+                switch (element.Type.ToLowerInvariant()) {
+                    case "variable":
+                        if (first) {
+                            first = false;
+                            yield return "";
+                        }
+
+                        foreach (var annotation in new VariableAnnotator(element).GenerateAnnotations()) {
+                            yield return annotation;
+                        }
+                        break;
+                }
+            }
+
+            yield return $"end";
+
+            first = true;
+
+            // annotate messages
+            foreach (var message in api.Messages) {
+                if (first) {
+                    first = false;
+                } else {
+                    yield return "";
+                }
+
+                var annotator = new MessageAnnotator(message);
+                foreach (var line in annotator.GenerateAnnotations())
+                    yield return line;
+            }
+
+            first = true;
+
+            foreach (var def in extraDefinitions) {
+                if (first) {
+                    first = false;
+                    yield return "";
+                }
+
+                yield return def;
+            }
+
+            if (ExtraDefinitions.TryGetValue(api.Namespace, out var definitions)) {
+                first = true;
+                foreach (var def in definitions) {
+                    if (first) {
+                        first = false;
+                        yield return "";
+                    }
+
+                    yield return def;
+                }
+            }
+        }
+
+        private IList<string> ReplaceInlineRecordsWithType(DefoldFunction[] functions, DefoldMessage[] messages)
+        {
+            var result = new List<string>();
+
+            foreach (var func in functions) {
+                foreach (var param in func.Parameters) {
+                    // if (func.Name == "sprite.play_flipbook" && param.Name == "play_properties") {
+                    //     param.Types = new[] { "play_flipbook_play_properties" };
+                    // }
+
+                    GenerateTypesForInlineRecords(param.Types, () => $"{func.Name.Split(".").Last()}_{param.Name}", result);
+                }
+
+                foreach (var retVal in func.ReturnValues) {
+                    GenerateTypesForInlineRecords(retVal.Types, () => $"{func.Name.Split(".").Last()}_return", result);
+                }
+            }
+
+            foreach (var message in messages) {
+                foreach (var param in message.Parameters) {
+                    GenerateTypesForInlineRecords(param.Types, () => $"{message.Name.Split(".").Last()}_{param.Name}", result);
+                }
+            }
+
+            return result;
+        }
+
+        private void GenerateTypesForInlineRecords(string[] typeList, Func<string> makeIdentifier, IList<string> result)
+        {
+            for (var i = 0; i < typeList.Length; i++) {
+                var typeIn = typeList[i].Trim();
+
+                var isRecord = typeIn.StartsWith("{") && typeIn.Contains(":") && typeIn.EndsWith("}");
+
+                if (!isRecord) {
+                    continue;
+                }
+
+                var name = makeIdentifier();
+                typeList[i] = name;
+
+                if (result.Count > 0) {
+                    result.Add("");
+                }
+
+                GenerateRecordFromInlineRecord(result, typeIn, name);
+            }
+        }
+
+        private static void GenerateRecordFromInlineRecord(IList<string> result, string typeIn, string name)
+        {
+            var types = typeIn.Trim('{', '}').Split(",");
+
+            result.Add($"local record {name}");
+            var usedIds = new HashSet<string>();
+
+            foreach (var t in types) {
+                var idWithType = t.Split(":");
+                var id = idWithType[0].Trim();
+
+                if (usedIds.Contains(id)) {
+                    continue;
+                }
+
+                usedIds.Add(id);
+                var type = idWithType[1].Trim();
+
+                if (IdentifierRenameMap.TryGetValue(type, out var typeReplacement)) {
+                    type = typeReplacement;
+                }
+
+                result.Add($"\t{id}: {type}");
+            }
+
+            result.Add("end");
+        }
+
+        public static IEnumerable<string> GenerateFullDefinition(string outputDirectory)
+        {
+            var first = true;
+            foreach (var api in workingApi) {
+                if (first) {
+                    first = false;
+                } else {
+                    yield return string.Empty;
+                    yield return string.Empty;
+                }
+
+                var path = Path.Combine(outputDirectory, $"{api}.d.tl");
+                var data = File.ReadAllText(path);
+
+                if (api == "") {
+
+                } else if (api == "sprite") {
+                    var startOfDuplicateDefinition = data.IndexOf("local record play_flipbook_play_properties");
+                    var endOfDuplicateDefinition = data.IndexOf("end", startOfDuplicateDefinition) + 3;
+
+                    var before = data.Substring(0, startOfDuplicateDefinition).Trim();
+                    var after = data.Substring(endOfDuplicateDefinition).Trim();
+
+                    yield return before;
+
+                    if (after.Length > 0) {
+                        yield return string.Empty;
+                        yield return after;
+                    }
+                    continue;
+                }
+
+                yield return data.Trim();
+            }
+        }
+
+        #region Defold Base Types
+        private IEnumerable<string> GetDefoldBaseAnnotations()
+        {
+            return new[] {
+                // "global record userdata end",
+                "global type handle = number",
+                "global type hash = number",
+                "global type constant = number",
+                "global type bool = boolean",
+                "global type float = number",
+                "global type int = integer",
+                // my version of teal breaks when types reference another type
+                // "global type object = userdata",
+                // "global type matrix4 = userdata",
+                // "global type node = userdata",
+                "global record object end",
+                "global record matrix4 end",
+                "global record node end",
+                // "global type resource = handle",
+                "global record resource end",
+                // "global type texture = handle",
+                "global record texture end",
+                "global type array = {any}",
+                "global record bufferstream end",
+                "",
+                "global record vector3",
+                "\tx: number",
+                "\ty: number",
+                "\tz: number",
+                "\tmetamethod __add: function(vector3, vector3): vector3",
+                "\tmetamethod __sub: function(vector3, vector3): vector3",
+                "\tmetamethod __mul: function(vector3, number): vector3",
+                "\tmetamethod __div: function(vector3, number): vector3",
+                "end",
+                "",
+                "global record vector4",
+                "\tx: number",
+                "\ty: number",
+                "\tz: number",
+                "\tw: number",
+                "\tmetamethod __add: function(vector4, vector4): vector4",
+                "\tmetamethod __sub: function(vector4, vector4): vector4",
+                "\tmetamethod __mul: function(vector4, number): vector4",
+                "\tmetamethod __div: function(vector4, number): vector4",
+                "end",
+                "",
+                "global record quaternion",
+                "\tx: number",
+                "\ty: number",
+                "\tz: number",
+                "\tw: number",
+                "end",
+                "",
+                // "global type quat = quaternion",
+                // "global type vector = vector4",
+                // "",
+                "global record url",
+                "\tsocket: number | string",
+                "\tpath: string | hash",
+                "\tfragment: string | hash",
+                "end",
+                "",
+                "-- luasocket",
+                // "global type master = userdata",
+                "global record master end",
+                // "global type unconnected = userdata",
+                "global record unconnected end",
+                // "global type client = userdata",
+                "global record client end",
+                "",
+                "-- render",
+                // "global type constant_buffer = userdata",
+                "global record constant_buffer end",
+                // "global type render_target = userdata",
+                "global record render_target end",
+                // "global type predicate = userdata",
+                "global record predicate end",
+                "",
+            };
+        }
+        #endregion
+
+        public static string[] workingApi = new string[] {
+            "base_defold",
+            "b2d_body",
+            "b2d",
+            "buffer",
+            "builtins",
+            "camera",
+            "collection_factory",
+            "collection_proxy",
+            "collision_object",
+            "crash",
+            "factory",
+            "game_object",
+            "gui",
+            "html5",
+            "http",
+            "image",
+            "json",
+            "label",
+            "liveupdate",
+            "message",
+            "model",
+            "particle_effects",
+            "profiler",
+            "render",
+            "resource",
+            "sound",
+            "sprite",
+            "system",
+            "tilemap",
+            "timer",
+            "vector_math",
+            "window",
+            "zlib"
+        };
+
+        public static IDictionary<string, string> IdentifierRenameMap = new Dictionary<string, string>
+        {
+            { "repeat", "repeat_" },
+            { "transform-bitmask", "transform_bitmask" },
+            { "vmath.matrix4", "matrix4" },
+            { "quat", "quaternion" },
+            { "vector", "vector4" },
+            { "vmath.vector3", "vector3" },
+            { "b2d.body", "b2Body"},
+            { "function(self, event, data)", "function(self: any, event: hash, data: table)"},
+            { "function(self, node)", "function(self: any, node: any)"},
+            { "function(self)", "function(self: any)"},
+            { "function(self, request_id, result)", "function(self: any, request_id: any, result: table)"},
+            // TODO process types within parameter function definitions
+            { "function(self:object, id:hash, response:{status:number, response:string, headers:table, path:string, error:string})", "function(self:object, id:hash, response: http_response)"},
+            { "function(self:object, message_id:hash, message:{animation_id:hash, playback:constant}, sender:url)", "function(self:object, message_id:hash, message:model_play_anim_complete_message, sender:url)" },
+            { "function(self:object, message_id:hash, message:{current_tile:number, id:hash}, sender:url)", "function(self:object, message_id:hash, message:sprite_playflipbook_complete_message, sender:url)" },
+            { "function(self:object, message_id:hash, message:{play_id:number}, sender:url)", "function(self:object, message_id:hash, message:sound_play_complete_message, sender:url)"}
+        };
+
+        public static IDictionary<string, string[]> ExtraDefinitions = new Dictionary<string, string[]>
+        {
+            {"b2d.body", new[] {
+                "global record b2World end",
+                "",
+                "global record b2BodyType",
+                "\tSTATIC: constant",
+                "\tKINEMATIC: constant",
+                "\tDYNAMIC: constant",
+                "end"
+            }},
+            {"http", new[] {
+                "local record http_response",
+                "\tresponse: string",
+                "\theaders: table",
+                "\tpath: string",
+                "\terror: string",
+                "end",
+            }},
+            {"model", new[] {
+                "local record model_play_anim_complete_message",
+                "\tanimation_id: hash",
+                "\tplayback: constant",
+                "end",
+            }},
+            {"sprite", new[] {
+                "local record sprite_playflipbook_complete_message",
+                "\tcurrent_tile: number",
+                "\tid: hash",
+                "end",
+            }},
+            {"sound", new[] {
+                "local record sound_play_complete_message",
+                "\tplay_id: number",
+                "end",
+            }},
+        };
+    }
+}
