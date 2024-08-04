@@ -30,7 +30,10 @@ namespace App.AnnotatorsTeal
 
         string TypeAnnotation(DefoldParameter parameter)
         {
-            var typesAnnotation = parameter.Types.JoinToString("|");
+            var typesAnnotation = parameter.Types
+                .Select(t => GenerateTealAnnotations.IdentifierRenameMap.TryGetValue(t, out var typeReplacement) ? typeReplacement : t)
+                .JoinToString("|");
+
             if (parameter.Optional && !parameter.Types.Contains("nil"))
                 typesAnnotation += "|nil";
             return typesAnnotation.Length == 0

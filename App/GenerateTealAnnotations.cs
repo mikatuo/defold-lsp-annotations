@@ -17,6 +17,25 @@ namespace App
 
             yield return $"---{api.Brief}";
 
+            if (api.Namespace == "builtins") {
+                foreach (var function in api.Functions) {
+                    var annotator = new FunctionAnnotator(function);
+                    yield return $"\t---Docs: https://defold.com/ref/stable/{apiRef.Info.Namespace}/?q={function.Name}#{function.Name}";
+                    yield return "\t---";
+                    foreach (var line in annotator.GenerateAnnotations()) {
+                        var trim = line.Trim();
+
+                        if (trim.StartsWith("---")) {
+                            yield return trim;
+                        } else {
+                            yield return $"global {trim}";
+                        }
+                    }
+                }
+
+                yield break;
+            }
+
             var name = api.Namespace;
 
             if (IdentifierRenameMap.TryGetValue(name, out var newName)) {
@@ -166,13 +185,13 @@ namespace App
                 }
 
                 usedIds.Add(id);
-                var type = idWithType[1].Trim();
 
-                if (IdentifierRenameMap.TryGetValue(type, out var typeReplacement)) {
-                    type = typeReplacement;
-                }
+                var type = idWithType[1]
+                    .Split("|")
+                    .Select(t => t.Trim())
+                    .Select(t => IdentifierRenameMap.TryGetValue(t, out var typeReplacement) ? typeReplacement : t);
 
-                result.Add($"\t{id}: {type}");
+                result.Add($"\t{id}: {string.Join("|", type)}");
             }
 
             result.Add("end");
@@ -220,7 +239,7 @@ namespace App
             return new[] {
                 // "global record userdata end",
                 "global type handle = number",
-                "global type hash = number",
+                "global type hashed = number",
                 "global type constant = number",
                 "global type bool = boolean",
                 "global type float = number",
@@ -272,8 +291,8 @@ namespace App
                 // "",
                 "global record url",
                 "\tsocket: number | string",
-                "\tpath: string | hash",
-                "\tfragment: string | hash",
+                "\tpath: string | hashed",
+                "\tfragment: string | hashed",
                 "end",
                 "",
                 "-- luasocket",
@@ -334,6 +353,7 @@ namespace App
 
         public static IDictionary<string, string> IdentifierRenameMap = new Dictionary<string, string>
         {
+            { "hash", "hashed" },
             { "repeat", "repeat_" },
             { "transform-bitmask", "transform_bitmask" },
             { "vmath.matrix4", "matrix4" },
@@ -341,15 +361,18 @@ namespace App
             { "vector", "vector4" },
             { "vmath.vector3", "vector3" },
             { "b2d.body", "b2Body"},
-            { "function(self, event, data)", "function(self: any, event: hash, data: table)"},
+            { "function(self, event, data)", "function(self: any, event: hashed, data: table)"},
             { "function(self, node)", "function(self: any, node: any)"},
             { "function(self)", "function(self: any)"},
             { "function(self, request_id, result)", "function(self: any, request_id: any, result: table)"},
             // TODO process types within parameter function definitions
-            { "function(self:object, id:hash, response:{status:number, response:string, headers:table, path:string, error:string})", "function(self:object, id:hash, response: http_response)"},
-            { "function(self:object, message_id:hash, message:{animation_id:hash, playback:constant}, sender:url)", "function(self:object, message_id:hash, message:model_play_anim_complete_message, sender:url)" },
-            { "function(self:object, message_id:hash, message:{current_tile:number, id:hash}, sender:url)", "function(self:object, message_id:hash, message:sprite_playflipbook_complete_message, sender:url)" },
-            { "function(self:object, message_id:hash, message:{play_id:number}, sender:url)", "function(self:object, message_id:hash, message:sound_play_complete_message, sender:url)"}
+            { "function(self:object, id:hash, response:{status:number, response:string, headers:table, path:string, error:string})", "function(self:object, id:hashed, response: http_response)"},
+            { "function(self:object, message_id:hash, message:{animation_id:hash, playback:constant}, sender:url)", "function(self:object, message_id:hashed, message:model_play_anim_complete_message, sender:url)" },
+            { "function(self:object, message_id:hash, message:{current_tile:number, id:hash}, sender:url)", "function(self:object, message_id:hashed, message:sprite_playflipbook_complete_message, sender:url)" },
+            { "function(self:object, message_id:hash, message:{play_id:number}, sender:url)", "function(self:object, message_id:hashed, message:sound_play_complete_message, sender:url)"},
+            { "function(self:object, url:url, property:hash)", "function(self:object, url:url, property:hashed)"},
+            { "function(self:object, node:hash, emitter:hash, state:constant)", "function(self:object, node:hashed, emitter:hashed, state:constant)" },
+            { "function(self:object, id:hash, emitter:hash, state:constant)", "function(self:object, id:hashed, emitter:hashed, state:constant)" },
         };
 
         public static IDictionary<string, string[]> ExtraDefinitions = new Dictionary<string, string[]>
@@ -373,14 +396,14 @@ namespace App
             }},
             {"model", new[] {
                 "local record model_play_anim_complete_message",
-                "\tanimation_id: hash",
+                "\tanimation_id: hashed",
                 "\tplayback: constant",
                 "end",
             }},
             {"sprite", new[] {
                 "local record sprite_playflipbook_complete_message",
                 "\tcurrent_tile: number",
-                "\tid: hash",
+                "\tid: hashed",
                 "end",
             }},
             {"sound", new[] {
