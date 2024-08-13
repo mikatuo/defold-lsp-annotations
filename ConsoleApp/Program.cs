@@ -1,4 +1,4 @@
-﻿using App;
+using App;
 using App.Dtos;
 using ConsoleApp.Extensions;
 using System.IO.Compression;
@@ -48,7 +48,7 @@ namespace ConsoleApp
             var defoldyOutputDirectory = $"defoldy-{release.Version}";
 
             try {
-                GenerateAnnotations(apiRefArchive, annotationsOutputDirectory);
+                GenerateLuaAnnotations(apiRefArchive, annotationsOutputDirectory);
                 GenerateTealAnnotations(apiRefArchive, tealAnnotationsOutputDirectory);
                 GenerateHelperLuaModules(apiRefArchive, defoldyOutputDirectory);
 
@@ -73,13 +73,13 @@ namespace ConsoleApp
             });
         }
 
-        static void GenerateAnnotations(DefoldApiReferenceArchive apiRefArchive, string outputDirectory)
+        static void GenerateLuaAnnotations(DefoldApiReferenceArchive apiRefArchive, string outputDirectory)
         {
             SaveFile(outputDirectory, "_readme.txt", new[] {
                 $"Annotations for Defold API v{apiRefArchive.Release.Version} ({apiRefArchive.Release.Type.ToString("G").ToLower()}) - {apiRefArchive.Release.Sha1}",
                 "Generated with https://github.com/mikatuo/Defold-Lua-Annotations under the MIT license"
             });
-            SaveFile(outputDirectory, "base_defold.lua", GenerateDefoldBaseTypesAnnotations());
+            SaveFile(outputDirectory, "base_defold.lua", GenerateDefoldBaseTypesLuaAnnotations());
             foreach (var filename in apiRefArchive.Files) {
                 RawApiReference apiRef = apiRefArchive.ExtractAndDeserialize(filename);
                 // clean filenames
@@ -145,7 +145,7 @@ namespace ConsoleApp
             return generator.GenerateLines(apiRefArchive);
         }
 
-        static IEnumerable<string> GenerateDefoldBaseTypesAnnotations()
+        static IEnumerable<string> GenerateDefoldBaseTypesLuaAnnotations()
             => new GenerateLuaAnnotations().DefoldBaseAnnotations();
 
         static IEnumerable<string> GenerateDefoldBaseTypesTealAnnotations()

@@ -4,9 +4,9 @@ using App.Utils;
 
 namespace App.AnnotatorsTeal
 {
-    class MessageAnnotator : Annotator<DefoldMessage>
+    class MessageTealAnnotator : Annotator<DefoldMessage>
     {
-        public MessageAnnotator(DefoldMessage element)
+        public MessageTealAnnotator(DefoldMessage element)
             : base(element)
         {
         }

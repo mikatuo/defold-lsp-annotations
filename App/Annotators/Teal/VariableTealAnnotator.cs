@@ -3,9 +3,9 @@ using App.Dtos;
 
 namespace App.AnnotatorsTeal
 {
-    class VariableAnnotator : Annotator<RawApiRefElement>
+    class VariableTealAnnotator : Annotator<RawApiRefElement>
     {
-        public VariableAnnotator(RawApiRefElement variableElement)
+        public VariableTealAnnotator(RawApiRefElement variableElement)
             : base(variableElement)
         {
         }

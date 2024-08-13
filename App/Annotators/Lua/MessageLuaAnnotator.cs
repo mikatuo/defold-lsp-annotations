@@ -3,9 +3,9 @@ using App.Utils;
 
 namespace App.Annotators
 {
-    class MessageAnnotator : Annotator<DefoldMessage>
+    class MessageLuaAnnotator : Annotator<DefoldMessage>
     {
-        public MessageAnnotator(DefoldMessage element)
+        public MessageLuaAnnotator(DefoldMessage element)
             : base(element)
         {
         }

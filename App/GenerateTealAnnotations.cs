@@ -19,7 +19,7 @@ namespace App
 
             if (api.Namespace == "builtins") {
                 foreach (var function in api.Functions) {
-                    var annotator = new FunctionAnnotator(function);
+                    var annotator = new FunctionTealAnnotator(function);
                     yield return $"\t---Docs: https://defold.com/ref/stable/{apiRef.Info.Namespace}/?q={function.Name}#{function.Name}";
                     yield return "\t---";
                     foreach (var line in annotator.GenerateAnnotations()) {
@@ -54,7 +54,7 @@ namespace App
                     yield return "";
                 }
 
-                var annotator = new FunctionAnnotator(function);
+                var annotator = new FunctionTealAnnotator(function);
                 yield return $"\t---Docs: https://defold.com/ref/stable/{apiRef.Info.Namespace}/?q={function.Name}#{function.Name}";
                 yield return "\t---";
                 foreach (var line in annotator.GenerateAnnotations())
@@ -72,7 +72,7 @@ namespace App
                             yield return "";
                         }
 
-                        foreach (var annotation in new VariableAnnotator(element).GenerateAnnotations()) {
+                        foreach (var annotation in new VariableTealAnnotator(element).GenerateAnnotations()) {
                             yield return annotation;
                         }
                         break;
@@ -91,7 +91,7 @@ namespace App
                     yield return "";
                 }
 
-                var annotator = new MessageAnnotator(message);
+                var annotator = new MessageTealAnnotator(message);
                 foreach (var line in annotator.GenerateAnnotations())
                     yield return line;
             }
@@ -126,10 +126,6 @@ namespace App
 
             foreach (var func in functions) {
                 foreach (var param in func.Parameters) {
-                    // if (func.Name == "sprite.play_flipbook" && param.Name == "play_properties") {
-                    //     param.Types = new[] { "play_flipbook_play_properties" };
-                    // }
-
                     GenerateTypesForInlineRecords(param.Types, () => $"{func.Name.Split(".").Last()}_{param.Name}", result);
                 }
 

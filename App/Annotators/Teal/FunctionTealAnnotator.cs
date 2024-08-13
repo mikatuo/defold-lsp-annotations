@@ -4,9 +4,9 @@ using App.Utils;
 
 namespace App.AnnotatorsTeal
 {
-    class FunctionAnnotator : Annotator<DefoldFunction>
+    class FunctionTealAnnotator : Annotator<DefoldFunction>
     {
-        public FunctionAnnotator(DefoldFunction functionElement)
+        public FunctionTealAnnotator(DefoldFunction functionElement)
             : base(functionElement)
         {
         }
@@ -75,21 +75,8 @@ namespace App.AnnotatorsTeal
             }
         }
 
-        // static Dictionary<string, string> _customReturnAnnotations = new Dictionary<string, string>
-        // {
-        //     // TODO: submit a PR for Defold headers with the returned types?
-        //     // in example https://github.com/defold/defold/blob/1ae302ec33d4514408c04ad3ae5d3c1efe2057bd/engine/lua/src/lua_os.doc_h
-        //     ["os.time"] = "\t---@return number",
-        //     ["math.random"] = "\t---@return number",
-        // };
         IEnumerable<string> ReturnsAnnotationOrEmpty()
         {
-            // if (Element.ReturnValues.Length == 0)
-            // {
-            //     if (_customReturnAnnotations.ContainsKey(Element.Name))
-            //         yield return _customReturnAnnotations[Element.Name];
-            //     yield break;
-            // }
             foreach (var returnValue in Element.ReturnValues)
                 yield return $"\t---{returnValue.Name} {returnValue.Description}";
         }
