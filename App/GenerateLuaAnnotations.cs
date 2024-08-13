@@ -27,7 +27,7 @@ namespace App
 
             // annotate functions
             foreach (var function in api.Functions) {
-                var annotator = new FunctionAnnotator(function);
+                var annotator = new FunctionLuaAnnotator(function);
                 yield return $"---Docs: https://defold.com/ref/stable/{apiRef.Info.Namespace}/?q={function.Name}#{function.Name}";
                 yield return "---";
                 foreach (var line in annotator.GenerateAnnotations())
@@ -37,7 +37,7 @@ namespace App
 
             // annotate messages
             foreach (var message in api.Messages) {
-                var annotator = new MessageAnnotator(message);
+                var annotator = new MessageLuaAnnotator(message);
                 foreach (var line in annotator.GenerateAnnotations())
                     yield return line;
                 yield return "";

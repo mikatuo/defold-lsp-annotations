@@ -36,7 +36,7 @@ namespace App.Dtos
             switch (Type.ToLowerInvariant())
             {
                 case "variable":
-                    result = new VariableAnnotator(this).GenerateAnnotations().JoinToString("\n");
+                    result = new VariableLuaAnnotator(this).GenerateAnnotations().JoinToString("\n");
                     break;
             }
             return string.IsNullOrWhiteSpace(result) ? null : result;

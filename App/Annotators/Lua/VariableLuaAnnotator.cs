@@ -2,9 +2,9 @@
 
 namespace App.Annotators
 {
-    class VariableAnnotator : Annotator<RawApiRefElement>
+    class VariableLuaAnnotator : Annotator<RawApiRefElement>
     {
-        public VariableAnnotator(RawApiRefElement variableElement)
+        public VariableLuaAnnotator(RawApiRefElement variableElement)
             : base(variableElement)
         {
         }

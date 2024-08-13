@@ -3,9 +3,9 @@ using App.Utils;
 
 namespace App.Annotators
 {
-    class FunctionAnnotator : Annotator<DefoldFunction>
+    class FunctionLuaAnnotator : Annotator<DefoldFunction>
     {
-        public FunctionAnnotator(DefoldFunction functionElement)
+        public FunctionLuaAnnotator(DefoldFunction functionElement)
             : base(functionElement)
         {
         }
