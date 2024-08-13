@@ -62,12 +62,12 @@ jobs:
         name: ${{ needs.find_defold_release.outputs.latest_defold_release }}
         tag_name: ${{ needs.find_defold_release.outputs.latest_defold_release }}
         body: |
-          Lua annotations for VS Code: [defold-lua-${{ needs.find_defold_release.outputs.latest_defold_release }}.zip](https://github.com/mikatuo/Defold-Lua-Annotations/releases/download/${{ needs.find_defold_release.outputs.latest_defold_release }}/defold-lua-${{ needs.find_defold_release.outputs.latest_defold_release }}.zip)
-          Teal annotations for VS Code: [defold-teal-${{ needs.find_defold_release.outputs.latest_defold_release }}.zip](https://github.com/mikatuo/Defold-Lua-Annotations/releases/download/${{ needs.find_defold_release.outputs.latest_defold_release }}/defold-teal-${{ needs.find_defold_release.outputs.latest_defold_release }}.zip) (author: [gyxos-logan](https://github.com/gyxos-logan))
+          Lua annotations for VS Code: [defold-lua-${{ needs.find_defold_release.outputs.latest_defold_release }}.zip](https://github.com/mikatuo/defold-lsp-annotations/releases/download/${{ needs.find_defold_release.outputs.latest_defold_release }}/defold-lua-${{ needs.find_defold_release.outputs.latest_defold_release }}.zip)
+          Teal annotations for VS Code: [defold-teal-${{ needs.find_defold_release.outputs.latest_defold_release }}.zip](https://github.com/mikatuo/defold-lsp-annotations/releases/download/${{ needs.find_defold_release.outputs.latest_defold_release }}/defold-teal-${{ needs.find_defold_release.outputs.latest_defold_release }}.zip) (author: [gyxos-logan](https://github.com/gyxos-logan))
 
-          For IntelliJ IDEA + Luanalysis plugin download [defold-lua-${{ needs.find_defold_release.outputs.latest_defold_release }}.zip](https://github.com/mikatuo/Defold-Lua-Annotations/releases/download/${{ needs.find_defold_release.outputs.latest_defold_release }}/defold-lua-${{ needs.find_defold_release.outputs.latest_defold_release }}.zip) and replace all `@class` with `@shape` in the files.
+          For IntelliJ IDEA + Luanalysis plugin download [defold-lua-${{ needs.find_defold_release.outputs.latest_defold_release }}.zip](https://github.com/mikatuo/defold-lsp-annotations/releases/download/${{ needs.find_defold_release.outputs.latest_defold_release }}/defold-lua-${{ needs.find_defold_release.outputs.latest_defold_release }}.zip) and replace all `@class` with `@shape` in the files.
 
-          (Bonus) Lua helper module: [defoldy-${{ needs.find_defold_release.outputs.latest_defold_release }}.zip](https://github.com/mikatuo/Defold-Lua-Annotations/releases/download/${{ needs.find_defold_release.outputs.latest_defold_release }}/defoldy-${{ needs.find_defold_release.outputs.latest_defold_release }}.zip)
+          (Bonus) Lua helper module: [defoldy-${{ needs.find_defold_release.outputs.latest_defold_release }}.zip](https://github.com/mikatuo/defold-lsp-annotations/releases/download/${{ needs.find_defold_release.outputs.latest_defold_release }}/defoldy-${{ needs.find_defold_release.outputs.latest_defold_release }}.zip)
         files: |
           defold-lua-${{ needs.find_defold_release.outputs.latest_defold_release }}.zip
           defold-teal-${{ needs.find_defold_release.outputs.latest_defold_release }}.zip
