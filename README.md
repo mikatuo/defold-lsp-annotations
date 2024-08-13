@@ -1,6 +1,6 @@
 ![Tests](https://github.com/mikatuo/defold-lua-annotations/actions/workflows/dotnet.yml/badge.svg?event=push) ![Release](https://github.com/mikatuo/defold-lua-annotations/actions/workflows/release.yml/badge.svg) ![GitHub release](https://img.shields.io/github/v/release/mikatuo/defold-lua-annotations.svg?include_prereleases=&sort=semver&color=)
 
-## Lua annotations for [Defold](https://defold.com)
+## Lua and Teal annotations for [Defold](https://defold.com)
 
 # Use in VS Code
 
@@ -35,3 +35,7 @@
 4. Unzip the archive with annotations inside your Defold project into the `.defold` folder
 5. In the `/.defold/*.lua` files replace all `@class` keywords with `@shape` keywords.
 6. Enjoy!
+
+## Credits
+
+Teal annotations contributed by [gyxos-logan](https://github.com/gyxos-logan) 🏅
