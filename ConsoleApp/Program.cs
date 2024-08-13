@@ -1,4 +1,4 @@
-using App;
+﻿using App;
 using App.Dtos;
 using ConsoleApp.Extensions;
 using System.IO.Compression;
@@ -9,36 +9,21 @@ namespace ConsoleApp
     {
         static async Task Main(string[] args)
         {
-            // BUGS:
-            // ---
-            // replace "-" in parameter names with "_" -> tilemap.lua -> tilemap.set_tile > transform-bitmask
-            // ---
-            // luasocket.lua -> connected:setpeername("*")
-            // ---
-            // DOT NOT CREATE EMPTY GLOBAL MODULES, in example:
-            // ---@class builtins
-            // builtins = {}
-            // TODO: parse local vs global functions, if module has no local functions then do not generate "local builtins = {}"
-
             ///////////////////////////////////////////
             // uncomment a following line to generate /
             // annotations for a specific version     /
             ///////////////////////////////////////////
             // var options = new ProgramArgs(new[] { "1.6.0", "stable" });
-            //var options = new ProgramArgs(new[] { "1.4.4-beta", "beta" })
-            //var options = new ProgramArgs(new [] { "1.4.2-alpha", "alpha" });
+            // var options = new ProgramArgs(new[] { "1.4.4-beta", "beta" })
+            // var options = new ProgramArgs(new[] { "1.4.2-alpha", "alpha" });
             var options = new ProgramArgs(args);
 
-            // TODO: parse examples
-
-            ///////////////////////////////////////////
-            // uncomment a following line to generate /
-            // annotations from a local zip file      /
-            ///////////////////////////////////////////
-            // var apiRefArchiveFile = "./bin/ref-doc.zip";
-            // var apiReferenceZip = await File.ReadAllBytesAsync(apiRefArchiveFile);
+            //////////////////////////////////////////////
+            // uncomment the following lines to generate /
+            // annotations from a local zip file         /
+            //////////////////////////////////////////////
             // var release = new DefoldRelease("1.9.1", ReleaseType.Stable);
-            // var apiRefArchive = new DefoldApiReferenceArchive(release, apiReferenceZip);
+            // DefoldApiReferenceArchive apiRefArchive = await ParseDefoldApiFromFile("./bin/ref-doc.zip", release);
 
             DefoldRelease release = await FindDefoldRelease(options.ReleaseType, options.ReleaseVersion);
             DefoldApiReferenceArchive apiRefArchive = await DownloadDefoldApiRefArchive(release);
@@ -52,25 +37,21 @@ namespace ConsoleApp
                 GenerateTealAnnotations(apiRefArchive, tealAnnotationsOutputDirectory);
                 GenerateHelperLuaModules(apiRefArchive, defoldyOutputDirectory);
 
-                ZipFile.CreateFromDirectory(annotationsOutputDirectory, $"./{annotationsOutputDirectory}.zip");
-                ZipFile.CreateFromDirectory(tealAnnotationsOutputDirectory, $"./{tealAnnotationsOutputDirectory}.zip");
-                ZipFile.CreateFromDirectory(defoldyOutputDirectory, $"./{defoldyOutputDirectory}.zip");
+                ZipFolder(annotationsOutputDirectory);
+                ZipFolder(tealAnnotationsOutputDirectory);
+                ZipFolder(defoldyOutputDirectory);
             } finally {
-                Directory.Delete(annotationsOutputDirectory, true);
-                Directory.Delete(tealAnnotationsOutputDirectory, true);
-                Directory.Delete(defoldyOutputDirectory, true);
+                Directory.Delete(annotationsOutputDirectory, true /* recursive */);
+                Directory.Delete(tealAnnotationsOutputDirectory, true /* recursive */);
+                Directory.Delete(defoldyOutputDirectory, true /* recursive */);
             }
         }
 
-        static void GenerateHelperLuaModules(DefoldApiReferenceArchive apiRefArchive, string outputDirectory)
+        static async Task<DefoldApiReferenceArchive> ParseDefoldApiFromFile(string apiRefArchiveFile, DefoldRelease release)
         {
-            SaveFile(outputDirectory, "defoldy_hashes.lua", GenerateHashesForIncomingMessages(apiRefArchive));
-            SaveFile(outputDirectory, "defoldy_msgs.lua", GenerateFunctionsForOutgoingMessages(apiRefArchive));
-            SaveFile(outputDirectory, "defoldy.lua", new[] {
-                "local M = require(\"defoldy_msgs\")",
-                "M.h = require(\"defoldy_hashes\")",
-                "return M",
-            });
+            var apiReferenceZip = await File.ReadAllBytesAsync(apiRefArchiveFile);
+            var apiRefArchive = new DefoldApiReferenceArchive(release, apiReferenceZip);
+            return apiRefArchive;
         }
 
         static void GenerateLuaAnnotations(DefoldApiReferenceArchive apiRefArchive, string outputDirectory)
@@ -84,7 +65,8 @@ namespace ConsoleApp
                 RawApiReference apiRef = apiRefArchive.ExtractAndDeserialize(filename);
                 // clean filenames
                 var destFilenameWithoutExtension = apiRef.Info.Name
-                    .Replace(" ", "_").Replace("-", "")
+                    .Replace(" ", "_")
+                    .Replace("-", "")
                     .ToLower();
                 SaveFile(outputDirectory, $"{destFilenameWithoutExtension}.lua", GenerateLuaAnnotations(apiRef));
             }
@@ -113,6 +95,22 @@ namespace ConsoleApp
             var fullDefinition = App.GenerateTealAnnotations.GenerateFullDefinition(outputSeparateDir);
 
             SaveFile(outputDirectory, "defold.d.tl", fullDefinition);
+        }
+
+        static void GenerateHelperLuaModules(DefoldApiReferenceArchive apiRefArchive, string outputDirectory)
+        {
+            SaveFile(outputDirectory, "defoldy_hashes.lua", GenerateHashesForIncomingMessages(apiRefArchive));
+            SaveFile(outputDirectory, "defoldy_msgs.lua", GenerateFunctionsForOutgoingMessages(apiRefArchive));
+            SaveFile(outputDirectory, "defoldy.lua", new[] {
+                "local M = require(\"defoldy_msgs\")",
+                "M.h = require(\"defoldy_hashes\")",
+                "return M",
+            });
+        }
+
+        static void ZipFolder(string annotationsOutputDirectory)
+        {
+            ZipFile.CreateFromDirectory(annotationsOutputDirectory, $"./{annotationsOutputDirectory}.zip");
         }
 
         #region Private Methods

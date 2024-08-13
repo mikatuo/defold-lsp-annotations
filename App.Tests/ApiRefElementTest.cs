@@ -14,7 +14,6 @@ namespace App.Tests
         {
             Sut = new RawApiRefElement();
         }
-        
 
         [Test]
         public void ToAnnotation_given_a_variable_returns_correct_annotation()

@@ -21,8 +21,5 @@ namespace App.Dtos
                 ? "any"
                 : typesAnnotation;
         }
-
-        public string ToAnnotation()
-            => $"---@param {Name} {TypeAnnotation()} {Description}";
     }
 }
