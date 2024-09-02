@@ -86,6 +86,13 @@ namespace App.AnnotatorsTeal
             var functionName = Element.Name.Split(".").Last();
             var formattedParams = parameters.Select(x => $"{ParameterName(x.Name)}: {TypeAnnotation(x)}");
 
+            switch (Element.Name) {
+                case "collectionfactory.create":
+                    return $"\t{functionName}: function({formattedParams.JoinToString(", ")}): {{hashed:hashed}}";
+                case "vmath.vector":
+                    return $"\t{functionName}: function(t: {{number}}): vector";
+            }
+
             if (returnValues.Count() == 0) {
                 return $"\t{functionName}: function({formattedParams.JoinToString(", ")})";
             } else {
@@ -212,4 +219,3 @@ namespace App.AnnotatorsTeal
         #endregion
     }
 }
-
