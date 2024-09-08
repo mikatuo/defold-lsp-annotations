@@ -19,6 +19,7 @@ namespace App.AnnotatorsTeal
             switch (variableName) {
                 case "RENDER_TARGET_DEFAULT":
                     Append($"\t{variableName}: render_target{description}");
+                    Append($"\tTEXTURE_BIT: constant");
                     break;
                 default:
                     Append($"\t{variableName}: constant{description}");
