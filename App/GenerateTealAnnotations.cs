@@ -276,6 +276,7 @@ namespace App
                 "\ty: number",
                 "\tz: number",
                 "\tw: number",
+                "\tmetamethod __mul: function(quaternion, quaternion): quaternion",
                 "end",
                 "",
                 "global type vector = {number}",
