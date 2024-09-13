@@ -16,7 +16,16 @@ namespace App.AnnotatorsTeal
             var descriptions = DescriptionAnnotation();
             var description = descriptions.Count() > 0 ? " ---" + string.Join(" ", descriptions) : string.Empty;
 
-            Append($"\t{variableName}: constant{description}");
+            switch (variableName) {
+                case "RENDER_TARGET_DEFAULT":
+                    Append($"\t{variableName}: render_target{description}");
+                    Append($"\tTEXTURE_BIT: constant");
+                    break;
+                default:
+                    Append($"\t{variableName}: constant{description}");
+                    break;
+            }
+
 
             return Result;
         }
