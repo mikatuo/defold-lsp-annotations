@@ -43,7 +43,7 @@ namespace App.AnnotatorsTeal
                     type = $"function({type.Substring(4)}";
                 }
 
-                if (GenerateTealAnnotations.IdentifierRenameMap.TryGetValue(type, out var newType)) {
+                if (GenerateTealAnnotations.TypesRenameMap.TryGetValue(type, out var newType)) {
                     type = newType;
                 }
 

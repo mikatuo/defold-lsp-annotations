@@ -190,7 +190,7 @@ namespace App
                 var type = idWithType[1]
                     .Split("|")
                     .Select(t => t.Trim())
-                    .Select(t => IdentifierRenameMap.TryGetValue(t, out var typeReplacement) ? typeReplacement : t);
+                    .Select(t => TypesRenameMap.TryGetValue(t, out var typeReplacement) ? typeReplacement : t);
 
                 result.Add($"\t{id}: {string.Join("|", type)}");
             }
@@ -396,20 +396,25 @@ namespace App
 
         public static IDictionary<string, string> IdentifierRenameMap = new Dictionary<string, string>
         {
+            { "repeat", "repeat_" }, // repeat is a reserved keyword
+            { "b2d.body", "b2Body" },
+        };
+
+        public static IDictionary<string, string> TypesRenameMap = new Dictionary<string, string>
+        {
             { "hash", "hashed" },
-            { "repeat", "repeat_" },
-            { "transform-bitmask", "transform_bitmask" },
+            { "table", "{string:any}" }, // works better with records
             { "vmath.matrix4", "matrix4" },
             { "quat", "quaternion" },
             { "vmath.vector3", "vector3" },
-            { "b2d.body", "b2Body" },
             { "create_declaration", "{create_declaration}" },
             { "function(self, event, data)", "function(self: any, event: hashed, data: table)" },
             { "function(self, node)", "function(self: any, node: any)" },
             { "function(self)", "function(self: any)" },
             { "function(self, request_id, result)", "function(self: any, request_id: any, result: table)" },
-            // TODO process types within parameter function definitions
+            // TODO: generate records for complex types on the fly to not have to maintain this mapping
             { "function(self:object, id:hash, response:{status:number, response:string, headers:table, path:string, error:string})", "function(self:object, id:hashed, response: http_response)" },
+            { "function(self:object, id:hash, response:{status:number, response:string, headers:table, path:string, error:string, bytes_received:number, bytes_total:number})", "function(self:object, id:hashed, response: http_response)" },
             { "function(self:object, message_id:hash, message:{animation_id:hash, playback:constant}, sender:url)", "function(self:object, message_id:hashed, message:model_play_anim_complete_message, sender:url)" },
             { "function(self:object, message_id:hash, message:{current_tile:number, id:hash}, sender:url)", "function(self:object, message_id:hashed, message:sprite_playflipbook_complete_message, sender:url)" },
             { "function(self:object, message_id:hash, message:{play_id:number}, sender:url)", "function(self:object, message_id:hashed, message:sound_play_complete_message, sender:url)" },
@@ -431,10 +436,13 @@ namespace App
             }},
             {"http", new[] {
                 "local record http_response",
+                "\tstatus: number",
                 "\tresponse: string",
                 "\theaders: table",
                 "\tpath: string",
                 "\terror: string",
+                "\tbytes_received: number",
+                "\tbytes_total: number",
                 "end",
             }},
             {"model", new[] {
